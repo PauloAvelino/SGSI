@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Ext.Net;
 using Rejuicer;
+using SGSI.Web.Business;
 
 namespace MeuTcc.Application
 {
@@ -14,17 +15,26 @@ namespace MeuTcc.Application
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        
-        
+
+
+
+        }
+
+        [DirectMethod]
+        public int AdicionarUsuario(string nome, string email, string senha) {
+
+            SGSIBusiness ca = new SGSIBusiness();
+
+            return ca.AdicionarUsuario(nome, email, senha);
         }
         public void Habilitar()
     {
 
-        FormUsuario.Hidden = false;
-        
+
+
 
 }
     }
 
-    
+
 }

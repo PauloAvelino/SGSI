@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <ext:ResourceManager ID="ResourceManager1" runat="server" />
+    <ext:ResourceManager ID="ResourceManager1" runat="server" DirectMethodNamespace="SGSI" />
     <ext:TabPanel
         ID="TabPanel1"
         Region="Center"
@@ -19,10 +19,11 @@
         Title="Area do Administrador"
         TitleAlign="Right">
         <TabBar>
+
             <ext:ToolbarFill ID="ToolbarFill1" runat="server" />
-            <ext:Button ID="Button1" runat="server" Flat="true" Text="Sair" Icon="Disconnect">
+            <ext:Button ID="Button1" runat="server" Flat="true" Text="Sair" Icon="Disconnect" HrefTarget="Inicio.aspx">
                 <Listeners>
-                    <Click Handler="{Tcc.javaScript.teste()}" />
+                    <Click Handler="Inicio.aspx" PostBackEvent="Inicio.aspx"/>
                 </Listeners>
             </ext:Button>
 
@@ -42,7 +43,7 @@
 
                             <ext:Button ID="NovoUsuario" runat="server" Text="Novo Usuário" Icon="Add">
                                 <Listeners>
-                                    <Click Handler="{Tcc.javaScript.Teste()}" />
+                                    <Click Handler="#{WinUsuario}.show();" />
                                 </Listeners>
                             </ext:Button>
                         </Items>
@@ -135,13 +136,27 @@
         </Items>
     </ext:TabPanel>
 
-    <ext:Window runat="server" ID="FormUsuario" Hidden="true">
+    <ext:Window runat="server" ID="WinUsuario" Title="Cadastro de usuário" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="300px" Height="250px" Hidden="true">
         <Items>
-            <ext:FormPanel runat="server">
+            <ext:FormPanel runat="server" ID="CadastroUsuario" Padding="5" Collapsed="false">
                 <Items>
-                    <ext:TextField runat="server" InputType="Password" FieldLabel="Teste"></ext:TextField>
-
+                    <ext:TextField runat="server" ID="TextNewUserNome" FieldLabel="Nome" />
+                    <ext:TextField runat="server" ID="TextNewUserEmail" FieldLabel="E-mail" />
+                    <ext:TextField runat="server" ID="TextNewUserSenha" InputType="Password" FieldLabel="Senha" />
                 </Items>
+                <Buttons>
+                    <ext:Button runat="server" Text="Salvar" Icon="Accept">
+                        <Listeners>
+                            <Click Handler="if(#{CadastroUsuario}.isValid()) {Tcc.javaScript.CadastroUsuario(#{TextNewUserNome}.getValue(), #{TextNewUserEmail}.getValue(),
+                                        #{TextNewUserSenha}.getValue())};" />
+                        </Listeners>
+                    </ext:Button>
+                    <ext:Button runat="server" Text="Fechar" Icon="Decline">
+                         <Listeners>
+                            <Click Handler="#{WinUsuario}.hide();" />
+                        </Listeners>
+                    </ext:Button>
+                </Buttons>
             </ext:FormPanel>
 
         </Items>

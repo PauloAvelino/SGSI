@@ -184,12 +184,48 @@ namespace MeuTcc.Application {
         protected global::Ext.Net.Panel Panel1;
         
         /// <summary>
-        /// FormUsuario control.
+        /// WinUsuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Window FormUsuario;
+        protected global::Ext.Net.Window WinUsuario;
+        
+        /// <summary>
+        /// CadastroUsuario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.FormPanel CadastroUsuario;
+        
+        /// <summary>
+        /// TextNewUserNome control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextNewUserNome;
+        
+        /// <summary>
+        /// TextNewUserEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextNewUserEmail;
+        
+        /// <summary>
+        /// TextNewUserSenha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextNewUserSenha;
     }
 }
