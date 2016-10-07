@@ -10,7 +10,6 @@ Tcc.javaScript = {
             if (btn == 'yes') {
                 SGSI.AdicionarUsuario();
             }
-
         })
     },
 
