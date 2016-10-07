@@ -29,3 +29,34 @@ C:\Users\pavelino\Desktop\SGSI\SGSI.Web\bin\EcmaScript.NET.modified.dll
 C:\Users\pavelino\Desktop\SGSI\SGSI.Web\bin\Rejuicer.dll
 C:\Users\pavelino\Desktop\SGSI\SGSI.Web\bin\WebActivator.dll
 C:\Users\pavelino\Desktop\SGSI\SGSI.Web\bin\Yahoo.Yui.Compressor.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\SGSI.Web.dll.config
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\SGSI.Web.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\SGSI.Web.pdb
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\EcmaScript.NET.modified.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Ext.Net.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Ext.Net.Utilities.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Newtonsoft.Json.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Rejuicer.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\SGSI.Data.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\SGSI.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Transformer.NET.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\WebActivator.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\WebActivatorEx.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Yahoo.Yui.Compressor.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\log4net.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\SGSI.Data.pdb
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\SGSI.pdb
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Ext.Net.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Ext.Net.Utilities.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Newtonsoft.Json.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Transformer.NET.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Data.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\log4net.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\obj\Debug\SGSI.Web.csprojResolveAssemblyReference.cache
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\obj\Debug\SGSI.Web.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\obj\Debug\SGSI.Web.pdb

@@ -12,3 +12,17 @@ C:\Users\pavelino\Desktop\SGSI\SGSI.Data\bin\Debug\SGSI.pdb
 C:\Users\pavelino\Desktop\SGSI\SGSI.Data\obj\Debug\SGSI.Data.dll
 C:\Users\pavelino\Desktop\SGSI\SGSI.Data\obj\Debug\SGSI.Data.pdb
 C:\Users\pavelino\Desktop\SGSI\SGSI.Data\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\SGSI.Data.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\SGSI.Data.pdb
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\log4net.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\SGSI.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\SGSI.pdb
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\log4net.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\obj\Debug\SGSI.Data.csprojResolveAssemblyReference.cache
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\obj\Debug\SGSI.Data.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\obj\Debug\SGSI.Data.pdb
