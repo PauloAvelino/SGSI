@@ -21,9 +21,9 @@
         <TabBar>
 
             <ext:ToolbarFill ID="ToolbarFill1" runat="server" />
-            <ext:Button ID="Button1" runat="server" Flat="true" Text="Sair" Icon="Disconnect" HrefTarget="Inicio.aspx">
+            <ext:Button ID="Button1" runat="server" Flat="true" Text="Sair" Icon="Disconnect" Href="Inicio.aspx">
                 <Listeners>
-                    <Click Handler="Inicio.aspx" PostBackEvent="Inicio.aspx"/>
+                    <Click />
                 </Listeners>
             </ext:Button>
 
