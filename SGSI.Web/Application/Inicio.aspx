@@ -16,12 +16,8 @@
             <ext:VBoxLayoutConfig Align="Center" Pack="Center" />
         </LayoutConfig>
         <Items>
-            
 
-
-
-
-              <ext:FormPanel ID="FormPanel1"
+            <ext:FormPanel ID="FormPanel1"
                 runat="server"
                 Title="Security Office"
                 Width="350px"
@@ -30,14 +26,13 @@
                 DefaultAnchor="100%"
                 TitleAlign="Center">
                 <Items>
-                    
+
                     <ext:TextField ID="TextField1"
                         runat="server"
                         AllowBlank="false"
                         FieldLabel="E-mail"
                         Name="user"
-                        EmptyText="e-mail" 
-                        />
+                        EmptyText="e-mail" />
 
                     <ext:TextField ID="TextField2"
                         runat="server"
@@ -45,12 +40,11 @@
                         FieldLabel="Senha"
                         Name="pass"
                         EmptyText="senha"
-                        InputType="Password"
-                        />
+                        InputType="Password" />
                 </Items>
 
                 <Buttons>
-                    <ext:Button runat="server" Text="Entrar" Icon="Accept" StyleHtmlCls="min-width: 75px; right: auto; left: 306px; "/>
+                    <ext:Button runat="server" Text="Entrar" Icon="Accept" StyleHtmlCls="min-width: 75px; right: auto; left: 306px; " />
                 </Buttons>
 
             </ext:FormPanel>

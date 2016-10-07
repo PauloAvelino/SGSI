@@ -11,83 +11,83 @@
 </head>
 <body>
 
-        <ext:ResourceManager ID="ResourceManager1" runat="server" />
-        <ext:TabPanel
-            ID="TabPanel1"
-            Region="Center"
-            runat="server"
-            Title="Area do Administrador"
-            TitleAlign="Right">
-            <TabBar>
-                <ext:ToolbarFill ID="ToolbarFill1" runat="server" />
-                <ext:Button ID="Button1" runat="server" Flat="true" Text="Sair"  Icon="Disconnect">
-                 <Listeners>
-                        <Click Handler="{Tcc.javaScript.teste()}"/>
-                    </Listeners>
-                </ext:Button>
+    <ext:ResourceManager ID="ResourceManager1" runat="server" />
+    <ext:TabPanel
+        ID="TabPanel1"
+        Region="Center"
+        runat="server"
+        Title="Area do Administrador"
+        TitleAlign="Right">
+        <TabBar>
+            <ext:ToolbarFill ID="ToolbarFill1" runat="server" />
+            <ext:Button ID="Button1" runat="server" Flat="true" Text="Sair" Icon="Disconnect">
+                <Listeners>
+                    <Click Handler="{Tcc.javaScript.teste()}" />
+                </Listeners>
+            </ext:Button>
 
 
-            </TabBar>
-            <Items>
-                <ext:Panel
-                    ID="Tab1"
-                    runat="server"
-                    Title="Usuários"
-                    Icon="User"
-                    Layout="FitLayout">
-                    <Items>
+        </TabBar>
+        <Items>
+            <ext:Panel
+                ID="Tab1"
+                runat="server"
+                Title="Usuários"
+                Icon="User"
+                Layout="FitLayout">
+                <Items>
 
-                        <ext:Toolbar runat="server" ID="Botoes" Height="40">
-                            <Items>
+                    <ext:Toolbar runat="server" ID="Botoes" Height="40">
+                        <Items>
 
-                                <ext:Button ID="NovoUsuario" runat="server" Text="Novo Usuário" Icon="Add"  >
-                                    <Listeners>
-                                        <Click Handler="{Tcc.javaScript.Teste()}"  />
-                                    </Listeners>
-                                </ext:Button>
-                            </Items>
-                        </ext:Toolbar>
+                            <ext:Button ID="NovoUsuario" runat="server" Text="Novo Usuário" Icon="Add">
+                                <Listeners>
+                                    <Click Handler="{Tcc.javaScript.Teste()}" />
+                                </Listeners>
+                            </ext:Button>
+                        </Items>
+                    </ext:Toolbar>
 
-                        <ext:GridPanel
-                            ID="GridPanel1"
-                            runat="server"
-                            ColumnLines="true"
-                            Width="400"
-                            Height="350"
-                            AutoRender="true">
-                            <ColumnModel>
-                                <Columns>
-                                    <ext:Column ID="Column1" runat="server" Text="Nome" />
-                                    <ext:Column ID="Column2" runat="server" Text="Departamento" Width="150" />
-                                    <ext:Column ID="Column3" runat="server" Text="Cargo" />
-                                    <ext:Column ID="Column4" runat="server" Text="E-mail" />
-                                </Columns>
-                            </ColumnModel>
-                            <SelectionModel>
-                                <ext:RowSelectionModel ID="RowSelectionModel1" runat="server">
-                                </ext:RowSelectionModel>
-                            </SelectionModel>
-                            <ViewConfig StripeRows="true">
-                            </ViewConfig>
-                            <DockedItems>
-                                <ext:Toolbar ID="Toolbar1" runat="server">
-                                    <Items>
-                                        <ext:ActionRef ID="ActionRef1" runat="server" />
-                                        <ext:ActionRef ID="ActionRef2" runat="server" />
-                                    </Items>
-                                </ext:Toolbar>
-                            </DockedItems>
-                        </ext:GridPanel>
-                    </Items>
-                </ext:Panel>
-                <ext:Panel
-                    ID="Tab2"
-                    runat="server"
-                    Title="Normas"
-                    Icon="Bookmark"
-                    Layout="Fit">
-                    <Items>
-                        <%-- <ext:Portal
+                    <ext:GridPanel
+                        ID="GridPanel1"
+                        runat="server"
+                        ColumnLines="true"
+                        Width="400"
+                        Height="350"
+                        AutoRender="true">
+                        <ColumnModel>
+                            <Columns>
+                                <ext:Column ID="Column1" runat="server" Text="Nome" />
+                                <ext:Column ID="Column2" runat="server" Text="Departamento" Width="150" />
+                                <ext:Column ID="Column3" runat="server" Text="Cargo" />
+                                <ext:Column ID="Column4" runat="server" Text="E-mail" />
+                            </Columns>
+                        </ColumnModel>
+                        <SelectionModel>
+                            <ext:RowSelectionModel ID="RowSelectionModel1" runat="server">
+                            </ext:RowSelectionModel>
+                        </SelectionModel>
+                        <ViewConfig StripeRows="true">
+                        </ViewConfig>
+                        <DockedItems>
+                            <ext:Toolbar ID="Toolbar1" runat="server">
+                                <Items>
+                                    <ext:ActionRef ID="ActionRef1" runat="server" />
+                                    <ext:ActionRef ID="ActionRef2" runat="server" />
+                                </Items>
+                            </ext:Toolbar>
+                        </DockedItems>
+                    </ext:GridPanel>
+                </Items>
+            </ext:Panel>
+            <ext:Panel
+                ID="Tab2"
+                runat="server"
+                Title="Normas"
+                Icon="Bookmark"
+                Layout="Fit">
+                <Items>
+                    <%-- <ext:Portal
                                     ID="Portal2"
                                     runat="server"
                                     Border="false"
@@ -107,15 +107,15 @@
                                         </ext:PortalColumn>
                                     </Items>
                                 </ext:Portal>--%>
-                    </Items>
-                </ext:Panel>
-                <ext:Panel ID="Panel1"
-                    runat="server"
-                    Title="Auditoria"
-                    Icon="Shield"
-                    Layout="Fit">
-                    <Items>
-                        <%--<ext:Portal
+                </Items>
+            </ext:Panel>
+            <ext:Panel ID="Panel1"
+                runat="server"
+                Title="Auditoria"
+                Icon="Shield"
+                Layout="Fit">
+                <Items>
+                    <%--<ext:Portal
                                     ID="Portal3"
                                     runat="server"
                                     Border="false"
@@ -130,10 +130,10 @@
                                         <ext:PortalColumn ID="PortalColumn9" runat="server" />
                                     </Items>
                                 </ext:Portal>--%>
-                    </Items>
-                </ext:Panel>
-            </Items>
-        </ext:TabPanel>
+                </Items>
+            </ext:Panel>
+        </Items>
+    </ext:TabPanel>
 
     <ext:Window runat="server" ID="FormUsuario" Hidden="true">
         <Items>
