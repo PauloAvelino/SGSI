@@ -27,18 +27,9 @@ namespace MeuTcc.Application
 
             return ca.AdicionarUsuario(nome, email, senha);
         }
-        public void Habilitar()
-    {
+      
 
-
-
-
-}
-
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 
 

@@ -43,7 +43,7 @@
 
                             <ext:Button ID="NovoUsuario" runat="server" Text="Novo Usuário" Icon="Add">
                                 <Listeners>
-                                    <Click Handler="#{WinUsuario}.show();" />
+                                    <Click Handler="Tcc.javaScript.AbrirFormUser(#{WinUsuario}, #{CadastroUsuario});" />
                                 </Listeners>
                             </ext:Button>
                         </Items>
@@ -148,7 +148,7 @@
                     <ext:Button runat="server" Text="Salvar" Icon="Accept">
                         <Listeners>
                             <Click Handler="if(#{CadastroUsuario}.isValid()) {Tcc.javaScript.CadastroUsuario(#{TextNewUserNome}.getValue(), #{TextNewUserEmail}.getValue(),
-                                        #{TextNewUserSenha}.getValue())};" />
+                                        #{TextNewUserSenha}.getValue(), #{WinUsuario})};" />
                         </Listeners>
                     </ext:Button>
                     <ext:Button runat="server" Text="Fechar" Icon="Decline">
