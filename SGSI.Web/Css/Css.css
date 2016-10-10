@@ -21,6 +21,11 @@ a#ctl05.x-btn.x-unselectable.x-box-item.x-toolbar-item.x-btn-default-small.x-btn
     border-bottom-color: green;
     border-color: black;
 }
+
+/*div#tabbar-1009-body.x-tab-bar-body.x-tab-bar-body-default  x-box-layout-ct{
+    background-color:red;
+
+}*/
 a#ctl05.x-btn.x-unselectable.x-box-item.x-toolbar-item.x-btn-default-small {
     left: 130px !important;
     background-color:black;
@@ -33,7 +38,9 @@ a#ctl05.x-btn.x-unselectable.x-box-item.x-toolbar-item.x-btn-default-small {
     font-family:Verdana, Geneva, 'DejaVu Sans', sans-serif;
 
 }
-
+.x-panel-header.x-header.x-header-noborder.x-docked.x-unselectable.x-panel-header-default.x-horizontal.x-panel-header-horizontal.x-panel-header-default-horizontal.x-top.x-panel-header-top.x-panel-header-default-top.x-docked-top.x-panel-header-docked-top.x-panel-header-default-docked-top.x-box-layout-ct.x-noborder-trl{
+    background-color:transparent;
+}
 .x-form-item-label-default {
     font-size: 15px;
     color: black;

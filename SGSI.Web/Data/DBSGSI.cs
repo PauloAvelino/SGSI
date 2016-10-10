@@ -38,5 +38,13 @@ namespace SGSI.Web.Data
 
         }
 
+        public List<TValue> CarregarUsuarios<TValue>(CreateInstanceBindingHandler<TValue> binding)
+        {
+            return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
+                 SGSI.Settings.Settings.Default.InstanceDB,
+                "CarregaUsuarios",
+                binding);
+        }
+
     }
 }

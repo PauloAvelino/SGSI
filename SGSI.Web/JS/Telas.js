@@ -21,7 +21,7 @@ Tcc.javaScript = {
     },
 
 
-    CadastroUsuario: function (nome, email, senha, WinUsuario) {
+    CadastroUsuario: function (nome, email, senha, WinUsuario, Usuarios) {
         SGSI.AdicionarUsuario(nome, email, senha, {
             json: true,
             showFailureWarning: true,
@@ -37,10 +37,13 @@ Tcc.javaScript = {
                     WinUsuario.hide();
 
                 }
-
+                Usuarios.reload();
+            },
+            eventMask: {
+                showMask: true,
+                msg: 'Aguarde, atualizando informações...'
             }
         })
     }
-
 
 }

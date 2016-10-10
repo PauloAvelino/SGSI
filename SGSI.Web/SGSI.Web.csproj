@@ -126,9 +126,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Application\Administrador.aspx" />
     <Content Include="Application\Inicio.aspx" />
     <Content Include="Application\Manager.aspx" />
+    <Content Include="Application\SecurityOffice.aspx" />
     <Content Include="App_Readme\Ext.NET.Utilities\BREAKING_CHANGES.txt" />
     <Content Include="App_Readme\Ext.NET.Utilities\LICENSE.txt" />
     <Content Include="App_Readme\Ext.NET.Utilities\README.txt" />
@@ -144,13 +144,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\Administrador.aspx.cs">
-      <DependentUpon>Administrador.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Application\Administrador.aspx.designer.cs">
-      <DependentUpon>Administrador.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Application\Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -164,6 +157,13 @@
     </Compile>
     <Compile Include="Application\Manager.aspx.designer.cs">
       <DependentUpon>Manager.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\SecurityOffice.aspx.cs">
+      <DependentUpon>SecurityOffice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Application\SecurityOffice.aspx.designer.cs">
+      <DependentUpon>SecurityOffice.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\Rejuicer.cs" />
     <Compile Include="Business\SGSIBusiness.cs" />
