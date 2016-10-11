@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Ext.Net;
 using SGSI.Web.Business;
+using SGSI.Web.Entity;
 
 namespace SGSI.Web.Application
 {
@@ -21,6 +22,8 @@ namespace SGSI.Web.Application
             SGSIBusiness ca = new SGSIBusiness();
             storeUsuarios.DataSource = ca.CarregarUsuarios();
             storeUsuarios.DataBind();
+            storeDepartamentos.DataSource = ca.CarregarCmbDepartamentos();
+            storeDepartamentos.DataBind();
 
         }
 
@@ -43,9 +46,25 @@ namespace SGSI.Web.Application
             storeUsuarios.DataBind();
         }
 
-        protected void storeUsuarios_ReadData(object sender, StoreReadDataEventArgs e)
+        [DirectMethod]
+        public void CarregaComboFuncionario(string dpId)
         {
+            int dptoId = Convert.ToInt32(dpId);
+            SGSIBusiness ca = new SGSIBusiness();
+            storeFuncionarios.DataSource = ca.CarregarCmbFuncionarios(dptoId);
+            storeFuncionarios.DataBind();
 
+        }
+
+        [DirectMethod]
+        public void CarregaEmailCargoFuncionario(string nome, string dpId)
+        {
+            int departamentoId = Convert.ToInt32(dpId);
+            SGSIBusiness ca = new SGSIBusiness();
+            List<EntityFuncionarios> dados = new List<EntityFuncionarios>();
+            dados = ca.CarregarEmailCargo(nome, departamentoId);
+            TextNewUserEmail.Value = dados[0].email;
+            TextNewUserCargo.Value = dados[0].cargo;
         }
     }
 }

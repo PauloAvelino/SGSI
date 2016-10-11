@@ -25,3 +25,4 @@ C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI\bin\Debug\Microsoft.Practices.Enterpris
 C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI\obj\Debug\SGSI.dll
 C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI\obj\Debug\SGSI.pdb
 C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI\bin\Debug\SGSI.dll.config
+C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI\obj\Debug\SGSI.csprojResolveAssemblyReference.cache

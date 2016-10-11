@@ -44,6 +44,12 @@ Tcc.javaScript = {
                 msg: 'Aguarde, atualizando informações...'
             }
         })
-    }
+    },
 
+    CarregaFunc: function (dpId) {
+        SGSI.CarregaComboFuncionario(dpId);
+    },
+    CarregaEmail : function (nome, dpId){
+        SGSI.CarregaEmailCargoFuncionario(nome, dpId);
+    }
 }

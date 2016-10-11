@@ -46,5 +46,35 @@ namespace SGSI.Web.Data
                 binding);
         }
 
+        public List<TValue> CarregarCmbDepartamentos<TValue>(CreateInstanceBindingHandler<TValue> binding)
+        {
+            return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "CarregaCmbDepartamento",
+                binding
+               );
+        }
+
+        public List<TValue> CarregarCmbFuncionarios<TValue>(CreateInstanceBindingHandler<TValue> binding, int dptoId)
+        {
+            return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "CarregaCmbFuncionario",
+                binding,
+                new object[] {
+                dptoId
+                });
+        }
+        
+        public List<TValue> CarregarEmailCargo<TValue>(BindingHandler<TValue> binding, string nome, int dpId)
+        {
+            return SqlHelperFactory.GetListDB<TValue>(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "CarregaEmailCargo",
+                binding,
+                nome,
+                dpId);
+        }
+
     }
 }

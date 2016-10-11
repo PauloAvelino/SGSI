@@ -8,6 +8,9 @@ using System.Dynamic;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using SGSI.Interfaces;
+using System.Dynamic;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 
 namespace SGSI.Data
@@ -19,19 +22,19 @@ namespace SGSI.Data
     {
         #region Cabeçalho da Classe
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #endregion
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public SqlHelper()
         {
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sdrReader"></param>
         /// <param name="objTipo"></param>
@@ -49,22 +52,22 @@ namespace SGSI.Data
             }
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sdrReader"></param>
         /// <param name="objTipo"></param>
-        /// <returns></returns>		
+        /// <returns></returns>
         public static object[] SqlDataReaderToArray(IDataReader sdrReader, Type objTipo)
         {
             #region Cabeçalho do Método
             /*
 					Objetivo         : Converter um objeto do tipo SqlDataReader em um array de entidades
-					Premissas        : 
+					Premissas        :
 					Efeitos          : Depende da construção da procedure a ser executada.
 					Entradas         : DataReader, Tipo (classe de negócio), array de nomes das propriedades pra ordenar a busca na base.
 					Retorno          : Array de Entidades de Negócio
 					Data de Criação  : 07-03-2003
-					Autor            : Gleisson de Souza Bezerra 
+					Autor            : Gleisson de Souza Bezerra
 				*/
             #endregion
 
@@ -84,7 +87,7 @@ namespace SGSI.Data
             return arrRetorno;
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sdrReader"></param>
         /// <param name="objTipo"></param>
@@ -95,12 +98,12 @@ namespace SGSI.Data
             #region Cabeçalho do Método
             /*
 					Objetivo         : Converter um objeto do tipo SqlDataReader em um array de entidades
-					Premissas        : 
+					Premissas        :
 					Efeitos          : Depende da construção da procedure a ser executada.
 					Entradas         : DataReader, Tipo (classe de negócio), array de nomes das propriedades pra ordenar a busca na base.
 					Retorno          : Array de Entidades de Negócio
 					Data de Criação  : 07-03-2003
-					Autor            : Gleisson de Souza Bezerra 
+					Autor            : Gleisson de Souza Bezerra
 				*/
             #endregion
 
@@ -151,7 +154,7 @@ namespace SGSI.Data
                 /* GSB - 01072003 - Removido para eliminar grande utilização de reflection. Foi criada a inteface IBindingObject para isso.
 					for ( int i = 0 ; i < arrColunas.Length; ++i)
 					{
-						
+
 						if ( arrColunas[i] != null ) // Se não foi informada a coluna
 						{
 							strPropriedade = arrColunas[i]; // Nome da propriedade a ser procurara no tipo
@@ -159,8 +162,8 @@ namespace SGSI.Data
 							objPropriedade = objTipo.GetProperty(strPropriedade); // Pega a referencia a propriedade dentro do tipo
 							if ( sdrReader.GetValue(i).ToString() != "" )
 							{
-								objPropriedade.SetValue( objEntidade, sdrReader.GetValue(i), null); // Seta o valor da propriedade de acordo com o valor na base de dados 
-							}						
+								objPropriedade.SetValue( objEntidade, sdrReader.GetValue(i), null); // Seta o valor da propriedade de acordo com o valor na base de dados
+							}
 						}
 					}
 					*/
@@ -174,6 +177,7 @@ namespace SGSI.Data
             // GSB - 07032003 - Retorna o array list para quem chamou.
             return arrLista;
         }
+
         /// <summary>
         /// Método para converter um SqlDataReader em um Array de objetos de negócio
         /// </summary>
@@ -214,7 +218,7 @@ namespace SGSI.Data
                         objPropriedade = objTipo.GetProperty(strPropriedade); // Pega a referencia a propriedade dentro do tipo
                         if (sdrReader.GetValue(i).ToString() != "")
                         {
-                            objPropriedade.SetValue(objEntidade, sdrReader.GetValue(i), null); // Seta o valor da propriedade de acordo com o valor na base de dados 
+                            objPropriedade.SetValue(objEntidade, sdrReader.GetValue(i), null); // Seta o valor da propriedade de acordo com o valor na base de dados
                         }
                     }
                 }
@@ -306,7 +310,7 @@ namespace SGSI.Data
 
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="nameColumn"></param>
@@ -326,7 +330,7 @@ namespace SGSI.Data
 
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="nameColumn"></param>
@@ -345,7 +349,7 @@ namespace SGSI.Data
             }
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="nameColumn"></param>
@@ -364,7 +368,7 @@ namespace SGSI.Data
             }
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="nameColumn"></param>
@@ -410,7 +414,7 @@ namespace SGSI.Data
             return aux;
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="nameColumn"></param>
@@ -436,7 +440,7 @@ namespace SGSI.Data
             }
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="nameColumn"></param>
@@ -476,7 +480,7 @@ namespace SGSI.Data
 
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="nameColumn"></param>
@@ -496,7 +500,7 @@ namespace SGSI.Data
 
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="reader"></param>
         /// <param name="nameColumn"></param>
@@ -533,7 +537,7 @@ namespace SGSI.Data
             }
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -544,7 +548,7 @@ namespace SGSI.Data
             else
                 return value;
         }
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -560,7 +564,7 @@ namespace SGSI.Data
             }
         }
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -613,123 +617,123 @@ namespace SGSI.Data
             }
         }
 
-        //public static object GetValueDefault(PropertyInfo property, IDataReader reader, string nameColumn)
-        //{
-        //    Type aux = property.PropertyType;
+        public static object GetValueDefault(PropertyInfo property, IDataReader reader, string nameColumn)
+        {
+            Type aux = property.PropertyType;
 
-        //    return GetValueDefault(reader, nameColumn, aux);
-        //}
+            return GetValueDefault(reader, nameColumn, aux);
+        }
 
-        //public static object GetValueDefault(IDataReader reader, string nameColumn, Type aux)
-        //{
-        //    if (aux.Equals(typeof(byte)))
-        //    {
-        //        return GetByte(reader, nameColumn);
-        //    }
-        //    else if (aux.Equals(typeof(short)))
-        //    {
-        //        return GetShort(reader, nameColumn);
-        //    }
-        //    else if (aux.Equals(typeof(int)))
-        //    {
-        //        return GetInt(reader, nameColumn);
-        //    }
-        //    else if (aux.Equals(typeof(DateTime)))
-        //    {
-        //        return GetDateTime(reader, nameColumn);
-        //    }
-        //    else if (aux.Equals(typeof(string)))
-        //    {
-        //        return GetString(reader, nameColumn);
-        //    }
-        //    else if (aux.Equals(typeof(long)))
-        //    {
-        //        return GetLong(reader, nameColumn);
-        //    }
-        //    else if (aux.Equals(typeof(double)))
-        //    {
-        //        return GetDouble(reader, nameColumn);
-        //    }
-        //    else if (aux.Equals(typeof(bool)))
-        //    {
-        //        return GetBool(reader, nameColumn);
-        //    }
-        //    else if (aux.Equals(typeof(Guid)))
-        //    {
-        //        return GetUniqueIdentifier(reader, nameColumn);
-        //    }
-        //    else if (aux.Equals(typeof(CDataWrapper)))
-        //    {
-        //        CDataWrapper cdata = new CDataWrapper();
-        //        string value = GetString(reader, nameColumn);
-        //        cdata.Value = value;
-        //        return cdata;
-        //    }
-        //    else if (aux.Equals(typeof(CommentWrapper)))
-        //    {
-        //        CommentWrapper cdata = new CommentWrapper();
-        //        string value = GetString(reader, nameColumn);
-        //        cdata.Value = value;
-        //        return cdata;
-        //    }
-        //    else if (aux.Equals(typeof(byte[])))
-        //    {
-        //        return reader.GetValue(reader.GetOrdinal(nameColumn));
-        //    }
-        //    else
-        //    {
-        //        try
-        //        {
-        //            return reader.GetValue(reader.GetOrdinal(nameColumn));
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            if (log.IsErrorEnabled) { log.Error(string.Format("ReflectionBinding - tipo de campo não tratado! Campo:{0} - TYPE:{1} ", nameColumn, aux.GetType().Name)); }
-        //            throw;
-        //        }
-        //    }
-        //}
+        public static object GetValueDefault(IDataReader reader, string nameColumn, Type aux)
+        {
+            if (aux.Equals(typeof(byte)))
+            {
+                return GetByte(reader, nameColumn);
+            }
+            else if (aux.Equals(typeof(short)))
+            {
+                return GetShort(reader, nameColumn);
+            }
+            else if (aux.Equals(typeof(int)))
+            {
+                return GetInt(reader, nameColumn);
+            }
+            else if (aux.Equals(typeof(DateTime)))
+            {
+                return GetDateTime(reader, nameColumn);
+            }
+            else if (aux.Equals(typeof(string)))
+            {
+                return GetString(reader, nameColumn);
+            }
+            else if (aux.Equals(typeof(long)))
+            {
+                return GetLong(reader, nameColumn);
+            }
+            else if (aux.Equals(typeof(double)))
+            {
+                return GetDouble(reader, nameColumn);
+            }
+            else if (aux.Equals(typeof(bool)))
+            {
+                return GetBool(reader, nameColumn);
+            }
+            else if (aux.Equals(typeof(Guid)))
+            {
+                return GetUniqueIdentifier(reader, nameColumn);
+            }
+            else if (aux.Equals(typeof(CDataWrapper)))
+            {
+                CDataWrapper cdata = new CDataWrapper();
+                string value = GetString(reader, nameColumn);
+                cdata.Value = value;
+                return cdata;
+            }
+            else if (aux.Equals(typeof(CommentWrapper)))
+            {
+                CommentWrapper cdata = new CommentWrapper();
+                string value = GetString(reader, nameColumn);
+                cdata.Value = value;
+                return cdata;
+            }
+            else if (aux.Equals(typeof(byte[])))
+            {
+                return reader.GetValue(reader.GetOrdinal(nameColumn));
+            }
+            else
+            {
+                try
+                {
+                    return reader.GetValue(reader.GetOrdinal(nameColumn));
+                }
+                catch (Exception ex)
+                {
+                    if (log.IsErrorEnabled) { log.Error(string.Format("ReflectionBinding - tipo de campo não tratado! Campo:{0} - TYPE:{1} ", nameColumn, aux.GetType().Name)); }
+                    throw;
+                }
+            }
+        }
 
-        //public static void ReflectionBinding(IDataReader reader, object o)
-        //{
-        //    ReflectionBinding(reader, o, false);
-        //}
+        public static void ReflectionBinding(IDataReader reader, object o)
+        {
+            ReflectionBinding(reader, o, false);
+        }
 
-        //public static bool ReflectionBinding(IDataReader reader, object o, bool isThrow)
-        //{
-        //    bool returnValue = true;
+        public static bool ReflectionBinding(IDataReader reader, object o, bool isThrow)
+        {
+            bool returnValue = true;
 
-        //    for (int i = 0; i < reader.FieldCount; i++)
-        //    {
-        //        string fieldReader = null;
-        //        PropertyInfo property = null;
-        //        try
-        //        {
-        //            fieldReader = reader.GetName(i);
-        //            property = o.GetType().GetProperty(fieldReader);
-        //            if (property == null)
-        //            {
-        //                if (log.IsDebugEnabled)
-        //                {
-        //                    log.DebugFormat("Propriedade não encontrada: {0}", fieldReader);
-        //                }
-        //            }
-        //            else
-        //            {
-        //                property.SetValue(o, GetValueDefault(property, reader, fieldReader), null);
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            returnValue = false;
-        //            log.WarnFormat("Campo: {0} - Propriedade encontrada: {1} - Error: {2} - StackTrace: {3}", fieldReader, property != null, ex.Message, ex.StackTrace);
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                string fieldReader = null;
+                PropertyInfo property = null;
+                try
+                {
+                    fieldReader = reader.GetName(i);
+                    property = o.GetType().GetProperty(fieldReader);
+                    if (property == null)
+                    {
+                        if (log.IsDebugEnabled)
+                        {
+                            log.DebugFormat("Propriedade não encontrada: {0}", fieldReader);
+                        }
+                    }
+                    else
+                    {
+                        property.SetValue(o, GetValueDefault(property, reader, fieldReader), null);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    returnValue = false;
+                    log.WarnFormat("Campo: {0} - Propriedade encontrada: {1} - Error: {2} - StackTrace: {3}", fieldReader, property != null, ex.Message, ex.StackTrace);
 
-        //            if (isThrow)
-        //                throw;
-        //        }
-        //    }
-        //    return returnValue;
-        //}
+                    if (isThrow)
+                        throw;
+                }
+            }
+            return returnValue;
+        }
 
         //public static void DynamicReflectionBinding(DynamicFieldHandler dynamicField, IDataReader reader, bool isThrow)
         //{
@@ -809,7 +813,7 @@ namespace SGSI.Data
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

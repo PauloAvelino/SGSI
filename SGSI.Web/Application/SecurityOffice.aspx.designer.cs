@@ -40,6 +40,33 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.Store storeUsuarios;
         
         /// <summary>
+        /// storeDepartamentos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store storeDepartamentos;
+        
+        /// <summary>
+        /// storeFuncionarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store storeFuncionarios;
+        
+        /// <summary>
+        /// storeEmailCargo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store storeEmailCargo;
+        
+        /// <summary>
         /// TabPanel1 control.
         /// </summary>
         /// <remarks>
@@ -193,13 +220,22 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.FormPanel CadastroUsuario;
         
         /// <summary>
-        /// TextNewUserNome control.
+        /// CmbNewUserDpto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField TextNewUserNome;
+        protected global::Ext.Net.ComboBox CmbNewUserDpto;
+        
+        /// <summary>
+        /// CmbNewUserNome control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox CmbNewUserNome;
         
         /// <summary>
         /// TextNewUserEmail control.
@@ -209,6 +245,15 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.TextField TextNewUserEmail;
+        
+        /// <summary>
+        /// TextNewUserCargo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextNewUserCargo;
         
         /// <summary>
         /// TextNewUserSenha control.

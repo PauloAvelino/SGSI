@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CDataWrapper.cs" />
+    <Compile Include="CommentWrapper.cs" />
     <Compile Include="ParameterOutputHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlHelper.cs" />

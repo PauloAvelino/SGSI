@@ -20,14 +20,44 @@
                 </ext:Model>
             </Model>
         </ext:Store>
+        <ext:Store ID="storeDepartamentos" runat="server" AutoLoad="true">
+            <Model>
+                <ext:Model runat="server" IDProperty="Id">
+                    <Fields>
+                        <ext:ModelField Name="Id" Type="Int" />
+                        <ext:ModelField Name="Nome" Type="String" />
+                    </Fields>
+                </ext:Model>
+            </Model>
+        </ext:Store>
+        <ext:Store ID="storeFuncionarios" runat="server" AutoLoad="true">
+            <Model>
+                <ext:Model runat="server" IDProperty="Nome">
+                    <Fields>
+                        <ext:ModelField Name="Nome" Type="String" />
+                        <ext:ModelField Name="Email" Type="String" />
+                        <ext:ModelField Name="Cargo" Type="String" />
+                    </Fields>
+                </ext:Model>
+            </Model>
+        </ext:Store>
+        <ext:Store ID="storeEmailCargo" runat="server" AutoLoad="true">
+            <Model>
+                <ext:Model runat="server" IDProperty="Email">
+                    <Fields>
+                        <ext:ModelField Name="Email" Type="String" />
+                        <ext:ModelField Name="Cargo" Type="String" />
+                    </Fields>
+                </ext:Model>
+            </Model>
+        </ext:Store>
         <ext:TabPanel
             ID="TabPanel1"
             Region="Center"
             runat="server"
             Title="Area do Administrador"
             TitleAlign="Right"
-            Fixed="true"
-            >
+            Fixed="true">
             <TabBar>
                 <ext:ToolbarFill ID="ToolbarFill1" runat="server" />
                 <ext:Button ID="Button1" runat="server" Flat="true" Text="Sair" Icon="Disconnect">
@@ -71,7 +101,7 @@
                                             <ext:Column ID="Column4" runat="server" Text="E-mail" DataIndex="Email" Width="230" />
                                             <ext:CommandColumn runat="server" Width="98">
                                                 <Commands>
-                                                    <ext:GridCommand Icon="ApplicationEdit" ToolTip-Text="Editar"/>
+                                                    <ext:GridCommand Icon="ApplicationEdit" ToolTip-Text="Editar" />
                                                     <ext:GridCommand Icon="Delete" ToolTip-Text="Apagar" />
                                                     <ext:GridCommand Icon="Key" ToolTip-Text="Alterar Senha" />
                                                 </Commands>
@@ -112,12 +142,23 @@
                 </ext:Panel>
             </Items>
         </ext:TabPanel>
-        <ext:Window runat="server" ID="WinUsuario" Title="Cadastro de usuário" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="300px" Height="250px" Hidden="true">
+        <ext:Window runat="server" ID="WinUsuario" Title="Cadastro de usuário" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="400px" Height="350px" Hidden="true">
             <Items>
-                <ext:FormPanel runat="server" ID="CadastroUsuario" Padding="5" Collapsed="false">
+                <ext:FormPanel runat="server" ID="CadastroUsuario" Padding="10" Collapsed="false" Width="350" Height="300">
                     <Items>
-                        <ext:TextField runat="server" ID="TextNewUserNome" FieldLabel="Nome" AllowBlank="false" />
-                        <ext:TextField runat="server" ID="TextNewUserEmail" FieldLabel="E-mail" AllowBlank="false" />
+                        <ext:ComboBox runat="server" ID="CmbNewUserDpto" Editable="false" FieldLabel="Departamento" Anchor="100%" StoreID="storeDepartamentos"
+                            ValueField="Id" DisplayField="Nome" EmptyText="Selecione um Departamento">
+                            <Listeners>
+                                <Select Handler="Tcc.javaScript.CarregaFunc(#{CmbNewUserDpto}.getValue())" />
+                            </Listeners>
+                        </ext:ComboBox>
+                        <ext:ComboBox runat="server" ID="CmbNewUserNome" FieldLabel="Nome" Editable="false" AllowBlank="false" StoreID="storeFuncionarios" DataIndex="Nome" DisplayField="Nome" EmptyText="Carregando...">
+                            <Listeners>
+                                <Select Handler="Tcc.javaScript.CarregaEmail(#{CmbNewUserNome}.getValue(), #{CmbNewUserDpto}.getValue())" />
+                            </Listeners>
+                        </ext:ComboBox>
+                        <ext:TextField runat="server" ID="TextNewUserEmail" FieldLabel="E-mail" Editable="false" />
+                        <ext:TextField runat="server" ID="TextNewUserCargo" FieldLabel="Cargo"  Editable="false"/>
                         <ext:TextField runat="server" ID="TextNewUserSenha" InputType="Password" FieldLabel="Senha" AllowBlank="false" />
                         <%--<ext:TextField runat="server" ID="TextNewUserCargo" FieldLabel="Cargo" AllowBlank="false"/>--%>
                     </Items>
