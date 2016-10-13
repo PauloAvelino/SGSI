@@ -9,11 +9,11 @@ using Microsoft.Practices.EnterpriseLibrary.Data;
 
 namespace SGSI.Web.Data
 {
-      public class DBSGSI
+    public class DBSGSI
     {
         string stringConexao = ConfigurationManager.ConnectionStrings["TccConnectionString"].ConnectionString;
 
-        public int InsereNovoUsuario(string nome, string email, string senha)
+        public int InsereNovoUsuario(string nome, string cargo, int departamentoId, string email, string senha)
         {
 
 
@@ -24,6 +24,8 @@ namespace SGSI.Web.Data
                 "InsereUsuario",
                 new object[] {
                 nome,
+                cargo,
+                departamentoId,
                 email,
                 senha,
                 p_retorno},
@@ -65,7 +67,7 @@ namespace SGSI.Web.Data
                 dptoId
                 });
         }
-        
+
         public List<TValue> CarregarEmailCargo<TValue>(BindingHandler<TValue> binding, string nome, int dpId)
         {
             return SqlHelperFactory.GetListDB<TValue>(
@@ -74,6 +76,49 @@ namespace SGSI.Web.Data
                 binding,
                 nome,
                 dpId);
+        }
+
+        public int RemoverUsuario(string email)
+        {
+            int p_retorno = 0;
+
+            SqlHelperFactory.ExecuteNonQuery(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "RemoverUsuarios",
+                new object[] {
+                email,
+                p_retorno},
+
+                delegate (Database db, DbCommand commandWrapper)
+                {
+                    p_retorno = Convert.ToInt32(db.GetParameterValue(commandWrapper, "p_retorno"));
+                }
+                );
+
+            return p_retorno;
+
+        }
+
+        public int AlterarSenhaUsuario(string email, string senha)
+        {
+            int p_retorno = 0;
+
+            SqlHelperFactory.ExecuteNonQuery(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "AlterarSenhaUsuarios",
+                new object[] {
+                email,
+                senha,
+                p_retorno},
+
+                delegate (Database db, DbCommand commandWrapper)
+                {
+                    p_retorno = Convert.ToInt32(db.GetParameterValue(commandWrapper, "p_retorno"));
+                }
+                );
+
+            return p_retorno;
+
         }
 
     }

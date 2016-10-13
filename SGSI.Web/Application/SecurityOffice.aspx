@@ -15,6 +15,8 @@
                 <ext:Model runat="server" IDProperty="Nome">
                     <Fields>
                         <ext:ModelField Name="Nome" />
+                        <ext:ModelField Name="Departamento" />
+                        <ext:ModelField Name="Cargo" />
                         <ext:ModelField Name="Email" />
                     </Fields>
                 </ext:Model>
@@ -41,16 +43,7 @@
                 </ext:Model>
             </Model>
         </ext:Store>
-        <ext:Store ID="storeEmailCargo" runat="server" AutoLoad="true">
-            <Model>
-                <ext:Model runat="server" IDProperty="Email">
-                    <Fields>
-                        <ext:ModelField Name="Email" Type="String" />
-                        <ext:ModelField Name="Cargo" Type="String" />
-                    </Fields>
-                </ext:Model>
-            </Model>
-        </ext:Store>
+
         <ext:TabPanel
             ID="TabPanel1"
             Region="Center"
@@ -67,8 +60,10 @@
                 </ext:Button>
             </TabBar>
             <Items>
+
+                <%--###Tab de Usuarios###--%>
                 <ext:Panel
-                    ID="Tab1"
+                    ID="TabUsuarios"
                     runat="server"
                     Title="Usuários"
                     Icon="User"
@@ -95,16 +90,18 @@
                                     <ColumnModel>
                                         <Columns>
                                             <ext:RowNumbererColumn runat="server" Width="30" />
-                                            <ext:Column ID="Column1" runat="server" Text="Nome" DataIndex="Nome" />
-                                            <ext:Column ID="Column2" runat="server" Text="Departamento" Width="150" />
-                                            <ext:Column ID="Column3" runat="server" Text="Cargo" />
+                                            <ext:Column ID="Column1" runat="server" Text="Nome" DataIndex="Nome" Width="150" />
+                                            <ext:Column ID="Column2" runat="server" Text="Departamento" DataIndex="Departamento" Width="200" />
+                                            <ext:Column ID="Column3" runat="server" Text="Cargo" DataIndex="Cargo" Width="150" />
                                             <ext:Column ID="Column4" runat="server" Text="E-mail" DataIndex="Email" Width="230" />
-                                            <ext:CommandColumn runat="server" Width="98">
+                                            <ext:CommandColumn runat="server" Width="65">
                                                 <Commands>
-                                                    <ext:GridCommand Icon="ApplicationEdit" ToolTip-Text="Editar" />
-                                                    <ext:GridCommand Icon="Delete" ToolTip-Text="Apagar" />
-                                                    <ext:GridCommand Icon="Key" ToolTip-Text="Alterar Senha" />
+                                                    <ext:GridCommand Icon="Delete" CommandName="Apagar" ToolTip-Text="Apagar" />
+                                                    <ext:GridCommand Icon="Key" CommandName="Senha" ToolTip-Text="Alterar Senha" />
                                                 </Commands>
+                                                <Listeners>
+                                                    <Command Handler="Tcc.javaScript.gridUsuarios(command, record, #{storeUsuarios}, #{WinAtualizarSenha}, #{formSenha});" />
+                                                </Listeners>
                                             </ext:CommandColumn>
                                         </Columns>
                                     </ColumnModel>
@@ -117,21 +114,63 @@
                                     </SelectionModel>
                                     <ViewConfig StripeRows="true">
                                     </ViewConfig>
-
                                 </ext:GridPanel>
                             </Items>
                         </ext:FormPanel>
                     </Items>
                 </ext:Panel>
+
+                <%--###Tab de Normas###--%>
                 <ext:Panel
-                    ID="Tab2"
+                    ID="TabNormas"
                     runat="server"
                     Title="Normas"
                     Icon="Bookmark"
+                    Layout="Fit"
+                    Region="Center">
+                    <Items>
+                        <ext:FormPanel runat="server" Region="Center">
+                            <Items>
+                                <ext:FormPanel runat="server" Height="400" Width="400">
+                                    <Items>
+                                        <ext:GridPanel runat="server" ID="gridNormas" RowLines="true"
+                                            ColumnLines="true" Region="West" Width="300" Height="300">
+                                            <ColumnModel>
+                                                <Columns>
+                                                    <ext:Column runat="server" Text="Tirulo" />
+                                                    <ext:Column runat="server" Text="Criação" />
+                                                    <ext:Column runat="server" Text="Atualização" />
+                                                    <ext:Column runat="server" Text="Norma" />
+                                                    <ext:Column runat="server" Text="Norma" />
+                                                </Columns>
+                                            </ColumnModel>
+                                            <SelectionModel>
+                                                <ext:RowSelectionModel runat="server" />
+                                            </SelectionModel>
+                                            <Buttons>
+                                                <ext:Button runat="server" Text="Nova Norma" Icon="PageAdd" />
+                                            </Buttons>
+                                        </ext:GridPanel>
+                                    </Items>
+                                </ext:FormPanel>
+                            </Items>
+
+                        </ext:FormPanel>
+
+                    </Items>
+                </ext:Panel>
+
+                <%--###Tab de Procedimentos###--%>
+                <ext:Panel ID="TabProcedimentos"
+                    runat="server"
+                    Title="Procedimentos"
+                    Icon="LayoutHeader"
                     Layout="Fit">
                     <Items>
                     </Items>
                 </ext:Panel>
+
+                <%--###Tab de Auditoria###--%>
                 <ext:Panel ID="Panel1"
                     runat="server"
                     Title="Auditoria"
@@ -140,8 +179,11 @@
                     <Items>
                     </Items>
                 </ext:Panel>
-            </Items>
-        </ext:TabPanel>
+
+                </Items>
+          </ext:TabPanel>
+
+        <%--###Janela de cadastro de Usuario###--%>
         <ext:Window runat="server" ID="WinUsuario" Title="Cadastro de usuário" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="400px" Height="350px" Hidden="true">
             <Items>
                 <ext:FormPanel runat="server" ID="CadastroUsuario" Padding="10" Collapsed="false" Width="350" Height="300">
@@ -158,20 +200,43 @@
                             </Listeners>
                         </ext:ComboBox>
                         <ext:TextField runat="server" ID="TextNewUserEmail" FieldLabel="E-mail" Editable="false" />
-                        <ext:TextField runat="server" ID="TextNewUserCargo" FieldLabel="Cargo"  Editable="false"/>
-                        <ext:TextField runat="server" ID="TextNewUserSenha" InputType="Password" FieldLabel="Senha" AllowBlank="false" />
-                        <%--<ext:TextField runat="server" ID="TextNewUserCargo" FieldLabel="Cargo" AllowBlank="false"/>--%>
+                        <ext:TextField runat="server" ID="TextNewUserCargo" FieldLabel="Cargo" Editable="false" />
+                        <ext:TextField runat="server" ID="TextNewUserSenha" InputType="Password" MaxLengthText="10" FieldLabel="Senha" AllowBlank="false" />
                     </Items>
                     <Buttons>
                         <ext:Button runat="server" Text="Salvar" Icon="Accept">
                             <Listeners>
-                                <Click Handler="if(#{CadastroUsuario}.isValid()) {Tcc.javaScript.CadastroUsuario(#{TextNewUserNome}.getValue(), #{TextNewUserEmail}.getValue(),
-                                        #{TextNewUserSenha}.getValue(), #{WinUsuario}, #{storeUsuarios})};" />
+                                <Click Handler="if(#{CadastroUsuario}.isValid()) {Tcc.javaScript.CadastroUsuario(#{CmbNewUserDpto}.getValue(), #{CmbNewUserNome}.getValue(), #{TextNewUserEmail}.getValue(),
+                                        #{TextNewUserCargo}.getValue(), #{TextNewUserSenha}.getValue(), #{WinUsuario}, #{storeUsuarios})};" />
                             </Listeners>
                         </ext:Button>
                         <ext:Button runat="server" Text="Fechar" Icon="Decline">
                             <Listeners>
                                 <Click Handler="#{WinUsuario}.hide();" />
+                            </Listeners>
+                        </ext:Button>
+                    </Buttons>
+                </ext:FormPanel>
+            </Items>
+        </ext:Window>
+
+        <%--###Janela de alteração de senha###--%>
+        <ext:Window runat="server" ID="WinAtualizarSenha" Width="300" Height="250" Modal="true" Hidden="true" Title="Alterar Senha" Padding="5" TitleAlign="Center" Closable="false">
+            <Items>
+                <ext:FormPanel runat="server" ID="formSenha" Width="300" Height="200" Padding="10">
+                    <Items>
+                        <ext:TextField runat="server" ID="TextAlerarSenha" InputType="Password" MaxLength="10" MaxLengthText="10" FieldLabel="Nova Senha" Anchor="80%" />
+                        <ext:TextField runat="server" ID="TextEmailSenha" Editable="false" DataIndex="Email" Hidden="true" FieldLabel="E-mail" />
+                    </Items>
+                    <Buttons>
+                        <ext:Button runat="server" ID="btnSalvarSenha" Text="Salvar">
+                            <Listeners>
+                                <Click Handler="Tcc.javaScript.alterarSenha(#{TextEmailSenha}.getValue(), #{TextAlerarSenha}.getValue(), #{WinAtualizarSenha});" />
+                            </Listeners>
+                        </ext:Button>
+                        <ext:Button runat="server" ID="btnFecharSenha" Text="Fechar">
+                            <Listeners>
+                                <Click Handler="#{WinAtualizarSenha}.hide()" />
                             </Listeners>
                         </ext:Button>
                     </Buttons>

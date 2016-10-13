@@ -12,11 +12,12 @@ namespace SGSI.Web.Business
     public class SGSIBusiness
     {
 
-        public int AdicionarUsuario(string nome, string email, string senha) {
+        public int AdicionarUsuario(string nome, string cargo, int departamentoId, string email, string senha)
+        {
 
             DBSGSI db = new DBSGSI();
 
-            return db.InsereNovoUsuario(nome, email, senha);
+            return db.InsereNovoUsuario(nome, cargo, departamentoId, email, senha);
         }
 
 
@@ -29,6 +30,8 @@ namespace SGSI.Web.Business
                 return new
                 {
                     Nome = SqlHelper.GetString(dr, "Nome"),
+                    Departamento = SqlHelper.GetString(dr, "Departamento"),
+                    Cargo = SqlHelper.GetString(dr, "Cargo"),
                     Email = SqlHelper.GetString(dr, "Email")
                 };
             });
@@ -70,6 +73,23 @@ namespace SGSI.Web.Business
         {
             DBSGSI db = new DBSGSI();
             return db.CarregarEmailCargo<EntityFuncionarios>(EntityFuncionarios.Binding, nome, dpId);
+        }
+
+
+        public int RemoverUsuario(string email)
+        {
+
+            DBSGSI db = new DBSGSI();
+
+            return db.RemoverUsuario(email);
+        }
+
+        public int AlterarSenhaUsuario(string email, string senha)
+        {
+
+            DBSGSI db = new DBSGSI();
+
+            return db.AlterarSenhaUsuario(email, senha);
         }
     }
 }

@@ -28,12 +28,12 @@ namespace SGSI.Web.Application
         }
 
         [DirectMethod]
-        public int AdicionarUsuario(string nome, string email, string senha)
+        public int AdicionarUsuario(string nome, string cargo, string departamento, string email, string senha)
         {
-
+            int departamentoId = Convert.ToInt32(departamento);
             SGSIBusiness ca = new SGSIBusiness();
 
-            return ca.AdicionarUsuario(nome, email, senha);
+            return ca.AdicionarUsuario(nome, cargo, departamentoId, email, senha);
 
 
 
@@ -65,6 +65,24 @@ namespace SGSI.Web.Application
             dados = ca.CarregarEmailCargo(nome, departamentoId);
             TextNewUserEmail.Value = dados[0].email;
             TextNewUserCargo.Value = dados[0].cargo;
+        }
+
+
+        [DirectMethod]
+        public int RemoverUsuario(string email)
+        {
+            SGSIBusiness ca = new SGSIBusiness();
+
+            return ca.RemoverUsuario(email);
+        }
+
+        [DirectMethod]
+        public int AlterarSenhaUsuario(string email, string senha)
+        {
+
+            SGSIBusiness ca = new SGSIBusiness();
+
+            return ca.AlterarSenhaUsuario(email, senha);
         }
     }
 }

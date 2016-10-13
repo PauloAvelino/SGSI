@@ -58,15 +58,6 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.Store storeFuncionarios;
         
         /// <summary>
-        /// storeEmailCargo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Store storeEmailCargo;
-        
-        /// <summary>
         /// TabPanel1 control.
         /// </summary>
         /// <remarks>
@@ -94,13 +85,13 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.Button Button1;
         
         /// <summary>
-        /// Tab1 control.
+        /// TabUsuarios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel Tab1;
+        protected global::Ext.Net.Panel TabUsuarios;
         
         /// <summary>
         /// Botoes control.
@@ -184,13 +175,31 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.RowSelectionModel RowSelectionModel1;
         
         /// <summary>
-        /// Tab2 control.
+        /// TabNormas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Panel Tab2;
+        protected global::Ext.Net.Panel TabNormas;
+        
+        /// <summary>
+        /// gridNormas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.GridPanel gridNormas;
+        
+        /// <summary>
+        /// TabProcedimentos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Panel TabProcedimentos;
         
         /// <summary>
         /// Panel1 control.
@@ -263,5 +272,59 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.TextField TextNewUserSenha;
+        
+        /// <summary>
+        /// WinAtualizarSenha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window WinAtualizarSenha;
+        
+        /// <summary>
+        /// formSenha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.FormPanel formSenha;
+        
+        /// <summary>
+        /// TextAlerarSenha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextAlerarSenha;
+        
+        /// <summary>
+        /// TextEmailSenha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextEmailSenha;
+        
+        /// <summary>
+        /// btnSalvarSenha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button btnSalvarSenha;
+        
+        /// <summary>
+        /// btnFecharSenha control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Button btnFecharSenha;
     }
 }
