@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <ext:ResourceManager ID="ResourceManager1" runat="server" />
+    <ext:ResourceManager ID="ResourceManager1" runat="server" Theme="Aria" />
 
     <ext:Viewport ID="Viewport1" runat="server">
         <LayoutConfig>
@@ -31,6 +31,7 @@
                         runat="server"
                         AllowBlank="false"
                         FieldLabel="E-mail"
+                        Vtype="email"
                         Name="user"
                         EmptyText="e-mail" />
 

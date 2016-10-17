@@ -102,3 +102,14 @@ C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.xml
 C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Configuration.xml
 C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.xml
 C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.Configuration.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.Configuration.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.Configuration.xml

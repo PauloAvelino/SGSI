@@ -57,6 +57,10 @@ Tcc.javaScript = {
 
     CarregaFunc: function (dpId) {
         SGSI.CarregaComboFuncionario(dpId);
+        Ext.getCmp('CmbNewUserNome').reset();
+        Ext.getCmp('TextNewUserEmail').reset();
+        Ext.getCmp('TextNewUserCargo').reset();
+
     },
     CarregaEmail: function (nome, dpId) {
         SGSI.CarregaEmailCargoFuncionario(nome, dpId);
