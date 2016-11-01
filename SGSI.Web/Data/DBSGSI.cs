@@ -11,9 +11,7 @@ namespace SGSI.Web.Data
 {
     public class DBSGSI
     {
-        string stringConexao = ConfigurationManager.ConnectionStrings["TccConnectionString"].ConnectionString;
-
-        public int InsereNovoUsuario(string nome, string cargo, int departamentoId, string email, string senha)
+        public int InsereNovoUsuario(string nome, string cargo, int departamentoId, string email, int tipo, string senha)
         {
 
 
@@ -27,6 +25,7 @@ namespace SGSI.Web.Data
                 cargo,
                 departamentoId,
                 email,
+                tipo,
                 senha,
                 p_retorno},
                 delegate (Database db, DbCommand commandWrapper)
@@ -48,6 +47,22 @@ namespace SGSI.Web.Data
                 binding);
         }
 
+        public List<TValue> CarregaNormas<TValue>(CreateInstanceBindingHandler<TValue> binding)
+        {
+            return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
+                 SGSI.Settings.Settings.Default.InstanceDB,
+                "CarregaNormas",
+                binding);
+        }
+
+        public List<TValue> CarregaCmbGrupos<TValue>(CreateInstanceBindingHandler<TValue> binding)
+        {
+            return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
+                 SGSI.Settings.Settings.Default.InstanceDB,
+                "CarregaCmbGrupo",
+                binding);
+        }
+
         public List<TValue> CarregarCmbDepartamentos<TValue>(CreateInstanceBindingHandler<TValue> binding)
         {
             return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
@@ -57,6 +72,29 @@ namespace SGSI.Web.Data
                );
         }
 
+        public int SalvaNorma(string nome, string local, DateTime criacao, string autor)
+        {
+            int p_retorno = 0;
+            SqlHelperFactory.ExecuteNonQuery(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "SalvarNorma",
+                new object[] {
+                nome,
+                criacao,
+                autor,
+                local,
+                p_retorno},
+                        delegate (Database db, DbCommand commandWrapper)
+                        {
+                            p_retorno = Convert.ToInt32(db.GetParameterValue(commandWrapper, "p_retorno"));
+                        }
+                        );
+
+            return p_retorno;
+
+
+
+        }
         public List<TValue> CarregarCmbFuncionarios<TValue>(CreateInstanceBindingHandler<TValue> binding, int dptoId)
         {
             return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
@@ -78,6 +116,40 @@ namespace SGSI.Web.Data
                 dpId);
         }
 
+        public List<TValue> ConsultarLogin<TValue>(BindingHandler<TValue> binding, string email, string senha)
+        {
+            int retorno = 0;
+            return SqlHelperFactory.GetListDB<TValue>(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "ValidarLogin",
+                binding,
+                email,
+                senha,
+                retorno
+                );
+        }
+
+        //public int ConsultarLogin(string email, string senha)
+        //{
+        //    int p_retorno = 0;
+
+        //    SqlHelperFactory.ExecuteNonQuery(
+        //        SGSI.Settings.Settings.Default.InstanceDB,
+        //        "ValidarLogin",
+        //        new object[] {
+        //        email,
+        //        senha,
+        //        p_retorno},
+
+        //        delegate (Database db, DbCommand commandWrapper)
+        //        {
+        //            p_retorno = Convert.ToInt32(db.GetParameterValue(commandWrapper, "p_retorno"));
+        //        }
+        //        );
+
+        //    return p_retorno;
+
+        //}
         public int RemoverUsuario(string email)
         {
             int p_retorno = 0;

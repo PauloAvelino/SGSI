@@ -7,35 +7,89 @@ using System.Web.UI.WebControls;
 using Ext.Net;
 using SGSI.Web.Business;
 using SGSI.Web.Entity;
+using Newtonsoft;
+using System.Security.Permissions;
 
 namespace SGSI.Web.Application
 {
-    public partial class SecurityOffice : System.Web.UI.Page
+    public partial class SecurityOffice : System.Web.UI.Page 
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Initializer();
+
+            if (Session["EMAIL"] != null)
+            {
+
+                LabelEmail.Text = Session["EMAIL"].ToString();
+                //TabPanel1.Title = Session["EMAIL"].ToString();
+                X.Msg.Notify("Aviso", "Bem vindo" + Session["NOME"]).Show();
+                Initializer();
+            }
+            else
+            {
+                Response.Redirect("Inicio.aspx");
+            }
+
         }
 
-        protected void Initializer() {
+        [DirectMethod]
+        public void Sair()
+        {
+            Session.Clear();
+            Response.Redirect("Inicio.aspx");
+
+
+        }
+        protected void Initializer()
+        {
 
             SGSIBusiness ca = new SGSIBusiness();
             storeUsuarios.DataSource = ca.CarregarUsuarios();
             storeUsuarios.DataBind();
             storeDepartamentos.DataSource = ca.CarregarCmbDepartamentos();
             storeDepartamentos.DataBind();
+            storeGrupoUsuarios.DataSource = ca.CarregarCmbGrupos();
+            storeGrupoUsuarios.DataBind();
+            storeCarregaNormas.DataSource = ca.CarregarNormas();
+            storeCarregaNormas.DataBind();
 
         }
 
         [DirectMethod]
-        public int AdicionarUsuario(string nome, string cargo, string departamento, string email, string senha)
+        public int SalvarNorma(string nome)
         {
+            
+            int retorno;
+            string autor = LabelEmail.Text;
+            string destino = "/Normas/";
+            HttpPostedFile file = this.UploadNorma.PostedFile; // or this.Request.Files[0]
+            string fileName = file.FileName;
+            string path = Server.MapPath(null) + destino + nome + ".pdf";
+            file.SaveAs(path);
+            SGSIBusiness ca = new SGSIBusiness();
+            DateTime criacao = DateTime.Now;
+            retorno = ca.SalvarNorma(nome, path, criacao, autor);
+            //storeCarregaNormas.Reload();
+            return retorno;
+            
+
+        }
+        [DirectMethod]
+        public void AbrirNorma(string caminho) {
+            System.Diagnostics.Process.Start(caminho);
+
+        }
+
+        [DirectMethod]
+        public int AdicionarUsuario(string nome, string cargo, string departamento, string email, int tipo, string senha)
+        {
+            
             int departamentoId = Convert.ToInt32(departamento);
             SGSIBusiness ca = new SGSIBusiness();
 
-            return ca.AdicionarUsuario(nome, cargo, departamentoId, email, senha);
+            return ca.AdicionarUsuario(nome, cargo, departamentoId, email, tipo, senha);
 
-
+            
 
         }
 
@@ -55,6 +109,17 @@ namespace SGSI.Web.Application
             storeFuncionarios.DataBind();
 
         }
+
+        //[DirectMethod]
+        //public void CarregaComboGrupos()
+        //{
+
+        //    SGSIBusiness ca = new SGSIBusiness();
+        //    storeGrupoUsuarios.DataSource = ca.CarregarCmbGrupos();
+        //    storeGrupoUsuarios.DataBind();
+
+        //}
+
 
         [DirectMethod]
         public void CarregaEmailCargoFuncionario(string nome, string dpId)
@@ -79,10 +144,13 @@ namespace SGSI.Web.Application
         [DirectMethod]
         public int AlterarSenhaUsuario(string email, string senha)
         {
-
+            
             SGSIBusiness ca = new SGSIBusiness();
 
             return ca.AlterarSenhaUsuario(email, senha);
+            
+
+          
         }
     }
 }

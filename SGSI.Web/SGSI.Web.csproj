@@ -84,8 +84,8 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.2-beta1\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Rejuicer, Version=1.2.8.0, Culture=neutral, processorArchitecture=MSIL">
@@ -140,6 +140,7 @@
     <Content Include="Imagens\Enter.jpg" />
     <Content Include="Imagens\IRJb1c.jpg" />
     <Content Include="Imagens\Security.png" />
+    <Content Include="JS\Teste.js" />
     <Content Include="JS\Telas.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -168,6 +169,7 @@
     <Compile Include="App_Start\Rejuicer.cs" />
     <Compile Include="Business\SGSIBusiness.cs" />
     <Compile Include="Data\DBSGSI.cs" />
+    <Compile Include="Entity\EntityUsuarios.cs" />
     <Compile Include="Entity\EntityFuncionarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -195,6 +197,10 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Application\Evidencias\" />
+    <Folder Include="Application\Normas\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

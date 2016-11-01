@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeuTcc.Application {
+namespace SGSI.Web.Application {
     
     
     public partial class Inicio {
@@ -31,30 +31,30 @@ namespace MeuTcc.Application {
         protected global::Ext.Net.Viewport Viewport1;
         
         /// <summary>
-        /// FormPanel1 control.
+        /// FormLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.FormPanel FormPanel1;
+        protected global::Ext.Net.FormPanel FormLogin;
         
         /// <summary>
-        /// TextField1 control.
+        /// TextLoginEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField TextField1;
+        protected global::Ext.Net.TextField TextLoginEmail;
         
         /// <summary>
-        /// TextField2 control.
+        /// TextLoginSenha control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.TextField TextField2;
+        protected global::Ext.Net.TextField TextLoginSenha;
     }
 }

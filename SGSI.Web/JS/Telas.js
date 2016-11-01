@@ -4,47 +4,53 @@ Tcc.javaScript = {
     constructor: function (config) {
         Ext.apply(this, config);
     },
-    teste: function () {
-
-        Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de remover esta carga?', function (btn) {
-            if (btn == 'yes') {
-                SGSI.AdicionarUsuario();
-            }
-        })
-    },
-
-    AbrirFormUser: function (WinUser, forUser) {
-
-        forUser.reset();
-        WinUser.show();
-
-    },
 
 
-    CadastroUsuario: function (departamento, nome, email, cargo, senha, WinUsuario, Usuarios) {
-        SGSI.AdicionarUsuario(nome, cargo, departamento, email, senha, {
-            json: true,
+    login: function (email, senha) {
+        SGSI.ConsultarLogin(email, senha, {
             showFailureWarning: true,
             success: function (result) {
 
 
-                if (result == 1) {
+                if (result == 2) {
                     Ext.Msg.show({
-                        msg: 'Usuario adicionado com sucesso!',
+                        msg: 'Usuário ou senha incorretos, tente novamente ou entre em contato com o administrador!',
                         buttons: Ext.Msg.OK,
                         title: 'Aviso'
                     });
                     WinUsuario.hide();
 
                 }
-                Usuarios.reload();
-                if (result == 2) {
+            }
+        });
+
+    },
+
+    logout: function () {
+        SGSI.Sair();
+    },
+
+
+    salvarNorma: function (nome) {
+        SGSI.SalvarNorma(nome, {
+            showFailureWarning: true,
+            success: function (result) {
+
+                if (result == 1) {
                     Ext.Msg.show({
-                        msg: 'Este usuário já esta cadastrado no sistema!',
+                        msg: 'Norma cadastrada com sucesso!',
                         buttons: Ext.Msg.OK,
                         title: 'Aviso'
                     });
-                    WinUsuario.hide();
+                    Ext.getCmp('WinNorma').hide();
+                }
+
+                else if (result == 2) {
+                    Ext.Msg.show({
+                        msg: 'Esta norma já esta cadastrada no sistema!',
+                        buttons: Ext.Msg.OK,
+                        title: 'Aviso'
+                    });
 
                 }
             },
@@ -55,46 +61,96 @@ Tcc.javaScript = {
         })
     },
 
-    CarregaFunc: function (dpId) {
+    abrirFormUser: function (WinUser, forUser) {
+
+        forUser.reset();
+        WinUser.show();
+
+    },
+
+
+    cadastroUsuario: function (departamento, nome, email, cargo, tipo, senha, WinUsuario, Usuarios) {
+        SGSI.AdicionarUsuario(nome, cargo, departamento, emailxsqa, tipo, senha, {
+            showFailureWarning: true,
+            success: function (result) {
+                if (result == 1) {
+                    Ext.Msg.show({
+                        msg: 'Usuario adicionado com sucesso!',
+                        buttons: Ext.Msg.OK,
+                        title: 'Aviso'
+                    });
+                    WinUsuario.hide();
+                    Usuarios.reload();
+                }
+
+                if (resultado == 2) {
+                    Ext.Msg.show({
+                        msg: 'Este usuário já esta cadastrado no sistema!',
+                        buttons: Ext.Msg.OK,
+                        title: 'Aviso'
+                    });
+                    WinUsuario.hide();
+
+                }
+
+                eventMask: {
+                        showMask: true,
+                        msg; 'Aguarde, atualizando informações...'
+                }
+            }
+        }
+    )
+    },
+
+    carregaFunc: function (dpId) {
         SGSI.CarregaComboFuncionario(dpId);
         Ext.getCmp('CmbNewUserNome').reset();
         Ext.getCmp('TextNewUserEmail').reset();
         Ext.getCmp('TextNewUserCargo').reset();
 
     },
-    CarregaEmail: function (nome, dpId) {
+    carregaEmail: function (nome, dpId) {
         SGSI.CarregaEmailCargoFuncionario(nome, dpId);
     },
 
+    
+    gridNormas: function (command, record) {
+            switch (command) {
+                case ('Norma'): 
+                    SGSI.AbrirNorma(record.data.Caminho);
+                    form.reset();
+                    form.getForm().loadRecord(record);
+                    WinAtualizarSenha.show();
+
+                    break;
+            }
+        },
     gridUsuarios: function (command, record, storeUsuarios, WinAtualizarSenha, form) {
         switch (command) {
             case ('Apagar'):
                 Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de remover este usuário?', function (btn) {
                     if (btn == 'yes') {
                         SGSI.RemoverUsuario(record.data.Email, {
-                            json: true,
                             showFailureWarning: true,
                             success: function (result) {
-
                                 if (result == 1) {
                                     Ext.Msg.show({
-                                        msg: 'Usuario removido com sucesso!',
+                                        msg: 'Senha alterada com sucesso',
                                         buttons: Ext.Msg.OK,
                                         title: 'Aviso'
                                     });
                                     storeUsuarios.reload();
                                 }
-
                             }
-                        });
+                        })
                     }
                 })
                 break;
 
             case ('Senha'):
                 form.reset();
-               form.getForm().loadRecord(record);
-               WinAtualizarSenha.show();
+                form.getForm().loadRecord(record);
+                WinAtualizarSenha.show();
 
                 break;
         }
@@ -102,7 +158,6 @@ Tcc.javaScript = {
 
     alterarSenha: function (email, senha, winAtualizarSenha) {
         SGSI.AlterarSenhaUsuario(email, senha, {
-            json: true,
             showFailureWarning: true,
             success: function (result) {
 
@@ -116,6 +171,6 @@ Tcc.javaScript = {
                 }
             }
         })
-    }
+    },
 
 }

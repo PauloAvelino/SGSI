@@ -12,15 +12,28 @@ namespace SGSI.Web.Business
     public class SGSIBusiness
     {
 
-        public int AdicionarUsuario(string nome, string cargo, int departamentoId, string email, string senha)
+        //public int ConsultarLogin(string email, string senha)
+        //{
+        //    DBSGSI db = new DBSGSI();
+
+        //    return db.ConsultarLogin(email, senha);
+
+        //}
+        public int AdicionarUsuario(string nome, string cargo, int departamentoId, string email, int tipo, string senha)
         {
 
             DBSGSI db = new DBSGSI();
 
-            return db.InsereNovoUsuario(nome, cargo, departamentoId, email, senha);
+            return db.InsereNovoUsuario(nome, cargo, departamentoId, email, tipo, senha);
         }
 
+        public int SalvarNorma(string nome, string local, DateTime criacao, string autor)
+        {
 
+            DBSGSI db = new DBSGSI();
+
+           return db.SalvaNorma(nome, local, criacao, autor);
+        }
         public List<object> CarregarUsuarios()
         {
             DBSGSI db = new DBSGSI();
@@ -54,6 +67,22 @@ namespace SGSI.Web.Business
 
         }
 
+        
+
+            public List<object> CarregarCmbGrupos()
+        {
+            DBSGSI db = new DBSGSI();
+            return db.CarregaCmbGrupos<object>(delegate (IDataReader dr)
+            {
+                return new
+                {
+                    AcessoId = SqlHelper.GetInt(dr, "AcessoId"),
+                    Descricao = SqlHelper.GetString(dr, "Descricao")
+                };
+            });
+
+        }
+
         public List<object> CarregarCmbFuncionarios(int dptoId)
         {
             DBSGSI db = new DBSGSI();
@@ -69,12 +98,35 @@ namespace SGSI.Web.Business
 
         }
 
+        public List<object> CarregarNormas()
+        {
+            DBSGSI db = new DBSGSI();
+            return db.CarregaNormas<object>(delegate (IDataReader dr)
+            {
+                return new
+                {
+                    NormaId = SqlHelper.GetInt(dr, "NormaId"),
+                    Nome = SqlHelper.GetString(dr, "Nome"),
+                    Criacao = SqlHelper.GetDateTime(dr, "DataCriacao"),
+                    Autor = SqlHelper.GetString(dr, "Autor"),
+                    Caminho = SqlHelper.GetString(dr, "Caminho"),
+                    Atualizacao = SqlHelper.GetDateTime(dr, "DataAtualizacao")
+                };
+            });
+
+        }
+
         public List<EntityFuncionarios> CarregarEmailCargo(string nome, int dpId)
         {
             DBSGSI db = new DBSGSI();
             return db.CarregarEmailCargo<EntityFuncionarios>(EntityFuncionarios.Binding, nome, dpId);
         }
 
+        public List<EntityUsuarios> ConsultarLogin(string email, string senha)
+        {
+            DBSGSI db = new DBSGSI();
+            return db.ConsultarLogin<EntityUsuarios>(EntityUsuarios.Binding, email, senha);
+        }
 
         public int RemoverUsuario(string email)
         {
@@ -82,14 +134,16 @@ namespace SGSI.Web.Business
             DBSGSI db = new DBSGSI();
 
             return db.RemoverUsuario(email);
-        }
+                            }
 
         public int AlterarSenhaUsuario(string email, string senha)
         {
-
+            
             DBSGSI db = new DBSGSI();
 
             return db.AlterarSenhaUsuario(email, senha);
+
+        
         }
     }
 }
