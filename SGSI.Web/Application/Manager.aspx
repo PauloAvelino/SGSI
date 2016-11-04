@@ -19,7 +19,7 @@
             <ext:ToolbarFill ID="ToolbarFill1" runat="server" />
             <ext:Button ID="Button1" runat="server" Flat="true" Text="Sair" Icon="Disconnect">
                 <Listeners>
-                    <Click Handler="Tcc.javaScript.Logout();" />
+                    <Click Handler="Tcc.javaScript.logout();" />
                 </Listeners>
             </ext:Button>
         </TabBar>

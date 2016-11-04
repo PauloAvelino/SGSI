@@ -29,12 +29,11 @@ namespace SGSI.Web.Application
             retorno = dados[0].Retorno;
 
             if (retorno == 1) {
+                Session["TipoAcesso"] = dados[0].TipoAcesso;
                 int tipoAcesso = Convert.ToInt32(Session["TipoAcesso"]);
                 Session["USER_ID"] = dados[0].UserId;
                 Session["EMAIL"] = dados[0].Email;
                 Session["NOME"] = dados[0].Nome;
-                Session["TipoAcesso"] = dados[0].TipoAcesso;
-                Response.Redirect("SecurityOffice.aspx");
                 if (tipoAcesso == 1)
                 {
                     Response.Redirect("SecurityOffice.aspx");

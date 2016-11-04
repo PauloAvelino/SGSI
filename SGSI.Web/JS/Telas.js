@@ -30,7 +30,6 @@ Tcc.javaScript = {
         SGSI.Sair();
     },
 
-
     salvarNorma: function (nome) {
         SGSI.SalvarNorma(nome, {
             showFailureWarning: true,
@@ -61,6 +60,37 @@ Tcc.javaScript = {
         })
     },
 
+
+    salvarProcedimento: function (nome, norma, departamento, dtInicial, dtFinal, winNorma, store ) {
+        SGSI.SalvarProcedimento(nome, norma, departamento, dtInicial, dtFinal, {
+            showFailureWarning: true,
+            success: function (result) {
+
+                if (result == 1) {
+                    Ext.Msg.show({
+                        msg: 'Procedimento cadastrado com sucesso!',
+                        buttons: Ext.Msg.OK,
+                        title: 'Aviso'
+                    });
+                    Ext.getCmp('WinProcedimentos').hide();
+                }
+
+                else if (result == 2) {
+                    Ext.Msg.show({
+                        msg: 'Esta norma já esta cadastrada no sistema!',
+                        buttons: Ext.Msg.OK,
+                        title: 'Aviso'
+                    });
+
+                }
+                store.reload();
+            }, 
+            eventMask: {
+                showMask: true,
+                msg: 'Aguarde, atualizando informações...'
+            }
+        })
+    },
     abrirFormUser: function (WinUser, forUser) {
 
         forUser.reset();
@@ -70,7 +100,7 @@ Tcc.javaScript = {
 
 
     cadastroUsuario: function (departamento, nome, email, cargo, tipo, senha, WinUsuario, Usuarios) {
-        SGSI.AdicionarUsuario(nome, cargo, departamento, emailxsqa, tipo, senha, {
+        SGSI.AdicionarUsuario(nome, cargo, departamento, email, tipo, senha, {
             showFailureWarning: true,
             success: function (result) {
                 if (result == 1) {

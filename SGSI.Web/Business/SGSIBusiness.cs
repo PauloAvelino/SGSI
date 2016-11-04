@@ -32,7 +32,7 @@ namespace SGSI.Web.Business
 
             DBSGSI db = new DBSGSI();
 
-           return db.SalvaNorma(nome, local, criacao, autor);
+            return db.SalvaNorma(nome, local, criacao, autor);
         }
         public List<object> CarregarUsuarios()
         {
@@ -67,9 +67,32 @@ namespace SGSI.Web.Business
 
         }
 
-        
+        public List<object> CarregarProcedimentos(int userId)
+        {
+            DBSGSI db = new DBSGSI();
+            return db.CarregarProcedimentos<object>(delegate (IDataReader dr)
+            {
+                return new
+                {
+                    ProcedimentoId = SqlHelper.GetInt(dr, "ProcedimentoId"),
+                    Nome = SqlHelper.GetString(dr, "Nome"),
+                    Norma = SqlHelper.GetString(dr, "Norma"),
+                    DataInicial = SqlHelper.GetDateTime(dr, "DataInicial"),
+                    DataFinal = SqlHelper.GetDateTime(dr, "DataFinal"),
+                    Departamento = SqlHelper.GetString(dr, "Departamento"),
+                    ResponsavelAtual = SqlHelper.GetString(dr, "ResponsavelAtual"),
+                    Cargo = SqlHelper.GetString(dr, "Cargo"),
+                    Situacao = SqlHelper.GetString(dr, "Situacao"),
+                    Progresso = SqlHelper.GetDouble(dr, "Progresso")
 
-            public List<object> CarregarCmbGrupos()
+                };
+            }, userId);
+
+        }
+
+
+
+        public List<object> CarregarCmbGrupos()
         {
             DBSGSI db = new DBSGSI();
             return db.CarregaCmbGrupos<object>(delegate (IDataReader dr)
@@ -95,6 +118,28 @@ namespace SGSI.Web.Business
                     Cargo = SqlHelper.GetString(dr, "Cargo"),
                 };
             }, dptoId);
+
+        }
+
+
+        public int SalvarProcedimento(string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso)
+        {
+            DBSGSI db = new DBSGSI();
+            return db.SalvarProcedimento(nome, norma, dpId, dtInicial, dtFinal, situacaoId, progresso);
+
+        }
+
+        public List<object> CarregarCmbNormas()
+        {
+            DBSGSI db = new DBSGSI();
+            return db.CarregaCmbNormas<object>(delegate (IDataReader dr)
+            {
+                return new
+                {
+                    Nome = SqlHelper.GetString(dr, "Nome"),
+                    Caminho = SqlHelper.GetString(dr, "Caminho")
+                };
+            });
 
         }
 
@@ -134,16 +179,16 @@ namespace SGSI.Web.Business
             DBSGSI db = new DBSGSI();
 
             return db.RemoverUsuario(email);
-                            }
+        }
 
         public int AlterarSenhaUsuario(string email, string senha)
         {
-            
+
             DBSGSI db = new DBSGSI();
 
             return db.AlterarSenhaUsuario(email, senha);
 
-        
+
         }
     }
 }

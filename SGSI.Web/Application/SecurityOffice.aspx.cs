@@ -42,7 +42,8 @@ namespace SGSI.Web.Application
         }
         protected void Initializer()
         {
-
+            int userId = Convert.ToInt32(Session["USER_ID"]);
+            string nome = Convert.ToString(Session["NOME"]);
             SGSIBusiness ca = new SGSIBusiness();
             storeUsuarios.DataSource = ca.CarregarUsuarios();
             storeUsuarios.DataBind();
@@ -52,6 +53,10 @@ namespace SGSI.Web.Application
             storeGrupoUsuarios.DataBind();
             storeCarregaNormas.DataSource = ca.CarregarNormas();
             storeCarregaNormas.DataBind();
+            storeCmbNormas.DataSource = ca.CarregarCmbNormas();
+            storeCmbNormas.DataBind();
+            storeProcedimentos.DataSource = ca.CarregarProcedimentos(userId);
+            storeProcedimentos.DataBind();
 
         }
 
@@ -107,6 +112,18 @@ namespace SGSI.Web.Application
             SGSIBusiness ca = new SGSIBusiness();
             storeFuncionarios.DataSource = ca.CarregarCmbFuncionarios(dptoId);
             storeFuncionarios.DataBind();
+
+        }
+
+        [DirectMethod]
+        public int SalvarProcedimento(string nome, string norma, string dpId, DateTime dtInicial, DateTime dtFinal)
+        {
+            int situacaoId = 1;
+            double progresso = 0.0;
+            int dptoId = Convert.ToInt32(dpId);
+            SGSIBusiness ca = new SGSIBusiness();
+            return ca.SalvarProcedimento(nome, norma, dptoId, dtInicial, dtFinal, situacaoId, progresso);
+            
 
         }
 

@@ -116,6 +116,27 @@ namespace SGSI.Web.Data
                 dpId);
         }
 
+        public List<TValue> CarregarProcedimentos<TValue>(CreateInstanceBindingHandler<TValue> binding, int userId)
+        {
+            return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
+               SGSI.Settings.Settings.Default.InstanceDB,
+               "CarregaProcedimentos",
+                binding,
+                   new object[] {
+                   userId
+                });
+        }
+
+
+        public List<TValue> CarregaCmbNormas<TValue>(CreateInstanceBindingHandler<TValue> binding)
+        {
+            return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "CarregaCmbNorma",
+                binding
+               );
+        }
+
         public List<TValue> ConsultarLogin<TValue>(BindingHandler<TValue> binding, string email, string senha)
         {
             int retorno = 0;
@@ -170,6 +191,35 @@ namespace SGSI.Web.Data
             return p_retorno;
 
         }
+
+
+        public int SalvarProcedimento(string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso)
+        {
+            int p_retorno = 0;
+
+            SqlHelperFactory.ExecuteNonQuery(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "SalvarProcedimento",
+                new object[] {
+                nome,
+                norma,
+                dpId,
+                dtInicial,
+                dtFinal,
+                situacaoId,
+                progresso,
+                p_retorno},
+
+                delegate (Database db, DbCommand commandWrapper)
+                {
+                    p_retorno = Convert.ToInt32(db.GetParameterValue(commandWrapper, "p_retorno"));
+                }
+                );
+
+            return p_retorno;
+
+        }
+
 
         public int AlterarSenhaUsuario(string email, string senha)
         {

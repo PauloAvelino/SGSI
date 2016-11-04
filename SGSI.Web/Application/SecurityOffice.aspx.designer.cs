@@ -40,6 +40,24 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.Store storeUsuarios;
         
         /// <summary>
+        /// storeProcedimentos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store storeProcedimentos;
+        
+        /// <summary>
+        /// storeCmbNormas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store storeCmbNormas;
+        
+        /// <summary>
         /// storeDepartamentos control.
         /// </summary>
         /// <remarks>
@@ -139,85 +157,94 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.Button Button3;
         
         /// <summary>
-        /// GridPanel3 control.
+        /// GridProcedimentos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.GridPanel GridPanel3;
+        protected global::Ext.Net.GridPanel GridProcedimentos;
         
         /// <summary>
-        /// Column9 control.
+        /// ColumnProcId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column9;
+        protected global::Ext.Net.Column ColumnProcId;
         
         /// <summary>
-        /// Column15 control.
+        /// ColumnNome control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column15;
+        protected global::Ext.Net.Column ColumnNome;
         
         /// <summary>
-        /// Column11 control.
+        /// ColumnNorma control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column11;
+        protected global::Ext.Net.Column ColumnNorma;
         
         /// <summary>
-        /// Column12 control.
+        /// ColumndtInicial control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column12;
+        protected global::Ext.Net.DateColumn ColumndtInicial;
         
         /// <summary>
-        /// Column13 control.
+        /// ColumndtFInal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column13;
+        protected global::Ext.Net.DateColumn ColumndtFInal;
         
         /// <summary>
-        /// Column16 control.
+        /// ColumnDepartamento control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column16;
+        protected global::Ext.Net.Column ColumnDepartamento;
         
         /// <summary>
-        /// Column17 control.
+        /// ColumnResponsalvel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column17;
+        protected global::Ext.Net.Column ColumnResponsalvel;
         
         /// <summary>
-        /// Column14 control.
+        /// ColumnCargo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Column Column14;
+        protected global::Ext.Net.Column ColumnCargo;
+        
+        /// <summary>
+        /// ColumnSituacao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column ColumnSituacao;
         
         /// <summary>
         /// BarProgress control.
@@ -596,5 +623,68 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button btnFecharSenha;
+        
+        /// <summary>
+        /// WinProcedimentos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window WinProcedimentos;
+        
+        /// <summary>
+        /// FormProcedimentos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.FormPanel FormProcedimentos;
+        
+        /// <summary>
+        /// TextProcNome control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextProcNome;
+        
+        /// <summary>
+        /// CmbProcNorma control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox CmbProcNorma;
+        
+        /// <summary>
+        /// CmbProcDepartamentos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox CmbProcDepartamentos;
+        
+        /// <summary>
+        /// DateProcInicial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.DateField DateProcInicial;
+        
+        /// <summary>
+        /// DateProcFinal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.DateField DateProcFinal;
     }
 }

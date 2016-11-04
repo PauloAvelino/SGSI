@@ -24,11 +24,17 @@ namespace MeuTcc.Application
         }
 
         [DirectMethod]
-        public void Sair()
+        public void Sair(object sender, EventArgs e)
+        {
+            
+            Session.Clear();
+            Response.Redirect("Inicio.aspx");
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
         {
             Session.Clear();
             Response.Redirect("Inicio.aspx");
-
 
         }
     }
