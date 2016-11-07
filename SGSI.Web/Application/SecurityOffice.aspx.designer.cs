@@ -686,5 +686,14 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.DateField DateProcFinal;
+        
+        /// <summary>
+        /// TextDescricao control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextArea TextDescricao;
     }
 }

@@ -122,10 +122,10 @@ namespace SGSI.Web.Business
         }
 
 
-        public int SalvarProcedimento(string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso)
+        public int SalvarProcedimento(string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso, string descricao)
         {
             DBSGSI db = new DBSGSI();
-            return db.SalvarProcedimento(nome, norma, dpId, dtInicial, dtFinal, situacaoId, progresso);
+            return db.SalvarProcedimento(nome, norma, dpId, dtInicial, dtFinal, situacaoId, progresso, descricao);
 
         }
 

@@ -6,6 +6,45 @@
 <head runat="server">
     <title>Security Office</title>
     <script src="../JS/Telas.js"></script>
+     <style type="text/css">
+        .red {
+            color: red;
+        }
+        .blue {
+            color: blue;    
+        }
+        .green {
+            color: green;    
+        }
+        .yellow {
+            background-color: yellow;  
+            color: black; 
+        }
+        .black {
+            color: black; 
+        }
+
+        .bred {
+            background-color: #FF0000;
+            color: black; 
+        }
+        .bblue {
+            background-color: #0070C0;    
+            color: black; 
+        }
+        .bgreen {
+            background-color: #92D050;    
+            color: black; 
+        }
+        .byellow {
+            background-color: yellow;    
+            color: black; 
+        }
+        .bwhite {
+            background-color: white;
+            color: black;     
+        }
+    </style> 
 </head>
 <body>
     <ext:ResourceManager ID="ResourceManager2" runat="server" DirectMethodNamespace="SGSI" Locale="pt-BR" Theme="Gray" />
@@ -24,15 +63,15 @@
                 </ext:Model>
             </Model>
         </ext:Store>
-         <ext:Store ID="storeProcedimentos" runat="server" AutoLoad="true" >
+        <ext:Store ID="storeProcedimentos" runat="server" AutoLoad="true">
             <Model>
                 <ext:Model runat="server" IDProperty="ProcedimentoId">
                     <Fields>
                         <ext:ModelField Name="ProcedimentoId" />
                         <ext:ModelField Name="Nome" />
                         <ext:ModelField Name="Norma" />
-                        <ext:ModelField Name="DataInicial"/>
-                        <ext:ModelField Name="DataFinal"/>
+                        <ext:ModelField Name="DataInicial" />
+                        <ext:ModelField Name="DataFinal" />
                         <ext:ModelField Name="Departamento" />
                         <ext:ModelField Name="ResponsavelAtual" />
                         <ext:ModelField Name="Cargo" />
@@ -128,8 +167,7 @@
                         <ext:Panel ID="TabProcedimentos"
                             runat="server"
                             Title="Procedimentos"
-                            Icon="LayoutHeader"
-                            >
+                            Icon="LayoutHeader">
                             <LayoutConfig>
                                 <ext:HBoxLayoutConfig Align="Stretch" />
                             </LayoutConfig>
@@ -138,7 +176,7 @@
                                     <Items>
                                         <ext:Button ID="Button3" runat="server" Text="Novo Procedimento" Icon="Add">
                                             <Listeners>
-                                                <Click Handler="#{WinProcedimentos}.show();" />
+                                                <Click Handler="#{FormProcedimentos}.reset(), #{WinProcedimentos}.show();" />
                                             </Listeners>
                                         </ext:Button>
                                     </Items>
@@ -150,24 +188,31 @@
                                     Title="Normas Cadastradas"
                                     TitleAlign="Center"
                                     ColumnLines="true"
-                                  Width="1300"
+                                    Width="1300"
                                     Fixed="true"
                                     StoreID="storeProcedimentos">
                                     <ColumnModel>
                                         <Columns>
-                                            <ext:RowNumbererColumn runat="server" Width="30"/>
-                                            <ext:Column ID="ColumnProcId" runat="server" Text="Nome" Width="150"   DataIndex="ProcedimentoId" Hidden="true"/>
+                                            <ext:RowNumbererColumn runat="server" Width="30" />
+                                            <ext:Column ID="ColumnProcId" runat="server" Text="Nome" Width="150" DataIndex="ProcedimentoId" Hidden="true" />
                                             <ext:Column ID="ColumnNome" runat="server" Text="Nome" Width="150" DataIndex="Nome" />
-                                            <ext:Column ID="ColumnNorma" runat="server" Text="Norma" Width="150" DataIndex="Norma"/>
-                                            <ext:DateColumn ID="ColumndtInicial" runat="server" Text="Data Inicial" DataIndex="DataInicial"/>
+                                            <ext:Column ID="ColumnNorma" runat="server" Text="Norma" Width="150" DataIndex="Norma" />
+                                            <ext:DateColumn ID="ColumndtInicial" runat="server" Text="Data Inicial" DataIndex="DataInicial" />
                                             <ext:DateColumn ID="ColumndtFInal" runat="server" Text="Data Final" DataIndex="DataFinal" />
                                             <ext:Column ID="ColumnDepartamento" runat="server" Text="Departamento" Width="150" DataIndex="Departamento" />
-                                            <ext:Column ID="ColumnResponsalvel" runat="server" Text="Responsável atual" Width="150" DataIndex="ResponsavelAtual"/>
-                                            <ext:Column ID="ColumnCargo" runat="server" Text="Cargo" Width="150" DataIndex="Cargo"/>
+                                            <ext:Column ID="ColumnResponsalvel" runat="server" Text="Responsável atual" Width="150" DataIndex="ResponsavelAtual" />
+                                            <ext:Column ID="ColumnCargo" runat="server" Text="Cargo" Width="150" DataIndex="Cargo" />
                                             <ext:Column ID="ColumnSituacao" runat="server" Text="Situacão" Width="150" DataIndex="Situacao" />
-                                            <ext:ProgressBarColumn ID="BarProgress" runat="server" Text="Progresso" Width="150"/>
-                                           
+                                            <ext:ProgressBarColumn ID="BarProgress" runat="server" Text="Progresso" Width="150" DataIndex="Progresso"/>
+                                            <ext:CommandColumn runat="server">
+                                                <Commands>
+                                                    <ext:GridCommand ToolTip-Title="Detalhes" Icon="ApplicationViewDetail" />
+                                                    <ext:GridCommand ToolTip-Title="Aceitar" Icon="Accept" />
+                                                    <ext:GridCommand ToolTip-Title="Recusar" Icon="Cancel" />
+                                                </Commands>
+                                            </ext:CommandColumn>
                                         </Columns>
+
                                     </ColumnModel>
                                     <BottomBar>
                                         <ext:PagingToolbar ID="PagingToolbar3" runat="server" PageSize="2" />
@@ -446,12 +491,14 @@
                                         <ext:DateField runat="server" ID="DateProcFinal" FieldLabel="Data Final" MarginSpec="0 0 0 40" />
                                     </Items>
                                 </ext:FieldContainer>
+                                <ext:TextArea runat="server" MarginSpec="0 20 0 10" Padding="10" FieldLabel="Descrição" ID="TextDescricao" MaxLengthText="250" AllowBlank="false" />
+
                             </Items>
                             <Buttons>
                                 <ext:Button runat="server" Text="Salvar" Icon="Accept">
                                     <Listeners>
                                         <Click Handler="if(#{FormProcedimentos}.isValid()) {Tcc.javaScript.salvarProcedimento(#{TextProcNome}.getValue(), #{CmbProcNorma}.getValue(), #{CmbProcDepartamentos}.getValue(),
-                                        #{DateProcInicial}.getValue(), #{DateProcFinal}.getValue(), #{WinProcedimentos}, #{storeProcedimentos})};" />
+                                        #{DateProcInicial}.getValue(), #{DateProcFinal}.getValue(), #{TextDescricao}.getValue(), #{WinProcedimentos}, #{storeProcedimentos})};" />
                                     </Listeners>
                                 </ext:Button>
                                 <ext:Button runat="server" Text="Fechar" Icon="Decline">

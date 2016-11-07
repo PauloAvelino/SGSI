@@ -193,7 +193,7 @@ namespace SGSI.Web.Data
         }
 
 
-        public int SalvarProcedimento(string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso)
+        public int SalvarProcedimento(string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso, string descricao)
         {
             int p_retorno = 0;
 
@@ -208,6 +208,7 @@ namespace SGSI.Web.Data
                 dtFinal,
                 situacaoId,
                 progresso,
+                descricao,
                 p_retorno},
 
                 delegate (Database db, DbCommand commandWrapper)

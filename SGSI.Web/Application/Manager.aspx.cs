@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Ext.Net;
+using SGSI.Web.Business;
 
 namespace MeuTcc.Application
 {
@@ -14,8 +15,9 @@ namespace MeuTcc.Application
         {
             if (Session["EMAIL"] != null)
             {
-               
+
                 TabPanel1.Title = "Bem vindo(a) " + Session["EMAIL"].ToString();
+                Initializer();
             }
             else
             {
@@ -23,19 +25,27 @@ namespace MeuTcc.Application
             }
         }
 
+        public void Initializer()
+        {
+            int userId = Convert.ToInt32(Session["USER_ID"]);
+            string nome = Convert.ToString(Session["NOME"]);
+           
+            SGSIBusiness ca = new SGSIBusiness();
+            storeProcedimentos.DataSource = ca.CarregarProcedimentos(userId);
+            storeProcedimentos.DataBind();
+            HUserName.Value = Convert.ToString(Session["NOME"]);
+
+        }
+
         [DirectMethod]
-        public void Sair(object sender, EventArgs e)
+        public void Sair()
         {
-            
+
             Session.Clear();
             Response.Redirect("Inicio.aspx");
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            Session.Clear();
-            Response.Redirect("Inicio.aspx");
 
-        }
+
     }
 }

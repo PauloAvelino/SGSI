@@ -116,13 +116,13 @@ namespace SGSI.Web.Application
         }
 
         [DirectMethod]
-        public int SalvarProcedimento(string nome, string norma, string dpId, DateTime dtInicial, DateTime dtFinal)
+        public int SalvarProcedimento(string nome, string norma, string dpId, DateTime dtInicial, DateTime dtFinal, string descricao)
         {
             int situacaoId = 1;
             double progresso = 0.0;
             int dptoId = Convert.ToInt32(dpId);
             SGSIBusiness ca = new SGSIBusiness();
-            return ca.SalvarProcedimento(nome, norma, dptoId, dtInicial, dtFinal, situacaoId, progresso);
+            return ca.SalvarProcedimento(nome, norma, dptoId, dtInicial, dtFinal, situacaoId, progresso, descricao);
             
 
         }

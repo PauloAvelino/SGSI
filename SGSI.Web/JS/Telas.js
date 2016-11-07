@@ -61,8 +61,8 @@ Tcc.javaScript = {
     },
 
 
-    salvarProcedimento: function (nome, norma, departamento, dtInicial, dtFinal, winNorma, store ) {
-        SGSI.SalvarProcedimento(nome, norma, departamento, dtInicial, dtFinal, {
+    salvarProcedimento: function (nome, norma, departamento, dtInicial, dtFinal, descricao, winNorma, store) {
+        SGSI.SalvarProcedimento(nome, norma, departamento, dtInicial, dtFinal, descricao, {
             showFailureWarning: true,
             success: function (result) {
 
@@ -84,7 +84,7 @@ Tcc.javaScript = {
 
                 }
                 store.reload();
-            }, 
+            },
             eventMask: {
                 showMask: true,
                 msg: 'Aguarde, atualizando informações...'
@@ -98,6 +98,9 @@ Tcc.javaScript = {
 
     },
 
+    ManagerExit: function () {
+        SGSI.Sair();
+    },
 
     cadastroUsuario: function (departamento, nome, email, cargo, tipo, senha, WinUsuario, Usuarios) {
         SGSI.AdicionarUsuario(nome, cargo, departamento, email, tipo, senha, {
@@ -143,18 +146,18 @@ Tcc.javaScript = {
         SGSI.CarregaEmailCargoFuncionario(nome, dpId);
     },
 
-    
-    gridNormas: function (command, record) {
-            switch (command) {
-                case ('Norma'): 
-                    SGSI.AbrirNorma(record.data.Caminho);
-                    form.reset();
-                    form.getForm().loadRecord(record);
-                    WinAtualizarSenha.show();
 
-                    break;
-            }
-        },
+    gridNormas: function (command, record) {
+        switch (command) {
+            case ('Norma'):
+                SGSI.AbrirNorma(record.data.Caminho);
+                form.reset();
+                form.getForm().loadRecord(record);
+                WinAtualizarSenha.show();
+
+                break;
+        }
+    },
     gridUsuarios: function (command, record, storeUsuarios, WinAtualizarSenha, form) {
         switch (command) {
             case ('Apagar'):
@@ -201,6 +204,49 @@ Tcc.javaScript = {
                 }
             }
         })
+    },
+    desabilitarCommand: function (grid, toolbar, rowIndex, record) {
+        var command = toolbar.items.get(0);
+        var command1 = toolbar.items.get(1);
+        var command2 = toolbar.items.get(2);
+        var command3 = toolbar.items.get(3);
+        var userName = Ext.getCmp('HUserName').getValue();
+
+        ////Desabilita botão excluir para usuários que não são gestores
+        //var userListaId = Ext.getCmp('hiddenUsuarioListaId').getValue();
+        //var userId = Ext.getCmp('hiddenUsuarioId').getValue();
+        //var arrayUser = userListaId.split(";");
+        //var i, fLen;
+
+        //fLen = arrayUser.length;
+        //for (i = 0; i < fLen; i++) {
+        //    if (arrayUser[i] == userId) {
+        //        command2.setVisible(true);
+        //    };
+        //}
+
+
+        if (record.data.ResponsavelAtual == userName) {
+            if (record.data.Situacao == 'Aceitação Pendente') {
+
+                command.setHidden(false);
+                command1.setHidden(false);
+                command3.setHidden(true);
+                if (record.data.Situacao == 'Delegação Pendente') {
+                    command.setHidden(true);
+                    command1.setHidden(true);
+                }
+            }
+        } else if (record.data.DemandaSituacaoProjeto == 'Pendente') {
+            grid.view.addRowClass(rowIndex, 'yellow');
+        } else if (record.data.DemandaSituacaoProjeto == 'Finalizado') {
+            grid.view.addRowClass(rowIndex, 'blue');
+        } else if (record.data.DemandaSituacaoProjeto == 'Impedido') {
+            grid.view.addRowClass(rowIndex, 'red');
+        } else {
+            grid.view.addRowClass(rowIndex, 'black');
+        }
+
     },
 
 }
