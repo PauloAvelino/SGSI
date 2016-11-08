@@ -40,3 +40,4 @@ C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI.Data\bin\Debug\Microsoft.Practices.Ente
 C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI.Data\obj\Debug\SGSI.Data.csprojResolveAssemblyReference.cache
 C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI.Data\obj\Debug\SGSI.Data.dll
 C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI.Data\obj\Debug\SGSI.Data.pdb
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Data\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.xml

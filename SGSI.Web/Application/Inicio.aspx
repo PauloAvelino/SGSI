@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <ext:ResourceManager ID="ResourceManager1" runat="server" DirectMethodNamespace="SGSI" Locale="pt-BR" Theme="Gray" />
+    <ext:ResourceManager ID="ResourceManager1" runat="server" DirectMethodNamespace="SGSI" Locale="pt-BR" Theme="Default" />
 
     <ext:Viewport ID="Viewport1" runat="server">
         <LayoutConfig>

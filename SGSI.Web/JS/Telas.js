@@ -188,7 +188,38 @@ Tcc.javaScript = {
                 break;
         }
     },
+    
+    gridProcedimentos: function (command, record, storeUsuarios, WinDetalhes, form) {
+            switch (command) {
+                case ('Apagar'):
+                    Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de remover este usuário?', function (btn) {
+                        if (btn == 'yes') {
+                            SGSI.RemoverUsuario(record.data.Email, {
+                                showFailureWarning: true,
+                                success: function (result) {
+                                    if (result == 1) {
+                                        Ext.Msg.show({
+                                            msg: 'Senha alterada com sucesso',
+                                            buttons: Ext.Msg.OK,
+                                            title: 'Aviso'
+                                        });
+                                        storeUsuarios.reload();
+                                    }
+                                }
+                            })
+                        }
+                    })
+                    break;
 
+                case ('Detalhes'):
+                    SGSI.CarregaHistoricoProc(record.data.ProcedimentoId);
+                    form.reset();
+                    form.getForm().loadRecord(record);
+                    WinDetalhes.show();
+
+                    break;
+            }
+        },
     alterarSenha: function (email, senha, winAtualizarSenha) {
         SGSI.AlterarSenhaUsuario(email, senha, {
             showFailureWarning: true,

@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Ext.Net;
 using SGSI.Web.Business;
 
-namespace MeuTcc.Application
+namespace SGSI.Web.Application
 {
     public partial class Manager : System.Web.UI.Page
     {
@@ -45,6 +45,14 @@ namespace MeuTcc.Application
             Response.Redirect("Inicio.aspx");
         }
 
+        [DirectMethod]
+        public void CarregaHistoricoProc(string procId)
+        {
+            int procedimentoId = Convert.ToInt32(procId);
+            SGSIBusiness ca = new SGSIBusiness();
+            storeHistoricoProc.DataSource = ca.CarregaHistoricoProc(procedimentoId);
+            storeHistoricoProc.DataBind();
+        }
 
 
     }

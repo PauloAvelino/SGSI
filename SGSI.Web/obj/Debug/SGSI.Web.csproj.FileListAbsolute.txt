@@ -113,3 +113,4 @@ C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity
 C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Configuration.xml
 C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.xml
 C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.Configuration.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Caching.xml

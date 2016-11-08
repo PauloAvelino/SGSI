@@ -6,48 +6,10 @@
 <head runat="server">
     <title>Security Office</title>
     <script src="../JS/Telas.js"></script>
-     <style type="text/css">
-        .red {
-            color: red;
-        }
-        .blue {
-            color: blue;    
-        }
-        .green {
-            color: green;    
-        }
-        .yellow {
-            background-color: yellow;  
-            color: black; 
-        }
-        .black {
-            color: black; 
-        }
 
-        .bred {
-            background-color: #FF0000;
-            color: black; 
-        }
-        .bblue {
-            background-color: #0070C0;    
-            color: black; 
-        }
-        .bgreen {
-            background-color: #92D050;    
-            color: black; 
-        }
-        .byellow {
-            background-color: yellow;    
-            color: black; 
-        }
-        .bwhite {
-            background-color: white;
-            color: black;     
-        }
-    </style> 
 </head>
 <body>
-    <ext:ResourceManager ID="ResourceManager2" runat="server" DirectMethodNamespace="SGSI" Locale="pt-BR" Theme="Gray" />
+    <ext:ResourceManager ID="ResourceManager2" runat="server" DirectMethodNamespace="SGSI" Locale="pt-BR" Theme="Default" />
 
     <form id="form1" runat="server">
 
@@ -67,16 +29,31 @@
             <Model>
                 <ext:Model runat="server" IDProperty="ProcedimentoId">
                     <Fields>
+                        <ext:ModelField Name="Descricao" />
+                        <ext:ModelField Name="Solicitante" />
                         <ext:ModelField Name="ProcedimentoId" />
                         <ext:ModelField Name="Nome" />
                         <ext:ModelField Name="Norma" />
-                        <ext:ModelField Name="DataInicial" />
-                        <ext:ModelField Name="DataFinal" />
+                        <ext:ModelField Name="DataInicial" Type="Date" />
+                        <ext:ModelField Name="DataFinal" Type="Date" />
                         <ext:ModelField Name="Departamento" />
                         <ext:ModelField Name="ResponsavelAtual" />
                         <ext:ModelField Name="Cargo" />
                         <ext:ModelField Name="Situacao" />
                         <ext:ModelField Name="Progresso" />
+                    </Fields>
+                </ext:Model>
+            </Model>
+        </ext:Store>
+        <ext:Store ID="storeHistoricoProc" runat="server" AutoLoad="true">
+            <Model>
+                <ext:Model runat="server" IDProperty="HistoricoId">
+                    <Fields>
+                        <ext:ModelField Name="HistoricoId" />
+                        <ext:ModelField Name="ProcedimentoId" />
+                        <ext:ModelField Name="Usuario" />
+                        <ext:ModelField Name="DataHistorico" Type="Date" />
+                        <ext:ModelField Name="Atualizacao" />
                     </Fields>
                 </ext:Model>
             </Model>
@@ -136,12 +113,7 @@
                 </ext:Model>
             </Model>
         </ext:Store>
-        <%--        <ext:MenuPanel
-            ID="MenuPanel1"
-            runat="server"
-            Width="200"
-            Region="West">
-        </ext:MenuPanel>--%>
+
         <ext:Viewport runat="server" Layout="FitLayout" Region="Center">
             <Items>
                 <ext:TabPanel
@@ -194,7 +166,9 @@
                                     <ColumnModel>
                                         <Columns>
                                             <ext:RowNumbererColumn runat="server" Width="30" />
-                                            <ext:Column ID="ColumnProcId" runat="server" Text="Nome" Width="150" DataIndex="ProcedimentoId" Hidden="true" />
+                                            <ext:Column ID="ColumnProcId" runat="server" Text="Id" Width="150" DataIndex="ProcedimentoId" Hidden="true" />
+                                            <ext:Column ID="ColumnSolicitante" runat="server" Text="Solicitante" Width="150" DataIndex="Solicitante" Hidden="true" />
+                                            <ext:Column ID="ColumnDescricao" runat="server" Text="Descricao" Width="150" DataIndex="Descricao" Hidden="true" />
                                             <ext:Column ID="ColumnNome" runat="server" Text="Nome" Width="150" DataIndex="Nome" />
                                             <ext:Column ID="ColumnNorma" runat="server" Text="Norma" Width="150" DataIndex="Norma" />
                                             <ext:DateColumn ID="ColumndtInicial" runat="server" Text="Data Inicial" DataIndex="DataInicial" />
@@ -203,13 +177,16 @@
                                             <ext:Column ID="ColumnResponsalvel" runat="server" Text="Responsável atual" Width="150" DataIndex="ResponsavelAtual" />
                                             <ext:Column ID="ColumnCargo" runat="server" Text="Cargo" Width="150" DataIndex="Cargo" />
                                             <ext:Column ID="ColumnSituacao" runat="server" Text="Situacão" Width="150" DataIndex="Situacao" />
-                                            <ext:ProgressBarColumn ID="BarProgress" runat="server" Text="Progresso" Width="150" DataIndex="Progresso"/>
+                                            <ext:ProgressBarColumn ID="BarProgress" runat="server" Text="Progresso" Width="150" DataIndex="Progresso" />
                                             <ext:CommandColumn runat="server">
                                                 <Commands>
-                                                    <ext:GridCommand ToolTip-Title="Detalhes" Icon="ApplicationViewDetail" />
+                                                    <ext:GridCommand ToolTip-Title="Detalhes" CommandName="Detalhes" Icon="ApplicationViewDetail" />
                                                     <ext:GridCommand ToolTip-Title="Aceitar" Icon="Accept" />
                                                     <ext:GridCommand ToolTip-Title="Recusar" Icon="Cancel" />
                                                 </Commands>
+                                                <Listeners>
+                                                    <Command Handler="Tcc.javaScript.gridProcedimentos(command, record, #{storeUsuarios}, #{WinDetalhes}, #{FormDetalhes});" />
+                                                </Listeners>
                                             </ext:CommandColumn>
                                         </Columns>
 
@@ -223,6 +200,7 @@
                                     </SelectionModel>
                                     <ViewConfig StripeRows="true">
                                     </ViewConfig>
+
                                 </ext:GridPanel>
                             </Items>
                         </ext:Panel>
@@ -509,6 +487,98 @@
                             </Buttons>
                         </ext:FormPanel>
                     </Items>
+                </ext:Window>
+
+                <%--Janela de detalhes do procedimentos--%>
+                <ext:Window runat="server" ID="WinDetalhes" Title="Detalhes" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Hidden="true" Modal="true" Width="800px" Height="650px">
+                    <Items>
+                        <ext:FormPanel runat="server" ID="FormDetalhes" Border="false" Frame="true" BodyPadding="10" DefaultAnchor="100%">
+                            <FieldDefaults
+                                LabelAlign="Top"
+                                LabelWidth="100"
+                                LabelStyle="font-weight:bold;" />
+                            <Defaults>
+                                <ext:Parameter Name="margin" Value="0 0 10 0" Mode="Value" />
+                            </Defaults>
+                            <Items>
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:TextField runat="server" ID="TextField2" Width="50" FieldLabel="Id" MarginSpec="0 0 0 10" Editable="false" DataIndex="ProcedimentoId" />
+                                        <ext:TextField runat="server" ID="TextField1" Width="100" FieldLabel="Solicitante" MarginSpec="0 0 0 10" Editable="false" DataIndex="Solicitante" />
+                                    </Items>
+                                </ext:FieldContainer>
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:DateField runat="server" ID="DateField1" FieldLabel="Data Inicial" MarginSpec="0 0 0 10" Selectable="false" Format="dd/MM/yyyy" Editable="false" DataIndex="DataInicial" />
+                                        <ext:DateField runat="server" ID="DateField2" FieldLabel="Data Final" MarginSpec="0 0 0 10" Selectable="false" Editable="false" Format="dd/MM/yyyy" DataIndex="DataFinal" />
+                                    </Items>
+                                </ext:FieldContainer>
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:TextArea runat="server" MarginSpec="0 20 0 10" Padding="10" FieldLabel="Descrição" ID="TextArea1" Width="450" MaxLengthText="250" Editable="false" DataIndex="Descricao" />
+                                    </Items>
+                                </ext:FieldContainer>
+                            </Items>
+                        </ext:FormPanel>
+                        <ext:GridPanel
+                            ID="GridHistoricoProcedimentos"
+                            runat="server"
+                            RowLines="true"
+                            Title="Histórico do Procedimento"
+                            TitleAlign="Center"
+                            ColumnLines="true"
+                            DefaultAnchor="100%"
+                            Fixed="true"
+                            StoreID="storeHistoricoProc">
+                            <ColumnModel>
+                                <Columns>
+                                    <ext:RowNumbererColumn runat="server" Width="30" />
+                                    <ext:Column ID="Column5" runat="server" Text="HistoricoId" DataIndex="HistoricoId" Width="150" Hidden="true" />
+                                    <ext:Column runat="server" Text="ProcedimentoId" DataIndex="ProcedimentoId" />
+                                    <ext:DateColumn ID="DateColumN1" runat="server" Format="dd/MM/yyyy HH:mm" Text="Data da Atualização" DataIndex="DataHistorico" Width="200" />
+                                    <ext:Column ID="Column6" runat="server" Text="Usuario" DataIndex="Usuario" Width="170" />
+                                    <ext:Column ID="Column7" runat="server" Text="Atualizacao" DataIndex="Atualizacao" Width="170" />
+                                </Columns>
+                            </ColumnModel>
+                            <BottomBar>
+                                <ext:PagingToolbar ID="PagingToolbar4" runat="server" PageSize="2" />
+                            </BottomBar>
+                            <SelectionModel>
+                                <ext:RowSelectionModel ID="RowSelectionModel4" runat="server" Mode="Multi">
+                                </ext:RowSelectionModel>
+                            </SelectionModel>
+                            <ViewConfig StripeRows="true">
+                            </ViewConfig>
+                        </ext:GridPanel>
+                    </Items>
+                    <Buttons>
+                        <ext:Button runat="server" Text="Salvar" Icon="Accept">
+                            <Listeners>
+                                <Click Handler="if(#{FormProcedimentos}.isValid()) {Tcc.javaScript.salvarProcedimento(#{TextProcNome}.getValue(), #{CmbProcNorma}.getValue(), #{CmbProcDepartamentos}.getValue(),
+                                        #{DateProcInicial}.getValue(), #{DateProcFinal}.getValue(), #{TextDescricao}.getValue(), #{WinProcedimentos}, #{storeProcedimentos})};" />
+                            </Listeners>
+                        </ext:Button>
+                        <ext:Button runat="server" Text="Fechar" Icon="Decline">
+                            <Listeners>
+                                <Click Handler="#{WinDetalhes}.hide();" />
+                            </Listeners>
+                        </ext:Button>
+                    </Buttons>
                 </ext:Window>
 
             </Items>

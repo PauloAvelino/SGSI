@@ -114,15 +114,22 @@ namespace SGSI.Web.Application
             storeFuncionarios.DataBind();
 
         }
-
+        [DirectMethod]
+        public void CarregaHistoricoProc(string procId) {
+            int procedimentoId = Convert.ToInt32(procId);
+            SGSIBusiness ca = new SGSIBusiness();
+            storeHistoricoProc.DataSource = ca.CarregaHistoricoProc(procedimentoId);
+            storeHistoricoProc.DataBind();
+        }
         [DirectMethod]
         public int SalvarProcedimento(string nome, string norma, string dpId, DateTime dtInicial, DateTime dtFinal, string descricao)
         {
+            string solicitante = Convert.ToString(Session["NOME"]);
             int situacaoId = 1;
             double progresso = 0.0;
             int dptoId = Convert.ToInt32(dpId);
             SGSIBusiness ca = new SGSIBusiness();
-            return ca.SalvarProcedimento(nome, norma, dptoId, dtInicial, dtFinal, situacaoId, progresso, descricao);
+            return ca.SalvarProcedimento(solicitante, nome, norma, dptoId, dtInicial, dtFinal, situacaoId, progresso, descricao);
             
 
         }

@@ -38,7 +38,18 @@ namespace SGSI.Web.Data
             return p_retorno;
 
         }
+        
 
+        public List<TValue> CarregaHistoricoProc<TValue>(CreateInstanceBindingHandler<TValue> binding, int procedimentoId)
+        {
+            return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "CarregaHistoricoProcedimento",
+                binding,
+                new object[] {
+                procedimentoId
+                });
+        }
         public List<TValue> CarregarUsuarios<TValue>(CreateInstanceBindingHandler<TValue> binding)
         {
             return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
@@ -193,14 +204,16 @@ namespace SGSI.Web.Data
         }
 
 
-        public int SalvarProcedimento(string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso, string descricao)
+        public int SalvarProcedimento(string solicitante, string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso, string descricao)
         {
             int p_retorno = 0;
-
+            DateTime horaAtual = DateTime.Now;
             SqlHelperFactory.ExecuteNonQuery(
                 SGSI.Settings.Settings.Default.InstanceDB,
                 "SalvarProcedimento",
                 new object[] {
+                horaAtual,
+                solicitante,
                 nome,
                 norma,
                 dpId,

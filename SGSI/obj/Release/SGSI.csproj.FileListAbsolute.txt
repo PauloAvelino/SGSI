@@ -1,0 +1,12 @@
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\obj\Release\SGSI.csprojResolveAssemblyReference.cache
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Release\SGSI.dll.config
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Release\SGSI.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Release\SGSI.pdb
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Release\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Release\Microsoft.Practices.EnterpriseLibrary.Caching.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\obj\Release\SGSI.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\obj\Release\SGSI.pdb

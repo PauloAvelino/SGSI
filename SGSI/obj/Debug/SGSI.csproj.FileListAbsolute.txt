@@ -26,3 +26,6 @@ C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI\obj\Debug\SGSI.pdb
 C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI\bin\Debug\SGSI.dll.config
 C:\Users\pavelino\Desktop\SGSI\SGSI\SGSI\obj\Debug\SGSI.csprojResolveAssemblyReference.cache
 C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Debug\SGSI.dll.config
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.xml
+C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI\obj\Debug\SGSI.csprojResolveAssemblyReference.cache

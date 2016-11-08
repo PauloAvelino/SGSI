@@ -53,6 +53,23 @@ namespace SGSI.Web.Business
 
         }
 
+        public List<object> CarregaHistoricoProc(int procedimentoId)
+        {
+            DBSGSI db = new DBSGSI();
+            return db.CarregaHistoricoProc<object>(delegate (IDataReader dr)
+            {
+
+                return new
+                {
+                    HistoricoId = SqlHelper.GetInt(dr, "HistoricoId"),
+                    ProcedimentoId = SqlHelper.GetInt(dr, "ProcedimentoId"),
+                    Usuario = SqlHelper.GetString(dr, "Usuario"),
+                    DataHistorico = SqlHelper.GetDateTime(dr, "DataHistorico"),
+                    Atualizacao = SqlHelper.GetString(dr, "Atualizacao")
+
+                };
+            }, procedimentoId);
+        }
         public List<object> CarregarCmbDepartamentos()
         {
             DBSGSI db = new DBSGSI();
@@ -74,6 +91,8 @@ namespace SGSI.Web.Business
             {
                 return new
                 {
+                    Descricao = SqlHelper.GetString(dr, "Descricao"),
+                    Solicitante = SqlHelper.GetString(dr, "Solicitante"),
                     ProcedimentoId = SqlHelper.GetInt(dr, "ProcedimentoId"),
                     Nome = SqlHelper.GetString(dr, "Nome"),
                     Norma = SqlHelper.GetString(dr, "Norma"),
@@ -122,10 +141,10 @@ namespace SGSI.Web.Business
         }
 
 
-        public int SalvarProcedimento(string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso, string descricao)
+        public int SalvarProcedimento(string solicitante, string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso, string descricao)
         {
             DBSGSI db = new DBSGSI();
-            return db.SalvarProcedimento(nome, norma, dpId, dtInicial, dtFinal, situacaoId, progresso, descricao);
+            return db.SalvarProcedimento(solicitante, nome, norma, dpId, dtInicial, dtFinal, situacaoId, progresso, descricao);
 
         }
 
