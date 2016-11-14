@@ -38,7 +38,7 @@ namespace SGSI.Web.Data
             return p_retorno;
 
         }
-        
+
 
         public List<TValue> CarregaHistoricoProc<TValue>(CreateInstanceBindingHandler<TValue> binding, int procedimentoId)
         {
@@ -204,7 +204,7 @@ namespace SGSI.Web.Data
         }
 
 
-        public int SalvarProcedimento(string solicitante, string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso, string descricao)
+        public int SalvarProcedimento(string solicitante, string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso, string descricao, int situacaoHistoricoId)
         {
             int p_retorno = 0;
             DateTime horaAtual = DateTime.Now;
@@ -222,9 +222,38 @@ namespace SGSI.Web.Data
                 situacaoId,
                 progresso,
                 descricao,
+                situacaoHistoricoId,
                 p_retorno},
 
                 delegate (Database db, DbCommand commandWrapper)
+                {
+                    p_retorno = Convert.ToInt32(db.GetParameterValue(commandWrapper, "p_retorno"));
+                }
+                );
+
+            return p_retorno;
+
+        }
+
+        public int AtualizarProcedimento(int procedimentoId, int departamentoId, string responsavel, string cargo, int situacaoId, double progresso, int situacaoHistoricoId, DateTime dataAtual)
+        {
+            int p_retorno = 0;
+            DateTime horaAtual = DateTime.Now;
+            SqlHelperFactory.ExecuteNonQuery(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "AtualizarProcedimento",
+                new object[] {
+                procedimentoId,
+                departamentoId,
+                responsavel,
+                cargo,
+                situacaoId,
+                progresso,
+                situacaoHistoricoId,
+                dataAtual,
+                p_retorno},
+
+              delegate (Database db, DbCommand commandWrapper)
                 {
                     p_retorno = Convert.ToInt32(db.GetParameterValue(commandWrapper, "p_retorno"));
                 }

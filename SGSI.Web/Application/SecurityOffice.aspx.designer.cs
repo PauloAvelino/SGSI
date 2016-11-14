@@ -103,6 +103,15 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.Store storeCarregaNormas;
         
         /// <summary>
+        /// HUserName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Hidden HUserName;
+        
+        /// <summary>
         /// TabPanel1 control.
         /// </summary>
         /// <remarks>
@@ -148,15 +157,6 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.Panel TabProcedimentos;
         
         /// <summary>
-        /// Toolbar2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Toolbar Toolbar2;
-        
-        /// <summary>
         /// Button3 control.
         /// </summary>
         /// <remarks>
@@ -164,6 +164,15 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button Button3;
+        
+        /// <summary>
+        /// Container1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container1;
         
         /// <summary>
         /// GridProcedimentos control.
@@ -182,6 +191,15 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column ColumnProcId;
+        
+        /// <summary>
+        /// ColumnDpId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column ColumnDpId;
         
         /// <summary>
         /// ColumnSolicitante control.
@@ -283,6 +301,15 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.ProgressBarColumn BarProgress;
         
         /// <summary>
+        /// Column8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column Column8;
+        
+        /// <summary>
         /// PagingToolbar3 control.
         /// </summary>
         /// <remarks>
@@ -310,15 +337,6 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.Panel TabNormas;
         
         /// <summary>
-        /// Toolbar1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Toolbar Toolbar1;
-        
-        /// <summary>
         /// Button2 control.
         /// </summary>
         /// <remarks>
@@ -326,6 +344,15 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button Button2;
+        
+        /// <summary>
+        /// Container2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container2;
         
         /// <summary>
         /// GridNormas control.
@@ -409,15 +436,6 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.Panel TabUsuarios;
         
         /// <summary>
-        /// BotoesUsuarios control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Toolbar BotoesUsuarios;
-        
-        /// <summary>
         /// NovoUsuario control.
         /// </summary>
         /// <remarks>
@@ -425,6 +443,15 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Button NovoUsuario;
+        
+        /// <summary>
+        /// Container3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Container Container3;
         
         /// <summary>
         /// GridUsuarios control.
@@ -785,6 +812,15 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.TextArea TextArea1;
+        
+        /// <summary>
+        /// Caminhotxt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField Caminhotxt;
         
         /// <summary>
         /// GridHistoricoProcedimentos control.

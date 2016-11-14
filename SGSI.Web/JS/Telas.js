@@ -146,7 +146,9 @@ Tcc.javaScript = {
         SGSI.CarregaEmailCargoFuncionario(nome, dpId);
     },
 
-
+    abrirNorma: function (caminho) {
+        SGSI.AbrirNorma(caminho);
+    },
     gridNormas: function (command, record) {
         switch (command) {
             case ('Norma'):
@@ -188,38 +190,56 @@ Tcc.javaScript = {
                 break;
         }
     },
-    
-    gridProcedimentos: function (command, record, storeUsuarios, WinDetalhes, form) {
-            switch (command) {
-                case ('Apagar'):
-                    Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de remover este usuário?', function (btn) {
-                        if (btn == 'yes') {
-                            SGSI.RemoverUsuario(record.data.Email, {
-                                showFailureWarning: true,
-                                success: function (result) {
-                                    if (result == 1) {
-                                        Ext.Msg.show({
-                                            msg: 'Senha alterada com sucesso',
-                                            buttons: Ext.Msg.OK,
-                                            title: 'Aviso'
-                                        });
-                                        storeUsuarios.reload();
-                                    }
+
+    gridProcedimentos: function (command, record, WinDetalhes, form) {
+        switch (command) {
+            case ('Apagar'):
+                Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de remover este usuário?', function (btn) {
+                    if (btn == 'yes') {
+                        SGSI.RemoverUsuario(record.data.Email, {
+                            showFailureWarning: true,
+                            success: function (result) {
+                                if (result == 1) {
+                                    Ext.Msg.show({
+                                        msg: 'Senha alterada com sucesso',
+                                        buttons: Ext.Msg.OK,
+                                        title: 'Aviso'
+                                    });
                                 }
-                            })
+                            }
+                        })
+                    }
+                })
+                break;
+
+            case ('Detalhes'):
+                SGSI.CarregaHistoricoProc(record.data.ProcedimentoId);
+                form.reset();
+                form.getForm().loadRecord(record);
+                WinDetalhes.show();
+                break;
+
+            case ('Aceitar'):
+                var progresso = 0.1;
+                var historico = 2;
+                var situacaoId = 3;
+                progreso = progresso + record.data.Progresso;
+                SGSI.AtualizarProcedimento(record.data.ProcedimentoId, record.data.DepartamentoId, situacaoId, progresso, historico, {
+                    showFailureWarning: true,
+                    success: function (result) {
+                        if (result == 1) {
+                            Ext.Msg.show({
+                                msg: 'Procedimento aceito com sucesso!',
+                                buttons: Ext.Msg.OK,
+                                title: 'Aviso'
+                            });
                         }
-                    })
-                    break;
+                    }
+                });
 
-                case ('Detalhes'):
-                    SGSI.CarregaHistoricoProc(record.data.ProcedimentoId);
-                    form.reset();
-                    form.getForm().loadRecord(record);
-                    WinDetalhes.show();
-
-                    break;
-            }
-        },
+                break;
+        }
+    },
     alterarSenha: function (email, senha, winAtualizarSenha) {
         SGSI.AlterarSenhaUsuario(email, senha, {
             showFailureWarning: true,
@@ -241,7 +261,9 @@ Tcc.javaScript = {
         var command1 = toolbar.items.get(1);
         var command2 = toolbar.items.get(2);
         var command3 = toolbar.items.get(3);
+        var command4 = toolbar.items.get(4);
         var userName = Ext.getCmp('HUserName').getValue();
+
 
         ////Desabilita botão excluir para usuários que não são gestores
         //var userListaId = Ext.getCmp('hiddenUsuarioListaId').getValue();
@@ -256,27 +278,27 @@ Tcc.javaScript = {
         //    };
         //}
 
-
+        if (record.data.Solicitante == userName) {
+            command4.setHidden(false);
+        }
         if (record.data.ResponsavelAtual == userName) {
             if (record.data.Situacao == 'Aceitação Pendente') {
-
-                command.setHidden(false);
                 command1.setHidden(false);
-                command3.setHidden(true);
-                if (record.data.Situacao == 'Delegação Pendente') {
-                    command.setHidden(true);
-                    command1.setHidden(true);
-                }
+                command2.setHidden(false);
             }
-        } else if (record.data.DemandaSituacaoProjeto == 'Pendente') {
-            grid.view.addRowClass(rowIndex, 'yellow');
-        } else if (record.data.DemandaSituacaoProjeto == 'Finalizado') {
-            grid.view.addRowClass(rowIndex, 'blue');
-        } else if (record.data.DemandaSituacaoProjeto == 'Impedido') {
-            grid.view.addRowClass(rowIndex, 'red');
-        } else {
-            grid.view.addRowClass(rowIndex, 'black');
+            else if (record.data.Situacao == 'Delegação Pendente') {
+                command3.setHidden(false);
+            }
         }
+        //} else if (record.data.DemandaSituacaoProjeto == 'Pendente') {
+        //    grid.view.addRowClass(rowIndex, 'yellow');
+        //} else if (record.data.DemandaSituacaoProjeto == 'Finalizado') {
+        //    grid.view.addRowClass(rowIndex, 'blue');
+        //} else if (record.data.DemandaSituacaoProjeto == 'Impedido') {
+        //    grid.view.addRowClass(rowIndex, 'red');
+        //} else {
+        //    grid.view.addRowClass(rowIndex, 'black');
+        //}
 
     },
 

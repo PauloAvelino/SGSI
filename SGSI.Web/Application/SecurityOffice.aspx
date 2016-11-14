@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <ext:ResourceManager ID="ResourceManager2" runat="server" DirectMethodNamespace="SGSI" Locale="pt-BR" Theme="Default" />
+    <ext:ResourceManager ID="ResourceManager2" runat="server" DirectMethodNamespace="SGSI" Locale="pt-BR" Theme="Gray" />
 
     <form id="form1" runat="server">
 
@@ -32,6 +32,7 @@
                         <ext:ModelField Name="Descricao" />
                         <ext:ModelField Name="Solicitante" />
                         <ext:ModelField Name="ProcedimentoId" />
+                        <ext:ModelField Name="DepartamentoId" Type="Int" />
                         <ext:ModelField Name="Nome" />
                         <ext:ModelField Name="Norma" />
                         <ext:ModelField Name="DataInicial" Type="Date" />
@@ -41,6 +42,7 @@
                         <ext:ModelField Name="Cargo" />
                         <ext:ModelField Name="Situacao" />
                         <ext:ModelField Name="Progresso" />
+                        <ext:ModelField Name="Caminho" />
                     </Fields>
                 </ext:Model>
             </Model>
@@ -113,7 +115,7 @@
                 </ext:Model>
             </Model>
         </ext:Store>
-
+        <ext:Hidden runat="server" ID="HUserName" />
         <ext:Viewport runat="server" Layout="FitLayout" Region="Center">
             <Items>
                 <ext:TabPanel
@@ -126,8 +128,8 @@
 
                     <TabBar>
                         <ext:ToolbarFill ID="ToolbarFill1" runat="server" />
-                        <ext:Label ID="LabelEmail" runat="server" Icon="User" />
-                        <ext:Button ID="Button1" runat="server" Flat="true" Text="Sair" Icon="Disconnect">
+                        <ext:Label ID="LabelEmail" runat="server" Icon="User" MarginSpec="10 10 10 10" />
+                        <ext:Button ID="Button1" runat="server" Flat="true" Text="Sair" Icon="Disconnect" MarginSpec="10 10 10 10">
                             <Listeners>
                                 <Click Handler="Tcc.javaScript.logout();" />
                             </Listeners>
@@ -140,11 +142,8 @@
                             runat="server"
                             Title="Procedimentos"
                             Icon="LayoutHeader">
-                            <LayoutConfig>
-                                <ext:HBoxLayoutConfig Align="Stretch" />
-                            </LayoutConfig>
-                            <Items>
-                                <ext:Toolbar runat="server" ID="Toolbar2" Flat="true" Layout="Container">
+                            <DockedItems>
+                                <ext:Toolbar runat="server" Dock="top" Width="50">
                                     <Items>
                                         <ext:Button ID="Button3" runat="server" Text="Novo Procedimento" Icon="Add">
                                             <Listeners>
@@ -153,55 +152,76 @@
                                         </ext:Button>
                                     </Items>
                                 </ext:Toolbar>
-                                <ext:GridPanel
-                                    ID="GridProcedimentos"
-                                    runat="server"
-                                    RowLines="true"
-                                    Title="Normas Cadastradas"
-                                    TitleAlign="Center"
-                                    ColumnLines="true"
-                                    Width="1300"
-                                    Fixed="true"
-                                    StoreID="storeProcedimentos">
-                                    <ColumnModel>
-                                        <Columns>
-                                            <ext:RowNumbererColumn runat="server" Width="30" />
-                                            <ext:Column ID="ColumnProcId" runat="server" Text="Id" Width="150" DataIndex="ProcedimentoId" Hidden="true" />
-                                            <ext:Column ID="ColumnSolicitante" runat="server" Text="Solicitante" Width="150" DataIndex="Solicitante" Hidden="true" />
-                                            <ext:Column ID="ColumnDescricao" runat="server" Text="Descricao" Width="150" DataIndex="Descricao" Hidden="true" />
-                                            <ext:Column ID="ColumnNome" runat="server" Text="Nome" Width="150" DataIndex="Nome" />
-                                            <ext:Column ID="ColumnNorma" runat="server" Text="Norma" Width="150" DataIndex="Norma" />
-                                            <ext:DateColumn ID="ColumndtInicial" runat="server" Text="Data Inicial" DataIndex="DataInicial" />
-                                            <ext:DateColumn ID="ColumndtFInal" runat="server" Text="Data Final" DataIndex="DataFinal" />
-                                            <ext:Column ID="ColumnDepartamento" runat="server" Text="Departamento" Width="150" DataIndex="Departamento" />
-                                            <ext:Column ID="ColumnResponsalvel" runat="server" Text="Responsável atual" Width="150" DataIndex="ResponsavelAtual" />
-                                            <ext:Column ID="ColumnCargo" runat="server" Text="Cargo" Width="150" DataIndex="Cargo" />
-                                            <ext:Column ID="ColumnSituacao" runat="server" Text="Situacão" Width="150" DataIndex="Situacao" />
-                                            <ext:ProgressBarColumn ID="BarProgress" runat="server" Text="Progresso" Width="150" DataIndex="Progresso" />
-                                            <ext:CommandColumn runat="server">
-                                                <Commands>
-                                                    <ext:GridCommand ToolTip-Title="Detalhes" CommandName="Detalhes" Icon="ApplicationViewDetail" />
-                                                    <ext:GridCommand ToolTip-Title="Aceitar" Icon="Accept" />
-                                                    <ext:GridCommand ToolTip-Title="Recusar" Icon="Cancel" />
-                                                </Commands>
-                                                <Listeners>
-                                                    <Command Handler="Tcc.javaScript.gridProcedimentos(command, record, #{storeUsuarios}, #{WinDetalhes}, #{FormDetalhes});" />
-                                                </Listeners>
-                                            </ext:CommandColumn>
-                                        </Columns>
+                            </DockedItems>
+                            <LayoutConfig>
+                                <ext:HBoxLayoutConfig Align="Stretch" />
+                            </LayoutConfig>
+                            <Items>
+                                <ext:Container runat="server" ID="Container1" Layout="FitLayout" ResizeHandles="All" HeightSpec="100%" WidthSpec="100%" StyleSpec="Width:100%" MonitorResize="true" AnchorVertical="100%" AnchorHorizontal="100%" Region="Center">
+                                    <Items>
+                                        <ext:GridPanel
+                                            ID="GridProcedimentos"
+                                            RowLines="true"
+                                            Title="Normas Cadastradas"
+                                            TitleAlign="Center"
+                                            Header="true"
+                                            TrackMouseOver="false"
+                                            runat="server"
+                                            TitleCollapse="false"
+                                            Collapsible="false"
+                                            AutoFill="false"
+                                            MonitorResize="true"
+                                            Stateful="true"
+                                            EnableColumnHide="true"
+                                            WidthSpec="100%"
+                                            StoreID="storeProcedimentos">
+                                            <ColumnModel>
+                                                <Columns>
+                                                    <ext:RowNumbererColumn runat="server" Width="30" />
+                                                    <ext:Column ID="ColumnProcId" runat="server" Text="Id" Width="150" DataIndex="ProcedimentoId" Hidden="true" />
+                                                    <ext:Column ID="ColumnDpId" runat="server" Text="DpId" Width="150" DataIndex="DepartamentoId" Hidden="true" />
+                                                    <ext:Column ID="ColumnSolicitante" runat="server" Text="Solicitante" Width="150" DataIndex="Solicitante" Hidden="true" />
+                                                    <ext:Column ID="ColumnDescricao" runat="server" Text="Descricao" Width="150" DataIndex="Descricao" Hidden="true" />
+                                                    <ext:Column ID="ColumnNome" runat="server" Text="Nome" Width="150" DataIndex="Nome" />
+                                                    <ext:Column ID="ColumnNorma" runat="server" Text="Norma" Width="150" DataIndex="Norma" />
+                                                    <ext:DateColumn ID="ColumndtInicial" runat="server" Text="Data Inicial" DataIndex="DataInicial" />
+                                                    <ext:DateColumn ID="ColumndtFInal" runat="server" Text="Data Final" DataIndex="DataFinal" />
+                                                    <ext:Column ID="ColumnDepartamento" runat="server" Text="Departamento" Width="150" DataIndex="Departamento" />
+                                                    <ext:Column ID="ColumnResponsalvel" runat="server" Text="Responsável atual" Width="150" DataIndex="ResponsavelAtual" />
+                                                    <ext:Column ID="ColumnCargo" runat="server" Text="Cargo" Width="150" DataIndex="Cargo" />
+                                                    <ext:Column ID="ColumnSituacao" runat="server" Text="Situacão" Width="150" DataIndex="Situacao" />
+                                                    <ext:ProgressBarColumn ID="BarProgress" runat="server" Text="Progresso" Width="150" DataIndex="Progresso" />
+                                                    <ext:Column ID="Column8" runat="server" Text="Situacão" Width="150" DataIndex="Caminho" Hidden="true" />
+                                                    <ext:CommandColumn runat="server">
+                                                        <Commands>
+                                                            <ext:GridCommand ToolTip-Title="Detalhes" CommandName="Detalhes" Icon="ApplicationViewDetail" />
+                                                            <ext:GridCommand ToolTip-Title="Aceitar" CommandName="Aceitar" Icon="Accept" Hidden="true" />
+                                                            <ext:GridCommand ToolTip-Title="Recusar" CommandName="Recusar" Icon="Cancel" Hidden="true" />
+                                                            <ext:GridCommand ToolTip-Title="Delegar" CommandName="Delegar" Icon="UserGo" Hidden="true" />
+                                                            <ext:GridCommand ToolTip-Title="Apagar" CommandName="Apagar" Icon="Delete" Hidden="true" />
+                                                        </Commands>
+                                                        <PrepareToolbar Fn="Tcc.javaScript.desabilitarCommand" />
 
-                                    </ColumnModel>
-                                    <BottomBar>
-                                        <ext:PagingToolbar ID="PagingToolbar3" runat="server" PageSize="2" />
-                                    </BottomBar>
-                                    <SelectionModel>
-                                        <ext:RowSelectionModel ID="RowSelectionModel3" runat="server" Mode="Multi">
-                                        </ext:RowSelectionModel>
-                                    </SelectionModel>
-                                    <ViewConfig StripeRows="true">
-                                    </ViewConfig>
+                                                        <Listeners>
+                                                            <Command Handler="Tcc.javaScript.gridProcedimentos(command, record, #{WinDetalhes}, #{FormDetalhes});" />
+                                                        </Listeners>
+                                                    </ext:CommandColumn>
+                                                </Columns>
 
-                                </ext:GridPanel>
+                                            </ColumnModel>
+                                            <BottomBar>
+                                                <ext:PagingToolbar ID="PagingToolbar3" runat="server" PageSize="2" />
+                                            </BottomBar>
+                                            <SelectionModel>
+                                                <ext:RowSelectionModel ID="RowSelectionModel3" runat="server" Mode="Multi">
+                                                </ext:RowSelectionModel>
+                                            </SelectionModel>
+                                            <ViewConfig StripeRows="true">
+                                            </ViewConfig>
+
+                                        </ext:GridPanel>
+                                    </Items>
+                                </ext:Container>
                             </Items>
                         </ext:Panel>
 
@@ -211,11 +231,8 @@
                             runat="server"
                             Title="Normas"
                             Icon="Bookmark">
-                            <LayoutConfig>
-                                <ext:HBoxLayoutConfig Align="Stretch" />
-                            </LayoutConfig>
-                            <Items>
-                                <ext:Toolbar runat="server" ID="Toolbar1" Flat="true" Layout="Container">
+                            <DockedItems>
+                                <ext:Toolbar runat="server" Dock="top" Width="50">
                                     <Items>
                                         <ext:Button ID="Button2" runat="server" Text="Nova norma" Icon="Add">
                                             <Listeners>
@@ -224,44 +241,57 @@
                                         </ext:Button>
                                     </Items>
                                 </ext:Toolbar>
-                                <ext:GridPanel
-                                    ID="GridNormas"
-                                    runat="server"
-                                    RowLines="true"
-                                    Title="Normas Cadastradas"
-                                    TitleAlign="Center"
-                                    ColumnLines="true"
-                                    Width="825"
-                                    Fixed="true"
-                                    StoreID="storeCarregaNormas">
-                                    <ColumnModel>
-                                        <Columns>
-                                            <ext:RowNumbererColumn runat="server" Width="30" />
-                                            <ext:Column ID="ClnNormasNome" runat="server" Text="Nome" DataIndex="Nome" Width="150" />
-                                            <ext:Column runat="server" DataIndex="Caminho" Hidden="true" />
-                                            <ext:DateColumn ID="DateColumNormasCriac" runat="server" Format="dd/MM/yyyy HH:mm" Text="Data de Criação" DataIndex="Criacao" Width="200" />
-                                            <ext:Column ID="ClnNormasAutor" runat="server" Text="Autor" DataIndex="Autor" Width="170" />
-                                            <ext:DateColumn ID="DateColumNormasAtuali" runat="server" Format="dd/MM/yyyy HH:mm" Text="Data de Atualização" DataIndex="Atualizacao" Width="200" EmptyCellText="Não alterado" />
-                                            <ext:CommandColumn runat="server" Width="65" Text="Anexos">
-                                                <Commands>
-                                                    <ext:GridCommand Icon="PageWhiteAcrobat" CommandName="Norma" ToolTip-Text="Ver Norma" />
-                                                </Commands>
-                                                <Listeners>
-                                                    <Command Handler="Tcc.javaScript.gridNormas(command, record);" />
-                                                </Listeners>
-                                            </ext:CommandColumn>
-                                        </Columns>
-                                    </ColumnModel>
-                                    <BottomBar>
-                                        <ext:PagingToolbar ID="PagingToolbar2" runat="server" PageSize="2" />
-                                    </BottomBar>
-                                    <SelectionModel>
-                                        <ext:RowSelectionModel ID="RowSelectionModel2" runat="server" Mode="Multi">
-                                        </ext:RowSelectionModel>
-                                    </SelectionModel>
-                                    <ViewConfig StripeRows="true">
-                                    </ViewConfig>
-                                </ext:GridPanel>
+                            </DockedItems>
+                            <LayoutConfig>
+                                <ext:HBoxLayoutConfig Align="Stretch" />
+                            </LayoutConfig>
+                            <Items>
+                                <ext:Container runat="server" ID="Container2" Layout="FitLayout" ResizeHandles="All" HeightSpec="100%" WidthSpec="100%" StyleSpec="Width:100%" MonitorResize="true" AnchorVertical="100%" AnchorHorizontal="100%" Region="Center">
+                                    <Items>
+                                        <ext:GridPanel
+                                            ID="GridNormas"
+                                            runat="server"
+                                            RowLines="true"
+                                            Title="Normas Cadastradas"
+                                            TitleAlign="Center"
+                                            TitleCollapse="false"
+                                            Collapsible="false"
+                                            AutoFill="false"
+                                            MonitorResize="true"
+                                            Stateful="true"
+                                            EnableColumnHide="true"
+                                            WidthSpec="100%"
+                                            StoreID="storeCarregaNormas">
+                                            <ColumnModel>
+                                                <Columns>
+                                                    <ext:RowNumbererColumn runat="server" Width="30" />
+                                                    <ext:Column ID="ClnNormasNome" runat="server" Text="Nome" DataIndex="Nome" Width="150" />
+                                                    <ext:Column runat="server" DataIndex="Caminho" Hidden="true" />
+                                                    <ext:DateColumn ID="DateColumNormasCriac" runat="server" Format="dd/MM/yyyy HH:mm" Text="Data de Criação" DataIndex="Criacao" Width="200" />
+                                                    <ext:Column ID="ClnNormasAutor" runat="server" Text="Autor" DataIndex="Autor" Width="170" />
+                                                    <ext:DateColumn ID="DateColumNormasAtuali" runat="server" Format="dd/MM/yyyy HH:mm" Text="Data de Atualização" DataIndex="Atualizacao" Width="200" EmptyCellText="Não alterado" />
+                                                    <ext:CommandColumn runat="server" Width="65" Text="Anexos">
+                                                        <Commands>
+                                                            <ext:GridCommand Icon="PageWhiteAcrobat" CommandName="Norma" ToolTip-Text="Ver Norma" />
+                                                        </Commands>
+                                                        <Listeners>
+                                                            <Command Handler="Tcc.javaScript.gridNormas(command, record);" />
+                                                        </Listeners>
+                                                    </ext:CommandColumn>
+                                                </Columns>
+                                            </ColumnModel>
+                                            <BottomBar>
+                                                <ext:PagingToolbar ID="PagingToolbar2" runat="server" PageSize="2" />
+                                            </BottomBar>
+                                            <SelectionModel>
+                                                <ext:RowSelectionModel ID="RowSelectionModel2" runat="server" Mode="Multi">
+                                                </ext:RowSelectionModel>
+                                            </SelectionModel>
+                                            <ViewConfig StripeRows="true">
+                                            </ViewConfig>
+                                        </ext:GridPanel>
+                                    </Items>
+                                </ext:Container>
                             </Items>
                         </ext:Panel>
 
@@ -279,12 +309,13 @@
                             ID="TabUsuarios"
                             runat="server"
                             Title="Usuários"
-                            Icon="User">
-                            <LayoutConfig>
-                                <ext:HBoxLayoutConfig Align="Stretch" />
-                            </LayoutConfig>
-                            <Items>
-                                <ext:Toolbar runat="server" ID="BotoesUsuarios" Flat="true" Layout="Container">
+                            Icon="User"
+                            MonitorResize="true"
+                            Stateful="true"
+                            EnableColumnHide="true"
+                            WidthSpec="100%">
+                            <DockedItems>
+                                <ext:Toolbar runat="server" Dock="top" Width="50">
                                     <Items>
                                         <ext:Button ID="NovoUsuario" runat="server" Text="Novo Usuário" Icon="Add">
                                             <Listeners>
@@ -293,43 +324,53 @@
                                         </ext:Button>
                                     </Items>
                                 </ext:Toolbar>
-                                <ext:GridPanel
-                                    ID="GridUsuarios"
-                                    runat="server"
-                                    RowLines="true"
-                                    Title="Usuarios Cadastrados"
-                                    TitleAlign="Center"
-                                    ColumnLines="true"
-                                    Width="825"
-                                    StoreID="storeUsuarios">
-                                    <ColumnModel>
-                                        <Columns>
-                                            <ext:RowNumbererColumn runat="server" Width="30" />
-                                            <ext:Column ID="Column1" runat="server" Text="Nome" DataIndex="Nome" Width="150" />
-                                            <ext:Column ID="Column2" runat="server" Text="Departamento" DataIndex="Departamento" Width="200" />
-                                            <ext:Column ID="Column3" runat="server" Text="Cargo" DataIndex="Cargo" Width="150" />
-                                            <ext:Column ID="Column4" runat="server" Text="E-mail" DataIndex="Email" Width="230" />
-                                            <ext:CommandColumn runat="server" Width="65">
-                                                <Commands>
-                                                    <ext:GridCommand Icon="Delete" CommandName="Apagar" ToolTip-Text="Apagar" />
-                                                    <ext:GridCommand Icon="Key" CommandName="Senha" ToolTip-Text="Alterar Senha" />
-                                                </Commands>
-                                                <Listeners>
-                                                    <Command Handler="Tcc.javaScript.gridUsuarios(command, record, #{storeUsuarios}, #{WinAtualizarSenha}, #{formSenha});" />
-                                                </Listeners>
-                                            </ext:CommandColumn>
-                                        </Columns>
-                                    </ColumnModel>
-                                    <BottomBar>
-                                        <ext:PagingToolbar ID="PagingToolbar1" runat="server" PageSize="2" />
-                                    </BottomBar>
-                                    <SelectionModel>
-                                        <ext:RowSelectionModel ID="RowSelectionModel1" runat="server" Mode="Multi">
-                                        </ext:RowSelectionModel>
-                                    </SelectionModel>
-                                    <ViewConfig StripeRows="true">
-                                    </ViewConfig>
-                                </ext:GridPanel>
+                            </DockedItems>
+                            <LayoutConfig>
+                                <ext:HBoxLayoutConfig Align="Stretch" />
+                            </LayoutConfig>
+                            <Items>
+                                <ext:Container runat="server" ID="Container3" Layout="FitLayout" ResizeHandles="All" HeightSpec="100%" WidthSpec="100%" StyleSpec="Width:100%" MonitorResize="true" AnchorVertical="100%" AnchorHorizontal="100%" Region="Center">
+
+                                    <Items>
+                                        <ext:GridPanel
+                                            ID="GridUsuarios"
+                                            runat="server"
+                                            RowLines="true"
+                                            Title="Usuarios Cadastrados"
+                                            TitleAlign="Center"
+                                            ColumnLines="true"
+                                            Width="825"
+                                            StoreID="storeUsuarios">
+                                            <ColumnModel>
+                                                <Columns>
+                                                    <ext:RowNumbererColumn runat="server" Width="30" />
+                                                    <ext:Column ID="Column1" runat="server" Text="Nome" DataIndex="Nome" Width="150" />
+                                                    <ext:Column ID="Column2" runat="server" Text="Departamento" DataIndex="Departamento" Width="200" />
+                                                    <ext:Column ID="Column3" runat="server" Text="Cargo" DataIndex="Cargo" Width="150" />
+                                                    <ext:Column ID="Column4" runat="server" Text="E-mail" DataIndex="Email" Width="230" />
+                                                    <ext:CommandColumn runat="server" Width="65">
+                                                        <Commands>
+                                                            <ext:GridCommand Icon="Delete" CommandName="Apagar" ToolTip-Text="Apagar" />
+                                                            <ext:GridCommand Icon="Key" CommandName="Senha" ToolTip-Text="Alterar Senha" />
+                                                        </Commands>
+                                                        <Listeners>
+                                                            <Command Handler="Tcc.javaScript.gridUsuarios(command, record, #{storeUsuarios}, #{WinAtualizarSenha}, #{formSenha});" />
+                                                        </Listeners>
+                                                    </ext:CommandColumn>
+                                                </Columns>
+                                            </ColumnModel>
+                                            <BottomBar>
+                                                <ext:PagingToolbar ID="PagingToolbar1" runat="server" PageSize="2" />
+                                            </BottomBar>
+                                            <SelectionModel>
+                                                <ext:RowSelectionModel ID="RowSelectionModel1" runat="server" Mode="Multi">
+                                                </ext:RowSelectionModel>
+                                            </SelectionModel>
+                                            <ViewConfig StripeRows="true">
+                                            </ViewConfig>
+                                        </ext:GridPanel>
+                                    </Items>
+                                </ext:Container>
                             </Items>
                         </ext:Panel>
 
@@ -342,7 +383,7 @@
                         <ext:FormPanel runat="server" ID="FormNorma" Padding="10" Collapsed="false" Width="350" Height="300">
                             <Items>
                                 <ext:TextField runat="server" ID="TextNomeNorma" FieldLabel="Nome" />
-                                <ext:FileUploadField runat="server" ID="UploadNorma" FieldLabel="Selecionar" Icon="PageWhiteAcrobat"></ext:FileUploadField>
+                                <ext:FileUploadField runat="server" ID="UploadNorma" FieldLabel="Selecionar" Icon="PageWhiteAcrobat" />
 
                             </Items>
                             <Buttons>
@@ -531,6 +572,21 @@
                                     <FieldDefaults LabelAlign="Top" />
                                     <Items>
                                         <ext:TextArea runat="server" MarginSpec="0 20 0 10" Padding="10" FieldLabel="Descrição" ID="TextArea1" Width="450" MaxLengthText="250" Editable="false" DataIndex="Descricao" />
+                                    </Items>
+                                </ext:FieldContainer>
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:TextField runat="server" Hidden="true" ID="Caminhotxt" DataIndex="Caminho" />
+                                        <ext:Button runat="server" Text="Abrir norma" MarginSpec="0 0 0 10" Icon="PageWhiteAcrobat">
+                                            <Listeners>
+                                                <Click Handler="Tcc.javaScript.abrirNorma(#{Caminhotxt}.getValue());" />
+                                            </Listeners>
+                                        </ext:Button>
                                     </Items>
                                 </ext:FieldContainer>
                             </Items>

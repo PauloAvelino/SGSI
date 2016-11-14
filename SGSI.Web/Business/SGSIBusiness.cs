@@ -94,6 +94,7 @@ namespace SGSI.Web.Business
                     Descricao = SqlHelper.GetString(dr, "Descricao"),
                     Solicitante = SqlHelper.GetString(dr, "Solicitante"),
                     ProcedimentoId = SqlHelper.GetInt(dr, "ProcedimentoId"),
+                    DepartamentoId = SqlHelper.GetInt(dr, "DepartamentoId"),
                     Nome = SqlHelper.GetString(dr, "Nome"),
                     Norma = SqlHelper.GetString(dr, "Norma"),
                     DataInicial = SqlHelper.GetDateTime(dr, "DataInicial"),
@@ -102,8 +103,8 @@ namespace SGSI.Web.Business
                     ResponsavelAtual = SqlHelper.GetString(dr, "ResponsavelAtual"),
                     Cargo = SqlHelper.GetString(dr, "Cargo"),
                     Situacao = SqlHelper.GetString(dr, "Situacao"),
-                    Progresso = SqlHelper.GetDouble(dr, "Progresso")
-
+                    Progresso = SqlHelper.GetDouble(dr, "Progresso"),
+                    Caminho = SqlHelper.GetString(dr, "Caminho")
                 };
             }, userId);
 
@@ -141,11 +142,19 @@ namespace SGSI.Web.Business
         }
 
 
-        public int SalvarProcedimento(string solicitante, string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso, string descricao)
+        public int SalvarProcedimento(string solicitante, string nome, string norma, int dpId, DateTime dtInicial, DateTime dtFinal, int situacaoId, double progresso, string descricao, int situacaoHistoricoId)
         {
             DBSGSI db = new DBSGSI();
-            return db.SalvarProcedimento(solicitante, nome, norma, dpId, dtInicial, dtFinal, situacaoId, progresso, descricao);
+            return db.SalvarProcedimento(solicitante, nome, norma, dpId, dtInicial, dtFinal, situacaoId, progresso, descricao, situacaoHistoricoId);
 
+        }
+
+        public int AtualizarProcedimento(int procedimentoId, int departamentoId, string responsavelAtual, string cargo, int situacaoId, double progresso, int situacaoHistoricoId)
+        {
+            DateTime dataAtual = DateTime.Now; 
+            DBSGSI db = new DBSGSI();
+            return db.AtualizarProcedimento(procedimentoId, departamentoId, responsavelAtual, cargo, situacaoId, progresso, situacaoHistoricoId, dataAtual);
+            
         }
 
         public List<object> CarregarCmbNormas()
@@ -161,6 +170,7 @@ namespace SGSI.Web.Business
             });
 
         }
+
 
         public List<object> CarregarNormas()
         {

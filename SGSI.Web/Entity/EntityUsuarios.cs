@@ -29,8 +29,7 @@ namespace SGSI.Web.Entity
             get;
             set;
         }
-
-     
+           
 
         public int TipoAcesso
         {

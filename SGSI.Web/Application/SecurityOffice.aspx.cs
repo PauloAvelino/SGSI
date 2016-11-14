@@ -57,7 +57,7 @@ namespace SGSI.Web.Application
             storeCmbNormas.DataBind();
             storeProcedimentos.DataSource = ca.CarregarProcedimentos(userId);
             storeProcedimentos.DataBind();
-
+            HUserName.Value = Convert.ToString(Session["NOME"]);
         }
 
         [DirectMethod]
@@ -126,10 +126,11 @@ namespace SGSI.Web.Application
         {
             string solicitante = Convert.ToString(Session["NOME"]);
             int situacaoId = 1;
+            int situacaoHistoricoId = 1;
             double progresso = 0.0;
             int dptoId = Convert.ToInt32(dpId);
             SGSIBusiness ca = new SGSIBusiness();
-            return ca.SalvarProcedimento(solicitante, nome, norma, dptoId, dtInicial, dtFinal, situacaoId, progresso, descricao);
+            return ca.SalvarProcedimento(solicitante, nome, norma, dptoId, dtInicial, dtFinal, situacaoId, progresso, descricao, situacaoHistoricoId);
             
 
         }
