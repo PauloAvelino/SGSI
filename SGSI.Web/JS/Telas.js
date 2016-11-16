@@ -30,12 +30,13 @@ Tcc.javaScript = {
         SGSI.Sair();
     },
 
-    salvarNorma: function (nome) {
-        SGSI.SalvarNorma(nome, {
+    salvarNorma: function (nome, dpId, storeNormas) {
+        SGSI.SalvarNorma(nome, dpId, {
             showFailureWarning: true,
             success: function (result) {
 
                 if (result == 1) {
+                    storeNormas.reload();
                     Ext.Msg.show({
                         msg: 'Norma cadastrada com sucesso!',
                         buttons: Ext.Msg.OK,
@@ -60,6 +61,35 @@ Tcc.javaScript = {
         })
     },
 
+    atualizarNorma: function (nome, dpId, storeNormas) {
+        SGSI.AtualizarNorma(nome, dpId, {
+            showFailureWarning: true,
+            success: function (result) {
+
+                if (result == 1) {
+                    Ext.Msg.show({
+                        msg: 'Norma cadastrada com sucesso!',
+                        buttons: Ext.Msg.OK,
+                        title: 'Aviso'
+                    });
+                    Ext.getCmp('WindowAtualizarNorma').hide();
+                }
+
+                else if (result == 2) {
+                    Ext.Msg.show({
+                        msg: 'Esta norma já esta cadastrada no sistema!',
+                        buttons: Ext.Msg.OK,
+                        title: 'Aviso'
+                    });
+
+                }
+            },
+            eventMask: {
+                showMask: true,
+                msg: 'Aguarde, atualizando informações...'
+            }
+        })
+    },
 
     salvarProcedimento: function (nome, norma, departamento, dtInicial, dtFinal, descricao, winNorma, store) {
         SGSI.SalvarProcedimento(nome, norma, departamento, dtInicial, dtFinal, descricao, {
@@ -142,6 +172,11 @@ Tcc.javaScript = {
         Ext.getCmp('TextNewUserCargo').reset();
 
     },
+
+    carregarCargo: function (nome) {
+        SGSI.CarregaEmailCargoFuncionario(nome);
+    },
+
     carregaEmail: function (nome, dpId) {
         SGSI.CarregaEmailCargoFuncionario(nome, dpId);
     },
@@ -149,14 +184,35 @@ Tcc.javaScript = {
     abrirNorma: function (caminho) {
         SGSI.AbrirNorma(caminho);
     },
-    gridNormas: function (command, record) {
+    gridNormas: function (command, record, WinAtualizarNorma, form) {
         switch (command) {
             case ('Norma'):
                 SGSI.AbrirNorma(record.data.Caminho);
+                break;
+
+            case ('Apagar'):
+                Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de apagar esta norma', function (btn) {
+                    if (btn == 'yes') {
+                        SGSI.ApagarNorma(record.data.NormaId, {
+                            showFailureWarning: true,
+                            success: function (result) {
+                                if (result == 1) {
+                                    Ext.Msg.show({
+                                        msg: 'Norma apagada com sucesso!',
+                                        buttons: Ext.Msg.OK,
+                                        title: 'Aviso'
+                                    });
+                                }
+                            }
+                        })
+                    }
+                })
+                break;
+
+            case ('Atualizar'):
                 form.reset();
                 form.getForm().loadRecord(record);
-                WinAtualizarSenha.show();
-
+                WinAtualizarNorma.show();
                 break;
         }
     },
@@ -194,14 +250,14 @@ Tcc.javaScript = {
     gridProcedimentos: function (command, record, WinDetalhes, form) {
         switch (command) {
             case ('Apagar'):
-                Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de remover este usuário?', function (btn) {
+                Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de apagar este procedimento?', function (btn) {
                     if (btn == 'yes') {
-                        SGSI.RemoverUsuario(record.data.Email, {
+                        SGSI.ApagarProcedimento(record.data.ProcedimentoId, {
                             showFailureWarning: true,
                             success: function (result) {
                                 if (result == 1) {
                                     Ext.Msg.show({
-                                        msg: 'Senha alterada com sucesso',
+                                        msg: 'Procedimento apagado com sucesso!',
                                         buttons: Ext.Msg.OK,
                                         title: 'Aviso'
                                     });
@@ -220,10 +276,9 @@ Tcc.javaScript = {
                 break;
 
             case ('Aceitar'):
-                var progresso = 0.1;
+                var progresso = (0.1 + record.data.Progresso);
                 var historico = 2;
                 var situacaoId = 3;
-                progreso = progresso + record.data.Progresso;
                 SGSI.AtualizarProcedimento(record.data.ProcedimentoId, record.data.DepartamentoId, situacaoId, progresso, historico, {
                     showFailureWarning: true,
                     success: function (result) {
@@ -236,10 +291,39 @@ Tcc.javaScript = {
                         }
                     }
                 });
+                break;
 
+            case ('Delegar'):
+                Ext.getCmp('FormDelegar').reset();
+                Ext.getCmp('FormDelegar').getForm().loadRecord(record);
+                Ext.getCmp('WindowDelegar').show();
+                //Ext.getCmp('CmbNewUserNome').value() = null;
+                //SGSI.CarregaHistoricoProc(record.data.ProcedimentoId);
+                //form.reset();
+                //form.getForm().loadRecord(record);
+                //WinDetalhes.show();
                 break;
         }
     },
+
+    enviarDelegar: function (user, procedimento, progressov, cargo, delegar) {
+        var historico = 4;
+        var situacaoId = 1;
+        SGSI.DelegarProcedimento(procedimento, user, situacaoId, progressov, historico, cargo, {
+            showFailureWarning: true,
+            success: function (result) {
+                if (result == 1) {
+                    delegar.hide();
+                    Ext.Msg.show({
+                        msg: 'Procedimento delegado com sucesso!',
+                        buttons: Ext.Msg.OK,
+                        title: 'Aviso'
+                    });
+                }
+            }
+        });
+    },
+
     alterarSenha: function (email, senha, winAtualizarSenha) {
         SGSI.AlterarSenhaUsuario(email, senha, {
             showFailureWarning: true,

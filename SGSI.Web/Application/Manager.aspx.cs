@@ -14,6 +14,7 @@ namespace SGSI.Web.Application
 {
     public partial class Manager : System.Web.UI.Page
     {
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["EMAIL"] != null)
@@ -29,6 +30,7 @@ namespace SGSI.Web.Application
 
         public void Initializer()
         {
+            int dptoId = Convert.ToInt32(Session["DEPARTAMENTO_ID"]);
             int userId = Convert.ToInt32(Session["USER_ID"]);
             string nome = Convert.ToString(Session["NOME"]);
 
@@ -41,6 +43,8 @@ namespace SGSI.Web.Application
             storeCmbNormas.DataBind();
             storeDepartamentos.DataSource = ca.CarregarCmbDepartamentos();
             storeDepartamentos.DataBind();
+            storeFuncionarios.DataSource = ca.CarregarCmbFuncionarios(dptoId);
+            storeFuncionarios.DataBind();
             HUserName.Value = Convert.ToString(Session["NOME"]);
 
         }
@@ -62,25 +66,39 @@ namespace SGSI.Web.Application
             storeHistoricoProc.DataBind();
         }
 
-     
         [DirectMethod]
-        public int SalvarNorma(string nome)
+        public int ApagarProcedimento(string proc)
         {
-
+            int procedimentoId = Convert.ToInt32(proc);
             int retorno;
-            string autor = TabPanel1.Title;
-            string destino = "/Normas/";
-            HttpPostedFile file = this.UploadNorma.PostedFile; // or this.Request.Files[0]
-            string fileName = file.FileName;
-            string path = Server.MapPath(null) + destino + nome + ".pdf";
-            file.SaveAs(path);
             SGSIBusiness ca = new SGSIBusiness();
-            DateTime criacao = DateTime.Now;
-            retorno = ca.SalvarNorma(nome, path, criacao, autor);
+            retorno = ca.ApagarProcedimento(procedimentoId);
+            if (retorno == 1)
+            {
+                storeProcedimentos.Reload();
+            }
+
             return retorno;
-
-
         }
+
+        //[DirectMethod]
+        //public int SalvarNorma(string nome)
+        //{
+
+        //    int retorno;
+        //    string autor = TabPanel1.Title;
+        //    string destino = "/Normas/";
+        //    HttpPostedFile file = this.UploadNorma.PostedFile; // or this.Request.Files[0]
+        //    string fileName = file.FileName;
+        //    string path = Server.MapPath(null) + destino + nome + ".pdf";
+        //    file.SaveAs(path);
+        //    SGSIBusiness ca = new SGSIBusiness();
+        //    DateTime criacao = DateTime.Now;
+        //    retorno = ca.SalvarNorma(nome, path, criacao, autor);
+        //    return retorno;
+
+
+        //}
 
         [DirectMethod]
         public void AbrirNorma(string caminho)
@@ -116,6 +134,44 @@ namespace SGSI.Web.Application
                 storeProcedimentos.Reload();
             }
             return retorno;
+        }
+
+        [DirectMethod]
+        public int DelegarProcedimento(string procedimento, string responsavelAtual, int situacaoId, double progresso, int situacaoHistoricoId, string cargo)
+        {
+            int retorno;
+            int procedimentoId = Convert.ToInt32(procedimento);
+            //int departamentoId = Convert.ToInt32(departamento);
+            int departamentoId = Convert.ToInt32(Session["DEPARTAMENTO_ID"]);
+            SGSIBusiness ca = new SGSIBusiness();
+            retorno = ca.AtualizarProcedimento(procedimentoId, departamentoId, responsavelAtual, cargo, situacaoId, progresso, situacaoHistoricoId);
+            if (retorno == 1)
+            {
+                storeProcedimentos.Reload();
+            }
+            return retorno;
+        }
+
+        [DirectMethod]
+        public void CarregaComboFuncionario()
+        {
+            int dptoId = Convert.ToInt32(Session["DEPARTAMENTO_ID"]);
+            SGSIBusiness ca = new SGSIBusiness();
+            storeFuncionarios.DataSource = ca.CarregarCmbFuncionarios(dptoId);
+            storeFuncionarios.DataBind();
+
+        }
+
+
+        [DirectMethod]
+        public void CarregaEmailCargoFuncionario(string nome)
+        {
+            int departamentoId = Convert.ToInt32(Session["DEPARTAMENTO_ID"]);
+            SGSIBusiness ca = new SGSIBusiness();
+            List<EntityFuncionarios> dados = new List<EntityFuncionarios>();
+            dados = ca.CarregarEmailCargo(nome, departamentoId);
+            TextNewUserEmail.Value = dados[0].email;
+            TextNewUserCargo.Value = dados[0].cargo;
         }
 
 

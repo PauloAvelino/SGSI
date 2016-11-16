@@ -78,6 +78,17 @@
             </ext:Model>
         </Model>
     </ext:Store>
+    <ext:Store ID="storeFuncionarios" runat="server" AutoLoad="true">
+        <Model>
+            <ext:Model runat="server" IDProperty="Nome">
+                <Fields>
+                    <ext:ModelField Name="Nome" Type="String" />
+                    <ext:ModelField Name="Email" Type="String" />
+                    <ext:ModelField Name="Cargo" Type="String" />
+                </Fields>
+            </ext:Model>
+        </Model>
+    </ext:Store>
     <ext:Viewport runat="server" Layout="BorderLayout">
         <Items>
             <ext:TabPanel
@@ -95,6 +106,7 @@
                     </ext:Button>
                 </TabBar>
                 <Items>
+                    <%--DashBoard--%>
                     <ext:Panel runat="server" Title="Dashboard" Width="800"
                         Height="600" Layout="FitLayout" Padding="30">
                         <Items>
@@ -162,12 +174,9 @@
                                                             <Even StrokeStyle="#555" />
                                                         </GridConfig>
                                                     </ext:NumericAxis>
-
                                                     <ext:CategoryAxis Position="Bottom" Fields="Name" Title="Procedimentos" />
                                                 </Axes>
-
                                                 <Series>
-
                                                     <ext:BarSeries
                                                         Highlight="true"
                                                         XField="Name"
@@ -188,15 +197,10 @@
                                                     </ext:BarSeries>
                                                 </Series>
                                             </ext:CartesianChart>
-
-
                                         </Items>
                                     </ext:Panel>
-
                                 </Items>
                             </ext:FormPanel>
-
-
                         </Items>
                     </ext:Panel>
                     <ext:Hidden runat="server" ID="HUserName" />
@@ -357,29 +361,6 @@
                             </ext:Container>
                         </Items>
                     </ext:Panel>
-
-                    <ext:Panel Title="Teste" runat="server">
-                        <Items>
-                            <ext:Container runat="server" ID="pgpanel" Layout="FitLayout" ResizeHandles="All" StyleSpec="Width:100%" MonitorResize="true" AnchorVertical="100%" AnchorHorizontal="100%" Region="Center">
-                                <Items>
-                                    <ext:GridPanel ID="GridPanel1" StripeRows="true" AutoDataBind="false" Title="Search Results"
-                                        Header="true" TrackMouseOver="false" runat="server" TitleCollapse="false"
-                                        Collapsible="false" AutoFill="false"
-                                        MonitorResize="true" Stateful="true" EnableColumnHide="true">
-                                        <BottomBar>
-                                            <ext:PagingToolbar ID="PagingToolbar1" runat="server"
-                                                DisplayInfo="true" DisplayMsg="Displaying Record(s) {0} - {1} of {2}" StoreID="Store1"
-                                                EmptyMsg="No records to display" EnableViewState="false">
-                                                <Items>
-                                                </Items>
-                                            </ext:PagingToolbar>
-                                        </BottomBar>
-                                    </ext:GridPanel>
-                                </Items>
-                            </ext:Container>
-                        </Items>
-                    </ext:Panel>
-
                 </Items>
             </ext:TabPanel>
 
@@ -470,7 +451,6 @@
                                 <Items>
                                     <ext:TextField runat="server" ID="TextField2" Width="50" FieldLabel="Id" MarginSpec="0 0 0 10" Editable="false" DataIndex="ProcedimentoId" />
                                     <ext:TextField runat="server" ID="TextField1" Width="100" FieldLabel="Solicitante" MarginSpec="0 0 0 10" Editable="false" DataIndex="Solicitante" />
-
                                 </Items>
                             </ext:FieldContainer>
                             <ext:FieldContainer
@@ -492,7 +472,21 @@
                                 <FieldDefaults LabelAlign="Top" />
                                 <Items>
                                     <ext:TextArea runat="server" MarginSpec="0 20 0 10" Padding="10" FieldLabel="Descrição" ID="TextArea1" Width="450" MaxLengthText="250" Editable="false" DataIndex="Descricao" />
-                                    <ext:Button runat="server" ID="btnNorma" Icon="PageWhiteAcrobat" IconAlign="top" Text="Norma" TextAlign="Center" MarginSpec="0 0 0 80" />
+                                </Items>
+                            </ext:FieldContainer>
+                            <ext:FieldContainer
+                                runat="server"
+                                Padding="10"
+                                LabelStyle="font-weight:bold;padding:0;"
+                                Layout="HBoxLayout">
+                                <FieldDefaults LabelAlign="Top" />
+                                <Items>
+                                    <ext:TextField runat="server" Hidden="true" ID="Caminhotxt" DataIndex="Caminho" />
+                                    <ext:Button runat="server" Text="Abrir norma" MarginSpec="0 0 0 10" Icon="PageWhiteAcrobat">
+                                        <Listeners>
+                                            <Click Handler="Tcc.javaScript.abrirNorma(#{Caminhotxt}.getValue());" />
+                                        </Listeners>
+                                    </ext:Button>
                                 </Items>
                             </ext:FieldContainer>
                         </Items>
@@ -569,6 +563,71 @@
                 </Items>
             </ext:Window>
 
+            <%--Janela de Delegar--%>
+            <ext:Window runat="server" ID="WindowDelegar" Title="Delegar Procedimento" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="400px" Hidden="true">
+                <Items>
+                    <ext:FormPanel runat="server" ID="FormDelegar" Border="false" Frame="true" BodyPadding="10" DefaultAnchor="100%">
+                        <FieldDefaults
+                            LabelAlign="Top"
+                            LabelWidth="100"
+                            LabelStyle="font-weight:bold;" />
+                        <Defaults>
+                            <ext:Parameter Name="margin" Value="0 0 10 0" Mode="Value" />
+                        </Defaults>
+                        <Items>
+                            <ext:Hidden runat="server" ID="progressov" DataIndex="Progresso" />
+                            <ext:FieldContainer
+                                runat="server"
+                                Padding="10"
+                                LabelStyle="font-weight:bold;padding:0;"
+                                Layout="HBoxLayout">
+                                <FieldDefaults LabelAlign="Top" />
+                                <Items>
+                                    <ext:TextField runat="server" ID="TextFieldProcedimentoId" Width="50" FieldLabel="Id" MarginSpec="0 0 0 10" Editable="false" DataIndex="ProcedimentoId" />
+                                </Items>
+                            </ext:FieldContainer>
+                            <ext:FieldContainer
+                                runat="server"
+                                Padding="10"
+                                LabelStyle="font-weight:bold;padding:0;"
+                                Layout="HBoxLayout">
+                                <FieldDefaults LabelAlign="Top" />
+                                <Items>
+                                    <ext:ComboBox runat="server" ID="CmbNewUserNome" MarginSpec="0 0 0 10" FieldLabel="Funcionario" Text="Selecione" Editable="false" AllowBlank="false" StoreID="storeFuncionarios" DataIndex="Nome" DisplayField="Nome" EmptyText="Carregando...">
+                                        <Listeners>
+                                            <Select Handler="Tcc.javaScript.carregarCargo(#{CmbNewUserNome}.getValue())" />
+                                        </Listeners>
+                                    </ext:ComboBox>
+                                </Items>
+                            </ext:FieldContainer>
+                            <ext:FieldContainer
+                                runat="server"
+                                Padding="10"
+                                LabelStyle="font-weight:bold;padding:0;"
+                                Layout="HBoxLayout">
+                                <FieldDefaults LabelAlign="Top" />
+                                <Items>
+                                    <ext:TextField runat="server" ID="TextNewUserEmail" FieldLabel="E-mail" Editable="false" MarginSpec="0 0 0 10" />
+                                    <ext:TextField runat="server" ID="TextNewUserCargo" FieldLabel="Cargo" Editable="false" MarginSpec="0 0 0 10" />
+                                </Items>
+                            </ext:FieldContainer>
+                            <%-- <ext:TextArea runat="server" MarginSpec="0 20 0 10" Padding="10" FieldLabel="Descrição" ID="TextArea2" MaxLengthText="250" AllowBlank="false" />--%>
+                        </Items>
+                        <Buttons>
+                            <ext:Button runat="server" Text="Enviar" Icon="Accept">
+                                <Listeners>
+                                    <Click Handler="if(#{FormDelegar}.isValid()) {Tcc.javaScript.enviarDelegar(#{CmbNewUserNome}.getValue(), #{TextFieldProcedimentoId}.getValue(), #{progressov}.getValue(), #{TextNewUserCargo}.getValue(), #{WindowDelegar})};" />
+                                </Listeners>
+                            </ext:Button>
+                            <ext:Button runat="server" Text="Fechar" Icon="Decline">
+                                <Listeners>
+                                    <Click Handler="#{WindowDelegar}.hide();" />
+                                </Listeners>
+                            </ext:Button>
+                        </Buttons>
+                    </ext:FormPanel>
+                </Items>
+            </ext:Window>
 
         </Items>
 

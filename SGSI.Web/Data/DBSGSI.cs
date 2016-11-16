@@ -83,7 +83,7 @@ namespace SGSI.Web.Data
                );
         }
 
-        public int SalvaNorma(string nome, string local, DateTime criacao, string autor)
+        public int SalvaNorma(string nome, int dpId, string local, DateTime criacao, string autor)
         {
             int p_retorno = 0;
             SqlHelperFactory.ExecuteNonQuery(
@@ -91,6 +91,7 @@ namespace SGSI.Web.Data
                 "SalvarNorma",
                 new object[] {
                 nome,
+                dpId,
                 criacao,
                 autor,
                 local,
@@ -274,6 +275,72 @@ namespace SGSI.Web.Data
                 new object[] {
                 email,
                 senha,
+                p_retorno},
+
+                delegate (Database db, DbCommand commandWrapper)
+                {
+                    p_retorno = Convert.ToInt32(db.GetParameterValue(commandWrapper, "p_retorno"));
+                }
+                );
+
+            return p_retorno;
+
+        }
+        
+
+        public int ApagarProcedimento(int procedimentoId)
+        {
+            int p_retorno = 0;
+
+            SqlHelperFactory.ExecuteNonQuery(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "ApagarProcedimento",
+                new object[] {
+                procedimentoId,
+                p_retorno},
+
+                delegate (Database db, DbCommand commandWrapper)
+                {
+                    p_retorno = Convert.ToInt32(db.GetParameterValue(commandWrapper, "p_retorno"));
+                }
+                );
+
+            return p_retorno;
+
+        }
+
+        public int ApagarNorma(int normaId)
+        {
+            int p_retorno = 0;
+
+            SqlHelperFactory.ExecuteNonQuery(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "ApagarNorma",
+                new object[] {
+                normaId,
+                p_retorno},
+
+                delegate (Database db, DbCommand commandWrapper)
+                {
+                    p_retorno = Convert.ToInt32(db.GetParameterValue(commandWrapper, "p_retorno"));
+                }
+                );
+
+            return p_retorno;
+
+        }
+
+        public int AtualizarNorma(int normaId, DateTime data, string autor)
+        {
+            int p_retorno = 0;
+
+            SqlHelperFactory.ExecuteNonQuery(
+                SGSI.Settings.Settings.Default.InstanceDB,
+                "AtualizarNorma",
+                new object[] {
+                normaId,
+                data,
+                autor,
                 p_retorno},
 
                 delegate (Database db, DbCommand commandWrapper)

@@ -27,12 +27,12 @@ namespace SGSI.Web.Business
             return db.InsereNovoUsuario(nome, cargo, departamentoId, email, tipo, senha);
         }
 
-        public int SalvarNorma(string nome, string local, DateTime criacao, string autor)
+        public int SalvarNorma(string nome, int dpId, string local, DateTime criacao, string autor)
         {
 
             DBSGSI db = new DBSGSI();
 
-            return db.SalvaNorma(nome, local, criacao, autor);
+            return db.SalvaNorma(nome, dpId, local, criacao, autor);
         }
         public List<object> CarregarUsuarios()
         {
@@ -151,10 +151,10 @@ namespace SGSI.Web.Business
 
         public int AtualizarProcedimento(int procedimentoId, int departamentoId, string responsavelAtual, string cargo, int situacaoId, double progresso, int situacaoHistoricoId)
         {
-            DateTime dataAtual = DateTime.Now; 
+            DateTime dataAtual = DateTime.Now;
             DBSGSI db = new DBSGSI();
             return db.AtualizarProcedimento(procedimentoId, departamentoId, responsavelAtual, cargo, situacaoId, progresso, situacaoHistoricoId, dataAtual);
-            
+
         }
 
         public List<object> CarregarCmbNormas()
@@ -184,7 +184,8 @@ namespace SGSI.Web.Business
                     Criacao = SqlHelper.GetDateTime(dr, "DataCriacao"),
                     Autor = SqlHelper.GetString(dr, "Autor"),
                     Caminho = SqlHelper.GetString(dr, "Caminho"),
-                    Atualizacao = SqlHelper.GetDateTime(dr, "DataAtualizacao")
+                    Atualizacao = SqlHelper.GetDateTime(dr, "DataAtualizacao"),
+                    Departamento = SqlHelper.GetString(dr, "Departamento")
                 };
             });
 
@@ -212,12 +213,25 @@ namespace SGSI.Web.Business
 
         public int AlterarSenhaUsuario(string email, string senha)
         {
-
             DBSGSI db = new DBSGSI();
-
             return db.AlterarSenhaUsuario(email, senha);
+        }
 
+        public int ApagarProcedimento(int procedimentoId)
+        {
+            DBSGSI db = new DBSGSI();
+            return db.ApagarProcedimento(procedimentoId);
+        }
 
+        public int ApagarNorma(int normaId)
+        {
+            DBSGSI db = new DBSGSI();
+            return db.ApagarNorma(normaId);
+        }
+        public int AtualizarNorma(int normaId, DateTime data, string autor)
+        {
+            DBSGSI db = new DBSGSI();
+            return db.AtualizarNorma(normaId, data, autor);
         }
     }
 }

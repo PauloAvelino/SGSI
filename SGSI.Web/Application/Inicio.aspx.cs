@@ -35,6 +35,7 @@ namespace SGSI.Web.Application
                 Session["EMAIL"] = dados[0].Email;
                 Session["NOME"] = dados[0].Nome;
                 Session["CARGO"] = dados[0].Cargo;
+                Session["DEPARTAMENTO_ID"] = dados[0].DepartamentoId;
                 if (tipoAcesso == 1)
                 {
                     Response.Redirect("SecurityOffice.aspx");

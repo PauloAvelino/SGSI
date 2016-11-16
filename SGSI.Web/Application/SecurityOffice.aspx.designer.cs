@@ -364,6 +364,15 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.GridPanel GridNormas;
         
         /// <summary>
+        /// ClnNormasId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column ClnNormasId;
+        
+        /// <summary>
         /// ClnNormasNome control.
         /// </summary>
         /// <remarks>
@@ -371,6 +380,15 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.Column ClnNormasNome;
+        
+        /// <summary>
+        /// ClnNormasDepartamento control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Column ClnNormasDepartamento;
         
         /// <summary>
         /// DateColumNormasCriac control.
@@ -544,6 +562,15 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.TextField TextNomeNorma;
         
         /// <summary>
+        /// ComboBoxDptoNorma control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox ComboBoxDptoNorma;
+        
+        /// <summary>
         /// UploadNorma control.
         /// </summary>
         /// <remarks>
@@ -551,6 +578,51 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.FileUploadField UploadNorma;
+        
+        /// <summary>
+        /// WindowAtualizarNorma control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window WindowAtualizarNorma;
+        
+        /// <summary>
+        /// FormAtualizarNorma control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.FormPanel FormAtualizarNorma;
+        
+        /// <summary>
+        /// TextAtualizarNormaNome control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextAtualizarNormaNome;
+        
+        /// <summary>
+        /// HiddenAtualizarNormaId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Hidden HiddenAtualizarNormaId;
+        
+        /// <summary>
+        /// UpdateUploadNorma control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.FileUploadField UpdateUploadNorma;
         
         /// <summary>
         /// WinUsuario control.

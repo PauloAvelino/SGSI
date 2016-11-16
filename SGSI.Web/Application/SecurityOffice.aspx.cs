@@ -21,8 +21,6 @@ namespace SGSI.Web.Application
             {
 
                 LabelEmail.Text = Session["EMAIL"].ToString();
-                //TabPanel1.Title = Session["EMAIL"].ToString();
-                X.Msg.Notify("Aviso", "Bem vindo" + Session["NOME"]).Show();
                 Initializer();
             }
             else
@@ -61,7 +59,7 @@ namespace SGSI.Web.Application
         }
 
         [DirectMethod]
-        public int SalvarNorma(string nome)
+        public int SalvarNorma(string nome, int dpId)
         {
             
             int retorno;
@@ -73,7 +71,7 @@ namespace SGSI.Web.Application
             file.SaveAs(path);
             SGSIBusiness ca = new SGSIBusiness();
             DateTime criacao = DateTime.Now;
-            retorno = ca.SalvarNorma(nome, path, criacao, autor);
+            retorno = ca.SalvarNorma(nome, dpId, path, criacao, autor);
             //storeCarregaNormas.Reload();
             return retorno;
             
@@ -134,18 +132,7 @@ namespace SGSI.Web.Application
             
 
         }
-
-        //[DirectMethod]
-        //public void CarregaComboGrupos()
-        //{
-
-        //    SGSIBusiness ca = new SGSIBusiness();
-        //    storeGrupoUsuarios.DataSource = ca.CarregarCmbGrupos();
-        //    storeGrupoUsuarios.DataBind();
-
-        //}
-
-
+             
         [DirectMethod]
         public void CarregaEmailCargoFuncionario(string nome, string dpId)
         {
@@ -173,9 +160,62 @@ namespace SGSI.Web.Application
             SGSIBusiness ca = new SGSIBusiness();
 
             return ca.AlterarSenhaUsuario(email, senha);
-            
+        }
 
-          
+
+        [DirectMethod]
+        public int ApagarProcedimento(string proc)
+        {
+            int procedimentoId = Convert.ToInt32(proc);
+            int retorno;
+            SGSIBusiness ca = new SGSIBusiness();
+            retorno = ca.ApagarProcedimento(procedimentoId);
+            if (retorno == 1)
+            {
+                storeProcedimentos.Reload();
+            }
+
+            return retorno;
+        }
+
+
+
+        [DirectMethod]
+        public int ApagarNorma(string norma)
+        {
+            int normaId = Convert.ToInt32(norma);
+            int retorno;
+            SGSIBusiness ca = new SGSIBusiness();
+            retorno = ca.ApagarNorma(normaId);
+            if (retorno == 1)
+            {
+                storeCarregaNormas.Reload();
+            }
+
+            return retorno;
+        }
+
+        [DirectMethod]
+        public int AtualizarNorma(string norma, string nome)
+        {
+            int normaId = Convert.ToInt32(norma);
+            DateTime data = DateTime.Now;
+            int retorno;
+            string autor = Session["EMAIL"].ToString();
+            string destino = "/Normas/";
+            HttpPostedFile file = this.UpdateUploadNorma.PostedFile; // or this.Request.Files[0]
+            string fileName = file.FileName;
+            string path = Server.MapPath(null) + destino + nome + ".pdf";
+            file.SaveAs(path);
+
+            SGSIBusiness ca = new SGSIBusiness();
+            retorno = ca.AtualizarNorma(normaId, data, autor);
+            if (retorno == 1)
+            {
+                storeCarregaNormas.Reload();
+            }
+
+            return retorno;
         }
     }
 }

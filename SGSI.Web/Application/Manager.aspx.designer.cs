@@ -67,6 +67,15 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.Store storeDepartamentos;
         
         /// <summary>
+        /// storeFuncionarios control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Store storeFuncionarios;
+        
+        /// <summary>
         /// TabPanel1 control.
         /// </summary>
         /// <remarks>
@@ -382,33 +391,6 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.RowSelectionModel RowSelectionModel2;
         
         /// <summary>
-        /// pgpanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.Container pgpanel;
-        
-        /// <summary>
-        /// GridPanel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.GridPanel GridPanel1;
-        
-        /// <summary>
-        /// PagingToolbar1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Ext.Net.PagingToolbar PagingToolbar1;
-        
-        /// <summary>
         /// WinProcedimentos control.
         /// </summary>
         /// <remarks>
@@ -544,13 +526,13 @@ namespace SGSI.Web.Application {
         protected global::Ext.Net.TextArea TextArea1;
         
         /// <summary>
-        /// btnNorma control.
+        /// Caminhotxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Ext.Net.Button btnNorma;
+        protected global::Ext.Net.TextField Caminhotxt;
         
         /// <summary>
         /// GridHistoricoProcedimentos control.
@@ -650,5 +632,68 @@ namespace SGSI.Web.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Ext.Net.FileUploadField UploadNorma;
+        
+        /// <summary>
+        /// WindowDelegar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Window WindowDelegar;
+        
+        /// <summary>
+        /// FormDelegar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.FormPanel FormDelegar;
+        
+        /// <summary>
+        /// progressov control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.Hidden progressov;
+        
+        /// <summary>
+        /// TextFieldProcedimentoId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextFieldProcedimentoId;
+        
+        /// <summary>
+        /// CmbNewUserNome control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.ComboBox CmbNewUserNome;
+        
+        /// <summary>
+        /// TextNewUserEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextNewUserEmail;
+        
+        /// <summary>
+        /// TextNewUserCargo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Ext.Net.TextField TextNewUserCargo;
     }
 }

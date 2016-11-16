@@ -29,13 +29,18 @@ namespace SGSI.Web.Entity
             get;
             set;
         }
-           
-
+       
         public int TipoAcesso
         {
             get;
             set;
         }
+        public int DepartamentoId
+        {
+            get;
+            set;
+        }
+
         public int Retorno
         {
             get;

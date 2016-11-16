@@ -111,6 +111,7 @@
                         <ext:ModelField Name="Criacao" Type="Date" />
                         <ext:ModelField Name="Autor" />
                         <ext:ModelField Name="Atualizacao" Type="Date" />
+                        <ext:ModelField Name="Departamento" />
                     </Fields>
                 </ext:Model>
             </Model>
@@ -265,17 +266,22 @@
                                             <ColumnModel>
                                                 <Columns>
                                                     <ext:RowNumbererColumn runat="server" Width="30" />
+                                                    <ext:Column ID="ClnNormasId" runat="server" Text="NormaId" DataIndex="NormaId" Width="150" Hidden="true" />
                                                     <ext:Column ID="ClnNormasNome" runat="server" Text="Nome" DataIndex="Nome" Width="150" />
+                                                    <ext:Column ID="ClnNormasDepartamento" runat="server" Text="Departamento" DataIndex="Departamento" Width="200" />
                                                     <ext:Column runat="server" DataIndex="Caminho" Hidden="true" />
                                                     <ext:DateColumn ID="DateColumNormasCriac" runat="server" Format="dd/MM/yyyy HH:mm" Text="Data de Criação" DataIndex="Criacao" Width="200" />
                                                     <ext:Column ID="ClnNormasAutor" runat="server" Text="Autor" DataIndex="Autor" Width="170" />
                                                     <ext:DateColumn ID="DateColumNormasAtuali" runat="server" Format="dd/MM/yyyy HH:mm" Text="Data de Atualização" DataIndex="Atualizacao" Width="200" EmptyCellText="Não alterado" />
-                                                    <ext:CommandColumn runat="server" Width="65" Text="Anexos">
+                                                    <ext:CommandColumn runat="server" Width="100">
                                                         <Commands>
-                                                            <ext:GridCommand Icon="PageWhiteAcrobat" CommandName="Norma" ToolTip-Text="Ver Norma" />
+                                                            <ext:GridCommand Icon="PageWhiteAcrobat" CommandName="Norma" ToolTip-Text="Abrir Norma" />
+                                                            <ext:GridCommand Icon="PageWhiteEdit" CommandName="Atualizar" ToolTip-Text="Atualizar Norma" />
+                                                            <ext:GridCommand Icon="Delete" CommandName="Apagar" ToolTip-Text="Apagar " />
+                                                            <ext:GridCommand Icon="ApplicationViewDetail" CommandName="Historico" ToolTip-Text="Histórico " />
                                                         </Commands>
                                                         <Listeners>
-                                                            <Command Handler="Tcc.javaScript.gridNormas(command, record);" />
+                                                            <Command Handler="Tcc.javaScript.gridNormas(command, record, #{WindowAtualizarNorma}, #{FormAtualizarNorma});" />
                                                         </Listeners>
                                                     </ext:CommandColumn>
                                                 </Columns>
@@ -378,18 +384,54 @@
                 </ext:TabPanel>
 
                 <%--Janela cadastro de norma--%>
-                <ext:Window runat="server" ID="WinNorma" Title="Cadastro de Norma" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="400px" Height="350px" Hidden="true">
+                <ext:Window runat="server" ID="WinNorma" Title="Cadastro de Norma" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="400px" Hidden="true">
                     <Items>
-                        <ext:FormPanel runat="server" ID="FormNorma" Padding="10" Collapsed="false" Width="350" Height="300">
+                        <ext:FormPanel runat="server" ID="FormNorma" Border="false" Frame="true" BodyPadding="10" DefaultAnchor="100%" ButtonAlign="Center">
+                            <FieldDefaults
+                                LabelAlign="Top"
+                                LabelWidth="100"
+                                LabelStyle="font-weight:bold;" />
+                            <Defaults>
+                                <ext:Parameter Name="margin" Value="0 0 10 0" Mode="Value" />
+                            </Defaults>
                             <Items>
-                                <ext:TextField runat="server" ID="TextNomeNorma" FieldLabel="Nome" />
-                                <ext:FileUploadField runat="server" ID="UploadNorma" FieldLabel="Selecionar" Icon="PageWhiteAcrobat" />
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:TextField runat="server" ID="TextNomeNorma" FieldLabel="Nome" MarginSpec="0 0 0 10" />
+                                    </Items>
+                                </ext:FieldContainer>
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:ComboBox runat="server" ID="ComboBoxDptoNorma" Editable="false" FieldLabel="Departamento" Width="200" StoreID="storeDepartamentos"
+                                            ValueField="Id" DisplayField="Nome" EmptyText="Selecione um Departamento" MarginSpec="0 0 0 10" />
+                                    </Items>
+                                </ext:FieldContainer>
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
 
+                                    <Items>
+                                        <ext:FileUploadField ID="UploadNorma" runat="server" FieldLabel="Arquivo" EmptyText="Selecione um arquivo..." Width="300" ButtonText="Anexar.." Icon="Attach" MarginSpec="0 0 0 10" />
+                                    </Items>
+                                </ext:FieldContainer>
                             </Items>
                             <Buttons>
                                 <ext:Button runat="server" Text="Salvar" Icon="Accept">
                                     <Listeners>
-                                        <Click Handler="if(#{FormNorma}.isValid()) {Tcc.javaScript.salvarNorma(#{TextNomeNorma}.getValue())};" />
+                                        <Click Handler="if(#{FormNorma}.isValid()) {Tcc.javaScript.salvarNorma(#{TextNomeNorma}.getValue(), #{ComboBoxDptoNorma}.getValue(), #{storeCarregaNormas})};" />
                                     </Listeners>
                                 </ext:Button>
                                 <ext:Button runat="server" Text="Fechar" Icon="Decline">
@@ -402,10 +444,57 @@
                     </Items>
                 </ext:Window>
 
+                <%--Janela atualizar norma--%>
+                <ext:Window runat="server" ID="WindowAtualizarNorma" Title="Atualizar norma" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="320" Hidden="true">
+                    <Items>
+                        <ext:FormPanel runat="server" ID="FormAtualizarNorma" Frame="true" BodyPadding="10" DefaultAnchor="100%" ButtonAlign="Center">
+                            <FieldDefaults
+                                LabelAlign="Top"
+                                LabelWidth="100"
+                                LabelStyle="font-weight:bold;" />
+                            <Items>
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:TextField runat="server" ID="TextAtualizarNormaNome" Width="150" FieldLabel="Nome" DataIndex="Nome" Editable="false" />
+                                        <ext:Hidden runat="server" ID="HiddenAtualizarNormaId" DataIndex="NormaId"/>
+                                    </Items>
+                                </ext:FieldContainer>
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:FileUploadField runat="server" ID="UpdateUploadNorma" EmptyText="Selecione um arquivo..." FieldLabel="Nova norma" Width="250" Icon="PageWhiteAcrobat" />
+                                    </Items>
+                                </ext:FieldContainer>
+                            </Items>
+                            <Buttons>
+                                <ext:Button runat="server" Text="Salvar" Icon="Accept">
+                                    <Listeners>
+                                        <Click Handler="if(#{FormNorma}.isValid()) {Tcc.javaScript.atualizarNorma(#{HiddenAtualizarNormaId}.getValue(), #{TextAtualizarNormaNome}.getValue(), #{storeCarregaNormas})};" />
+                                    </Listeners>
+                                </ext:Button>
+                                <ext:Button runat="server" Text="Fechar" Icon="Decline">
+                                    <Listeners>
+                                        <Click Handler="#{WindowAtualizarNorma}.hide();" />
+                                    </Listeners>
+                                </ext:Button>
+                            </Buttons>
+                        </ext:FormPanel>
+                    </Items>
+                </ext:Window>
+
                 <%--###Janela de cadastro de Usuario###--%>
                 <ext:Window runat="server" ID="WinUsuario" Title="Cadastro de usuário" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="400px" Height="350px" Hidden="true">
                     <Items>
-                        <ext:FormPanel runat="server" ID="CadastroUsuario" Padding="10" Collapsed="false" Width="350" Height="300">
+                        <ext:FormPanel runat="server" ID="CadastroUsuario" Border="false" Frame="true" BodyPadding="10" DefaultAnchor="100%">
                             <Items>
                                 <ext:ComboBox runat="server" ID="CmbNewUserDpto" Editable="false" FieldLabel="Departamento" Anchor="100%" StoreID="storeDepartamentos"
                                     ValueField="Id" DisplayField="Nome" EmptyText="Selecione um Departamento">
