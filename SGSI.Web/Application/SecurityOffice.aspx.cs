@@ -9,10 +9,11 @@ using SGSI.Web.Business;
 using SGSI.Web.Entity;
 using Newtonsoft;
 using System.Security.Permissions;
+using System.IO;
 
 namespace SGSI.Web.Application
 {
-    public partial class SecurityOffice : System.Web.UI.Page 
+    public partial class SecurityOffice : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -61,7 +62,7 @@ namespace SGSI.Web.Application
         [DirectMethod]
         public int SalvarNorma(string nome, int dpId)
         {
-            
+
             int retorno;
             string autor = LabelEmail.Text;
             string destino = "/Normas/";
@@ -74,11 +75,12 @@ namespace SGSI.Web.Application
             retorno = ca.SalvarNorma(nome, dpId, path, criacao, autor);
             //storeCarregaNormas.Reload();
             return retorno;
-            
+
 
         }
         [DirectMethod]
-        public void AbrirNorma(string caminho) {
+        public void AbrirNorma(string caminho)
+        {
             System.Diagnostics.Process.Start(caminho);
 
         }
@@ -86,13 +88,13 @@ namespace SGSI.Web.Application
         [DirectMethod]
         public int AdicionarUsuario(string nome, string cargo, string departamento, string email, int tipo, string senha)
         {
-            
+
             int departamentoId = Convert.ToInt32(departamento);
             SGSIBusiness ca = new SGSIBusiness();
 
             return ca.AdicionarUsuario(nome, cargo, departamentoId, email, tipo, senha);
 
-            
+
 
         }
 
@@ -113,7 +115,8 @@ namespace SGSI.Web.Application
 
         }
         [DirectMethod]
-        public void CarregaHistoricoProc(string procId) {
+        public void CarregaHistoricoProc(string procId)
+        {
             int procedimentoId = Convert.ToInt32(procId);
             SGSIBusiness ca = new SGSIBusiness();
             storeHistoricoProc.DataSource = ca.CarregaHistoricoProc(procedimentoId);
@@ -129,10 +132,10 @@ namespace SGSI.Web.Application
             int dptoId = Convert.ToInt32(dpId);
             SGSIBusiness ca = new SGSIBusiness();
             return ca.SalvarProcedimento(solicitante, nome, norma, dptoId, dtInicial, dtFinal, situacaoId, progresso, descricao, situacaoHistoricoId);
-            
+
 
         }
-             
+
         [DirectMethod]
         public void CarregaEmailCargoFuncionario(string nome, string dpId)
         {
@@ -146,17 +149,17 @@ namespace SGSI.Web.Application
 
 
         [DirectMethod]
-        public int RemoverUsuario(string email)
+        public int AtualizarUsuario(string email, int ativo)
         {
             SGSIBusiness ca = new SGSIBusiness();
 
-            return ca.RemoverUsuario(email);
+            return ca.AtualizarUsuario(email, ativo);
         }
 
         [DirectMethod]
         public int AlterarSenhaUsuario(string email, string senha)
         {
-            
+
             SGSIBusiness ca = new SGSIBusiness();
 
             return ca.AlterarSenhaUsuario(email, senha);
@@ -181,7 +184,7 @@ namespace SGSI.Web.Application
 
 
         [DirectMethod]
-        public int ApagarNorma(string norma)
+        public int ApagarNorma(string norma, string caminho)
         {
             int normaId = Convert.ToInt32(norma);
             int retorno;
@@ -189,6 +192,7 @@ namespace SGSI.Web.Application
             retorno = ca.ApagarNorma(normaId);
             if (retorno == 1)
             {
+                File.Delete(caminho);
                 storeCarregaNormas.Reload();
             }
 
@@ -217,5 +221,15 @@ namespace SGSI.Web.Application
 
             return retorno;
         }
+
+        [DirectMethod]
+        public void CarregaHistoricoNorma(string norma)
+        {
+            int normaId = Convert.ToInt32(norma);
+            SGSIBusiness ca = new SGSIBusiness();
+            storeCarregaHistoricoNorma.DataSource = ca.CarregaHistoricoNorma(normaId);
+            storeCarregaHistoricoNorma.DataBind();
+        }
+
     }
 }

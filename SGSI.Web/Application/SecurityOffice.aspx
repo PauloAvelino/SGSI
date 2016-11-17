@@ -21,9 +21,13 @@
                         <ext:ModelField Name="Departamento" />
                         <ext:ModelField Name="Cargo" />
                         <ext:ModelField Name="Email" />
+                        <ext:ModelField Name="Ativo" Type="Int" />
                     </Fields>
                 </ext:Model>
             </Model>
+            <Sorters>
+                <ext:DataSorter Property="Ativo" Direction="DESC" />
+            </Sorters>
         </ext:Store>
         <ext:Store ID="storeProcedimentos" runat="server" AutoLoad="true">
             <Model>
@@ -116,6 +120,18 @@
                 </ext:Model>
             </Model>
         </ext:Store>
+        <ext:Store ID="storeCarregaHistoricoNorma" runat="server" AutoLoad="true">
+            <Model>
+                <ext:Model runat="server" IDProperty="HistoricoNormaId">
+                    <Fields>
+                        <ext:ModelField Name="HistoricoNormaId" />
+                        <ext:ModelField Name="Usuario" />
+                        <ext:ModelField Name="Situacao" />
+                        <ext:ModelField Name="DataAtualizacao" Type="Date" />
+                    </Fields>
+                </ext:Model>
+            </Model>
+        </ext:Store>
         <ext:Hidden runat="server" ID="HUserName" />
         <ext:Viewport runat="server" Layout="FitLayout" Region="Center">
             <Items>
@@ -163,7 +179,7 @@
                                         <ext:GridPanel
                                             ID="GridProcedimentos"
                                             RowLines="true"
-                                            Title="Normas Cadastradas"
+                                            Title="Procedimentos Cadastrados"
                                             TitleAlign="Center"
                                             Header="true"
                                             TrackMouseOver="false"
@@ -281,7 +297,7 @@
                                                             <ext:GridCommand Icon="ApplicationViewDetail" CommandName="Historico" ToolTip-Text="Histórico " />
                                                         </Commands>
                                                         <Listeners>
-                                                            <Command Handler="Tcc.javaScript.gridNormas(command, record, #{WindowAtualizarNorma}, #{FormAtualizarNorma});" />
+                                                            <Command Handler="Tcc.javaScript.gridNormas(command, record, #{WindowAtualizarNorma}, #{FormAtualizarNorma}, #{WindowHistoricoNorma}, #{FormHistoricoNormas});" />
                                                         </Listeners>
                                                     </ext:CommandColumn>
                                                 </Columns>
@@ -336,7 +352,6 @@
                             </LayoutConfig>
                             <Items>
                                 <ext:Container runat="server" ID="Container3" Layout="FitLayout" ResizeHandles="All" HeightSpec="100%" WidthSpec="100%" StyleSpec="Width:100%" MonitorResize="true" AnchorVertical="100%" AnchorHorizontal="100%" Region="Center">
-
                                     <Items>
                                         <ext:GridPanel
                                             ID="GridUsuarios"
@@ -354,11 +369,14 @@
                                                     <ext:Column ID="Column2" runat="server" Text="Departamento" DataIndex="Departamento" Width="200" />
                                                     <ext:Column ID="Column3" runat="server" Text="Cargo" DataIndex="Cargo" Width="150" />
                                                     <ext:Column ID="Column4" runat="server" Text="E-mail" DataIndex="Email" Width="230" />
-                                                    <ext:CommandColumn runat="server" Width="65">
+                                                    <ext:Column ID="TextAtivo" runat="server" Hidden="true" DataIndex="Ativo" />
+                                                    <ext:CommandColumn runat="server" Width="70">
                                                         <Commands>
-                                                            <ext:GridCommand Icon="Delete" CommandName="Apagar" ToolTip-Text="Apagar" />
                                                             <ext:GridCommand Icon="Key" CommandName="Senha" ToolTip-Text="Alterar Senha" />
+                                                            <ext:GridCommand Icon="Accept" CommandName="Ativar" ToolTip-Text="Ativar usuário" Hidden="true" />
+                                                            <ext:GridCommand Icon="Cross" CommandName="Desativar" ToolTip-Text="Desativar usuário" />
                                                         </Commands>
+                                                        <PrepareToolbar Fn="Tcc.javaScript.desabilitarCommandUsuarios" />
                                                         <Listeners>
                                                             <Command Handler="Tcc.javaScript.gridUsuarios(command, record, #{storeUsuarios}, #{WinAtualizarSenha}, #{formSenha});" />
                                                         </Listeners>
@@ -384,9 +402,9 @@
                 </ext:TabPanel>
 
                 <%--Janela cadastro de norma--%>
-                <ext:Window runat="server" ID="WinNorma" Title="Cadastro de Norma" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="400px" Hidden="true">
+                <ext:Window runat="server" ID="WinNorma" Title="Cadastro de Norma" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="400px" Hidden="true" ButtonAlign="Center">
                     <Items>
-                        <ext:FormPanel runat="server" ID="FormNorma" Border="false" Frame="true" BodyPadding="10" DefaultAnchor="100%" ButtonAlign="Center">
+                        <ext:FormPanel runat="server" ID="FormNorma" Border="false" Frame="true" BodyPadding="10" DefaultAnchor="100%">
                             <FieldDefaults
                                 LabelAlign="Top"
                                 LabelWidth="100"
@@ -428,26 +446,26 @@
                                     </Items>
                                 </ext:FieldContainer>
                             </Items>
-                            <Buttons>
-                                <ext:Button runat="server" Text="Salvar" Icon="Accept">
-                                    <Listeners>
-                                        <Click Handler="if(#{FormNorma}.isValid()) {Tcc.javaScript.salvarNorma(#{TextNomeNorma}.getValue(), #{ComboBoxDptoNorma}.getValue(), #{storeCarregaNormas})};" />
-                                    </Listeners>
-                                </ext:Button>
-                                <ext:Button runat="server" Text="Fechar" Icon="Decline">
-                                    <Listeners>
-                                        <Click Handler="#{WinNorma}.hide();" />
-                                    </Listeners>
-                                </ext:Button>
-                            </Buttons>
                         </ext:FormPanel>
                     </Items>
+                    <Buttons>
+                        <ext:Button runat="server" Text="Salvar" Icon="Accept">
+                            <Listeners>
+                                <Click Handler="if(#{FormNorma}.isValid()) {Tcc.javaScript.salvarNorma(#{TextNomeNorma}.getValue(), #{ComboBoxDptoNorma}.getValue(), #{storeCarregaNormas})};" />
+                            </Listeners>
+                        </ext:Button>
+                        <ext:Button runat="server" Text="Fechar" Icon="Decline">
+                            <Listeners>
+                                <Click Handler="#{WinNorma}.hide();" />
+                            </Listeners>
+                        </ext:Button>
+                    </Buttons>
                 </ext:Window>
 
                 <%--Janela atualizar norma--%>
-                <ext:Window runat="server" ID="WindowAtualizarNorma" Title="Atualizar norma" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="320" Hidden="true">
+                <ext:Window runat="server" ID="WindowAtualizarNorma" Title="Atualizar norma" Closable="false" TitleAlign="Center" ButtonAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="320" Hidden="true">
                     <Items>
-                        <ext:FormPanel runat="server" ID="FormAtualizarNorma" Frame="true" BodyPadding="10" DefaultAnchor="100%" ButtonAlign="Center">
+                        <ext:FormPanel runat="server" ID="FormAtualizarNorma" Frame="true" BodyPadding="10" DefaultAnchor="100%">
                             <FieldDefaults
                                 LabelAlign="Top"
                                 LabelWidth="100"
@@ -461,7 +479,7 @@
                                     <FieldDefaults LabelAlign="Top" />
                                     <Items>
                                         <ext:TextField runat="server" ID="TextAtualizarNormaNome" Width="150" FieldLabel="Nome" DataIndex="Nome" Editable="false" />
-                                        <ext:Hidden runat="server" ID="HiddenAtualizarNormaId" DataIndex="NormaId"/>
+                                        <ext:Hidden runat="server" ID="HiddenAtualizarNormaId" DataIndex="NormaId" />
                                     </Items>
                                 </ext:FieldContainer>
                                 <ext:FieldContainer
@@ -475,24 +493,24 @@
                                     </Items>
                                 </ext:FieldContainer>
                             </Items>
-                            <Buttons>
-                                <ext:Button runat="server" Text="Salvar" Icon="Accept">
-                                    <Listeners>
-                                        <Click Handler="if(#{FormNorma}.isValid()) {Tcc.javaScript.atualizarNorma(#{HiddenAtualizarNormaId}.getValue(), #{TextAtualizarNormaNome}.getValue(), #{storeCarregaNormas})};" />
-                                    </Listeners>
-                                </ext:Button>
-                                <ext:Button runat="server" Text="Fechar" Icon="Decline">
-                                    <Listeners>
-                                        <Click Handler="#{WindowAtualizarNorma}.hide();" />
-                                    </Listeners>
-                                </ext:Button>
-                            </Buttons>
                         </ext:FormPanel>
                     </Items>
+                    <Buttons>
+                        <ext:Button runat="server" Text="Salvar" Icon="Accept">
+                            <Listeners>
+                                <Click Handler="if(#{FormNorma}.isValid()) {Tcc.javaScript.atualizarNorma(#{HiddenAtualizarNormaId}.getValue(), #{TextAtualizarNormaNome}.getValue(), #{storeCarregaNormas})};" />
+                            </Listeners>
+                        </ext:Button>
+                        <ext:Button runat="server" Text="Fechar" Icon="Decline">
+                            <Listeners>
+                                <Click Handler="#{WindowAtualizarNorma}.hide();" />
+                            </Listeners>
+                        </ext:Button>
+                    </Buttons>
                 </ext:Window>
 
                 <%--###Janela de cadastro de Usuario###--%>
-                <ext:Window runat="server" ID="WinUsuario" Title="Cadastro de usuário" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="400px" Height="350px" Hidden="true">
+                <ext:Window runat="server" ID="WinUsuario" Title="Cadastro de usuário" Closable="false" TitleAlign="Center" ButtonAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="400px" Height="350px" Hidden="true">
                     <Items>
                         <ext:FormPanel runat="server" ID="CadastroUsuario" Border="false" Frame="true" BodyPadding="10" DefaultAnchor="100%">
                             <Items>
@@ -512,51 +530,74 @@
                                 <ext:ComboBox runat="server" ID="CmbNewUserTipo" FieldLabel="Permissão" Editable="false" AllowBlank="false" StoreID="storeGrupoUsuarios" DataIndex="Descricao" DisplayField="Descricao" ValueField="AcessoId" EmptyText="Carregando..." />
                                 <ext:TextField runat="server" ID="TextNewUserSenha" InputType="Password" MaxLengthText="10" FieldLabel="Senha" AllowBlank="false" />
                             </Items>
-                            <Buttons>
-                                <ext:Button runat="server" Text="Salvar" Icon="Accept">
-                                    <Listeners>
-                                        <Click Handler="if(#{CadastroUsuario}.isValid()) {Tcc.javaScript.cadastroUsuario(#{CmbNewUserDpto}.getValue(), #{CmbNewUserNome}.getValue(), #{TextNewUserEmail}.getValue(),
-                                        #{TextNewUserCargo}.getValue(), #{CmbNewUserTipo}.getValue(), #{TextNewUserSenha}.getValue(), #{WinUsuario}, #{storeUsuarios})};" />
-                                    </Listeners>
-                                </ext:Button>
-                                <ext:Button runat="server" Text="Fechar" Icon="Decline">
-                                    <Listeners>
-                                        <Click Handler="#{WinUsuario}.hide();" />
-                                    </Listeners>
-                                </ext:Button>
-                            </Buttons>
                         </ext:FormPanel>
                     </Items>
+                    <Buttons>
+                        <ext:Button runat="server" Text="Salvar" Icon="Accept">
+                            <Listeners>
+                                <Click Handler="if(#{CadastroUsuario}.isValid()) {Tcc.javaScript.cadastroUsuario(#{CmbNewUserDpto}.getValue(), #{CmbNewUserNome}.getValue(), #{TextNewUserEmail}.getValue(),
+                                        #{TextNewUserCargo}.getValue(), #{CmbNewUserTipo}.getValue(), #{TextNewUserSenha}.getValue(), #{WinUsuario}, #{storeUsuarios})};" />
+                            </Listeners>
+                        </ext:Button>
+                        <ext:Button runat="server" Text="Fechar" Icon="Decline">
+                            <Listeners>
+                                <Click Handler="#{WinUsuario}.hide();" />
+                            </Listeners>
+                        </ext:Button>
+                    </Buttons>
                 </ext:Window>
 
                 <%--###Janela de alteração de senha###--%>
-                <ext:Window runat="server" ID="WinAtualizarSenha" Width="300" Height="250" Modal="true" Hidden="true" Title="Alterar Senha" Padding="5" TitleAlign="Center" Closable="false">
+                <ext:Window runat="server" ID="WinAtualizarSenha" Title="Alterar senha" Closable="false" TitleAlign="Center" ButtonAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="250" Hidden="true">
                     <Items>
-                        <ext:FormPanel runat="server" ID="formSenha" Width="300" Height="200" Padding="10">
+                        <ext:FormPanel runat="server" ID="formSenha" Frame="true" BodyPadding="10" DefaultAnchor="100%">
+                            <FieldDefaults
+                                LabelAlign="Top"
+                                LabelWidth="100"
+                                LabelStyle="font-weight:bold;" />
                             <Items>
-                                <ext:TextField runat="server" ID="TextAlerarSenha" InputType="Password" MaxLength="10" MaxLengthText="10" FieldLabel="Nova Senha" Anchor="80%" />
-                                <ext:TextField runat="server" ID="TextEmailSenha" Editable="false" DataIndex="Email" Hidden="true" FieldLabel="E-mail" />
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:TextField runat="server" ID="TextAlerarSenha" InputType="Password" MaxLength="10" MaxLengthText="10" MarginSpec="0 0 0 20" FieldLabel="Nova Senha" Anchor="80%" />
+                                        <ext:TextField runat="server" ID="TextEmailSenha" Editable="false" DataIndex="Email" Hidden="true" FieldLabel="E-mail" />
+                                    </Items>
+                                </ext:FieldContainer>
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:TextField runat="server" ID="TextFieldConfirmaSenha" InputType="Password" MarginSpec="0 0 0 20" MaxLength="10" MaxLengthText="10" FieldLabel="Confirmar Senha" Anchor="80%" />
+                                    </Items>
+                                </ext:FieldContainer>
                             </Items>
-                            <Buttons>
-                                <ext:Button runat="server" ID="btnSalvarSenha" Text="Salvar">
-                                    <Listeners>
-                                        <Click Handler="Tcc.javaScript.alterarSenha(#{TextEmailSenha}.getValue(), #{TextAlerarSenha}.getValue(), #{WinAtualizarSenha});" />
-                                    </Listeners>
-                                </ext:Button>
-                                <ext:Button runat="server" ID="btnFecharSenha" Text="Fechar">
-                                    <Listeners>
-                                        <Click Handler="#{WinAtualizarSenha}.hide()" />
-                                    </Listeners>
-                                </ext:Button>
-                            </Buttons>
                         </ext:FormPanel>
                     </Items>
+                    <Buttons>
+                        <ext:Button runat="server" ID="btnSalvarSenha" Icon="Accept" Text="Salvar">
+                            <Listeners>
+                                <Click Handler="Tcc.javaScript.alterarSenha(#{TextEmailSenha}.getValue(), #{TextAlerarSenha}.getValue(), #{TextFieldConfirmaSenha}.getValue(), #{WinAtualizarSenha});" />
+                            </Listeners>
+                        </ext:Button>
+                        <ext:Button runat="server" ID="btnFecharSenha" Icon="Decline" Text="Fechar">
+                            <Listeners>
+                                <Click Handler="#{WinAtualizarSenha}.hide()" />
+                            </Listeners>
+                        </ext:Button>
+                    </Buttons>
                 </ext:Window>
 
                 <%--Janela de procedimentos--%>
-                <ext:Window runat="server" ID="WinProcedimentos" Title="Cadastro de Procedimento" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="600px" Height="450px" Hidden="true">
+                <ext:Window runat="server" ID="WinProcedimentos" Title="Cadastro de Procedimento" Closable="false" TitleAlign="Center" ButtonAlign="Center" AutoHeight="true" Padding="5" Modal="true" Width="600px" Hidden="true">
                     <Items>
-                        <ext:FormPanel runat="server" ID="FormProcedimentos" Border="false" Frame="true" BodyPadding="10" DefaultAnchor="100%">
+                        <ext:FormPanel runat="server" ID="FormProcedimentos" Border="false" Frame="true" BodyPadding="10" DefaultAnchor="100%" >
                             <FieldDefaults
                                 LabelAlign="Top"
                                 LabelWidth="100"
@@ -600,27 +641,26 @@
                                     </Items>
                                 </ext:FieldContainer>
                                 <ext:TextArea runat="server" MarginSpec="0 20 0 10" Padding="10" FieldLabel="Descrição" ID="TextDescricao" MaxLengthText="250" AllowBlank="false" />
-
                             </Items>
-                            <Buttons>
-                                <ext:Button runat="server" Text="Salvar" Icon="Accept">
-                                    <Listeners>
-                                        <Click Handler="if(#{FormProcedimentos}.isValid()) {Tcc.javaScript.salvarProcedimento(#{TextProcNome}.getValue(), #{CmbProcNorma}.getValue(), #{CmbProcDepartamentos}.getValue(),
-                                        #{DateProcInicial}.getValue(), #{DateProcFinal}.getValue(), #{TextDescricao}.getValue(), #{WinProcedimentos}, #{storeProcedimentos})};" />
-                                    </Listeners>
-                                </ext:Button>
-                                <ext:Button runat="server" Text="Fechar" Icon="Decline">
-                                    <Listeners>
-                                        <Click Handler="#{WinProcedimentos}.hide();" />
-                                    </Listeners>
-                                </ext:Button>
-                            </Buttons>
                         </ext:FormPanel>
                     </Items>
+                    <Buttons>
+                        <ext:Button runat="server" Text="Salvar" Icon="Accept">
+                            <Listeners>
+                                <Click Handler="if(#{FormProcedimentos}.isValid()) {Tcc.javaScript.salvarProcedimento(#{TextProcNome}.getValue(), #{CmbProcNorma}.getValue(), #{CmbProcDepartamentos}.getValue(),
+                                        #{DateProcInicial}.getValue(), #{DateProcFinal}.getValue(), #{TextDescricao}.getValue(), #{WinProcedimentos}, #{storeProcedimentos})};" />
+                            </Listeners>
+                        </ext:Button>
+                        <ext:Button runat="server" Text="Fechar" Icon="Decline">
+                            <Listeners>
+                                <Click Handler="#{WinProcedimentos}.hide();" />
+                            </Listeners>
+                        </ext:Button>
+                    </Buttons>
                 </ext:Window>
 
                 <%--Janela de detalhes do procedimentos--%>
-                <ext:Window runat="server" ID="WinDetalhes" Title="Detalhes" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Hidden="true" Modal="true" Width="800px" Height="650px">
+                <ext:Window runat="server" ID="WinDetalhes" Title="Detalhes procedimento" Closable="false" TitleAlign="Center" ButtonAlign="Center" AutoHeight="true" Padding="5" Hidden="true" Modal="true" Width="800px" Height="650px">
                     <Items>
                         <ext:FormPanel runat="server" ID="FormDetalhes" Border="false" Frame="true" BodyPadding="10" DefaultAnchor="100%">
                             <FieldDefaults
@@ -712,12 +752,6 @@
                         </ext:GridPanel>
                     </Items>
                     <Buttons>
-                        <ext:Button runat="server" Text="Salvar" Icon="Accept">
-                            <Listeners>
-                                <Click Handler="if(#{FormProcedimentos}.isValid()) {Tcc.javaScript.salvarProcedimento(#{TextProcNome}.getValue(), #{CmbProcNorma}.getValue(), #{CmbProcDepartamentos}.getValue(),
-                                        #{DateProcInicial}.getValue(), #{DateProcFinal}.getValue(), #{TextDescricao}.getValue(), #{WinProcedimentos}, #{storeProcedimentos})};" />
-                            </Listeners>
-                        </ext:Button>
                         <ext:Button runat="server" Text="Fechar" Icon="Decline">
                             <Listeners>
                                 <Click Handler="#{WinDetalhes}.hide();" />
@@ -726,6 +760,84 @@
                     </Buttons>
                 </ext:Window>
 
+
+                <%--Janela de detalhes norma--%>
+                <ext:Window runat="server" ID="WindowHistoricoNorma" Title="Historico Norma" Closable="false" TitleAlign="Center" AutoHeight="true" Padding="5" Hidden="true" ButtonAlign="Center" Modal="true" Width="600">
+                    <Items>
+                        <ext:FormPanel runat="server" ID="FormHistoricoNormas" Border="false" Frame="true" BodyPadding="10" DefaultAnchor="100%">
+                            <FieldDefaults
+                                LabelAlign="Top"
+                                LabelWidth="100"
+                                LabelStyle="font-weight:bold;" />
+                            <Defaults>
+                                <ext:Parameter Name="margin" Value="0 0 10 0" Mode="Value" />
+                            </Defaults>
+                            <Items>
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:TextField runat="server" Width="180" FieldLabel="Nome" MarginSpec="0 0 0 10" Editable="false" DataIndex="Nome" />
+                                    </Items>
+                                </ext:FieldContainer>
+                                <ext:FieldContainer
+                                    runat="server"
+                                    Padding="10"
+                                    LabelStyle="font-weight:bold;padding:0;"
+                                    Layout="HBoxLayout">
+                                    <FieldDefaults LabelAlign="Top" />
+                                    <Items>
+                                        <ext:TextField runat="server" Hidden="true" ID="TxtCaminhoNormaHistorico" DataIndex="Caminho" />
+                                        <ext:Button runat="server" Text="Abrir norma" MarginSpec="0 0 0 10" Icon="PageWhiteAcrobat">
+                                            <Listeners>
+                                                <Click Handler="Tcc.javaScript.abrirNorma(#{TxtCaminhoNormaHistorico}.getValue());" />
+                                            </Listeners>
+                                        </ext:Button>
+                                    </Items>
+                                </ext:FieldContainer>
+                            </Items>
+                        </ext:FormPanel>
+                        <ext:GridPanel
+                            ID="GridHistoricoNorma"
+                            runat="server"
+                            RowLines="true"
+                            Title="Histórico de atualizações da norma"
+                            TitleAlign="Center"
+                            ColumnLines="true"
+                            DefaultAnchor="100%"
+                            Fixed="true"
+                            StoreID="storeCarregaHistoricoNorma">
+                            <ColumnModel>
+                                <Columns>
+                                    <ext:RowNumbererColumn runat="server" Width="30" />
+                                    <ext:Column ID="Column9" runat="server" Text="HistoricoId" DataIndex="HistoricoNormaId" Hidden="true" />
+                                    <ext:DateColumn runat="server" Format="dd/MM/yyyy HH:mm" Text="Data da Atualização" DataIndex="DataAtualizacao" Width="200" />
+                                    <ext:Column runat="server" Text="Usuario" Width="180" DataIndex="Usuario" />
+                                    <ext:Column ID="Column10" runat="server" Text="Usuario" DataIndex="Situacao" Width="170" />
+                                </Columns>
+                            </ColumnModel>
+                            <BottomBar>
+                                <ext:PagingToolbar ID="PagingToolbar5" runat="server" PageSize="2" />
+                            </BottomBar>
+                            <SelectionModel>
+                                <ext:RowSelectionModel ID="RowSelectionModel5" runat="server" Mode="Multi">
+                                </ext:RowSelectionModel>
+                            </SelectionModel>
+                            <ViewConfig StripeRows="true">
+                            </ViewConfig>
+                        </ext:GridPanel>
+                    </Items>
+                    <Buttons>
+                        <ext:Button runat="server" Text="Fechar" Icon="Decline">
+                            <Listeners>
+                                <Click Handler="#{WindowHistoricoNorma}.hide();" />
+                            </Listeners>
+                        </ext:Button>
+                    </Buttons>
+                </ext:Window>
             </Items>
         </ext:Viewport>
 

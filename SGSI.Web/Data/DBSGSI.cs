@@ -162,36 +162,16 @@ namespace SGSI.Web.Data
                 );
         }
 
-        //public int ConsultarLogin(string email, string senha)
-        //{
-        //    int p_retorno = 0;
-
-        //    SqlHelperFactory.ExecuteNonQuery(
-        //        SGSI.Settings.Settings.Default.InstanceDB,
-        //        "ValidarLogin",
-        //        new object[] {
-        //        email,
-        //        senha,
-        //        p_retorno},
-
-        //        delegate (Database db, DbCommand commandWrapper)
-        //        {
-        //            p_retorno = Convert.ToInt32(db.GetParameterValue(commandWrapper, "p_retorno"));
-        //        }
-        //        );
-
-        //    return p_retorno;
-
-        //}
-        public int RemoverUsuario(string email)
+        public int AtualizarUsuario(string email, int ativo)
         {
             int p_retorno = 0;
 
             SqlHelperFactory.ExecuteNonQuery(
                 SGSI.Settings.Settings.Default.InstanceDB,
-                "RemoverUsuarios",
+                "AtivaDesativaUsuarios",
                 new object[] {
                 email,
+                ativo,
                 p_retorno},
 
                 delegate (Database db, DbCommand commandWrapper)
@@ -286,7 +266,7 @@ namespace SGSI.Web.Data
             return p_retorno;
 
         }
-        
+
 
         public int ApagarProcedimento(int procedimentoId)
         {
@@ -351,6 +331,17 @@ namespace SGSI.Web.Data
 
             return p_retorno;
 
+        }
+
+        public List<TValue> CarregaHistoricoNorma<TValue>(CreateInstanceBindingHandler<TValue> binding, int normaId)
+        {
+            return SqlHelperFactory.GetListCreateInstanceDB<TValue>(
+               SGSI.Settings.Settings.Default.InstanceDB,
+               "CarregaHistoricoNormas",
+                binding,
+                   new object[] {
+                   normaId
+                });
         }
 
     }

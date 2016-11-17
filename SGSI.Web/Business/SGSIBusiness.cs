@@ -45,7 +45,8 @@ namespace SGSI.Web.Business
                     Nome = SqlHelper.GetString(dr, "Nome"),
                     Departamento = SqlHelper.GetString(dr, "Departamento"),
                     Cargo = SqlHelper.GetString(dr, "Cargo"),
-                    Email = SqlHelper.GetString(dr, "Email")
+                    Email = SqlHelper.GetString(dr, "Email"),
+                    Ativo = SqlHelper.GetInt(dr, "Ativo")
                 };
             });
 
@@ -203,12 +204,12 @@ namespace SGSI.Web.Business
             return db.ConsultarLogin<EntityUsuarios>(EntityUsuarios.Binding, email, senha);
         }
 
-        public int RemoverUsuario(string email)
+        public int AtualizarUsuario(string email, int ativo)
         {
 
             DBSGSI db = new DBSGSI();
 
-            return db.RemoverUsuario(email);
+            return db.AtualizarUsuario(email, ativo);
         }
 
         public int AlterarSenhaUsuario(string email, string senha)
@@ -232,6 +233,23 @@ namespace SGSI.Web.Business
         {
             DBSGSI db = new DBSGSI();
             return db.AtualizarNorma(normaId, data, autor);
+        }
+
+        public List<object> CarregaHistoricoNorma(int normaId)
+        {
+            DBSGSI db = new DBSGSI();
+            return db.CarregaHistoricoNorma<object>(delegate (IDataReader dr)
+            {
+                return new
+                {
+
+                    HistoricoNormaId = SqlHelper.GetInt(dr, "HistoricoNormaId"),                  
+                    Usuario = SqlHelper.GetString(dr, "Usuario"),
+                    Situacao = SqlHelper.GetString(dr, "Situacao"),
+                    DataAtualizacao = SqlHelper.GetDateTime(dr, "DataAtualizacao")
+                };
+            }, normaId);
+
         }
     }
 }

@@ -68,7 +68,7 @@ Tcc.javaScript = {
 
                 if (result == 1) {
                     Ext.Msg.show({
-                        msg: 'Norma cadastrada com sucesso!',
+                        msg: 'Norma atualizada com sucesso!',
                         buttons: Ext.Msg.OK,
                         title: 'Aviso'
                     });
@@ -77,7 +77,7 @@ Tcc.javaScript = {
 
                 else if (result == 2) {
                     Ext.Msg.show({
-                        msg: 'Esta norma já esta cadastrada no sistema!',
+                        msg: 'Não foi possivel atualizar a norma!',
                         buttons: Ext.Msg.OK,
                         title: 'Aviso'
                     });
@@ -184,7 +184,7 @@ Tcc.javaScript = {
     abrirNorma: function (caminho) {
         SGSI.AbrirNorma(caminho);
     },
-    gridNormas: function (command, record, WinAtualizarNorma, form) {
+    gridNormas: function (command, record, WinAtualizarNorma, form, WinHistoricoNorma, formHistoricoNorma) {
         switch (command) {
             case ('Norma'):
                 SGSI.AbrirNorma(record.data.Caminho);
@@ -193,7 +193,7 @@ Tcc.javaScript = {
             case ('Apagar'):
                 Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de apagar esta norma', function (btn) {
                     if (btn == 'yes') {
-                        SGSI.ApagarNorma(record.data.NormaId, {
+                        SGSI.ApagarNorma(record.data.NormaId, record.data.Caminho, {
                             showFailureWarning: true,
                             success: function (result) {
                                 if (result == 1) {
@@ -214,19 +214,27 @@ Tcc.javaScript = {
                 form.getForm().loadRecord(record);
                 WinAtualizarNorma.show();
                 break;
+
+
+            case ('Historico'):
+                formHistoricoNorma.reset();
+                formHistoricoNorma.getForm().loadRecord(record);
+                SGSI.CarregaHistoricoNorma(record.data.NormaId);
+                WinHistoricoNorma.show();
+                break;
         }
     },
     gridUsuarios: function (command, record, storeUsuarios, WinAtualizarSenha, form) {
         switch (command) {
-            case ('Apagar'):
-                Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de remover este usuário?', function (btn) {
+            case ('Desativar'):
+                Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de desativar usuário de ' + record.data.Nome + ' ?', function (btn) {
                     if (btn == 'yes') {
-                        SGSI.RemoverUsuario(record.data.Email, {
+                        SGSI.AtualizarUsuario(record.data.Email, 0, {
                             showFailureWarning: true,
                             success: function (result) {
                                 if (result == 1) {
                                     Ext.Msg.show({
-                                        msg: 'Senha alterada com sucesso',
+                                        msg: 'O usuário ' + record.data.Email + ' foi desativado com sucesso!',
                                         buttons: Ext.Msg.OK,
                                         title: 'Aviso'
                                     });
@@ -238,6 +246,25 @@ Tcc.javaScript = {
                 })
                 break;
 
+            case ('Ativar'):
+                Ext.Msg.confirm('Aviso', 'Tem certeza que gostaria de ativar o usuário de ' + record.data.Nome + ' ?', function (btn) {
+                    if (btn == 'yes') {
+                        SGSI.AtualizarUsuario(record.data.Email, 1, {
+                            showFailureWarning: true,
+                            success: function (result) {
+                                if (result == 1) {
+                                    Ext.Msg.show({
+                                        msg: 'O usuário ' + record.data.Email + ' foi ativado com sucesso!',
+                                        buttons: Ext.Msg.OK,
+                                        title: 'Aviso'
+                                    });
+                                    storeUsuarios.reload();
+                                }
+                            }
+                        })
+                    }
+                })
+                break;
             case ('Senha'):
                 form.reset();
                 form.getForm().loadRecord(record);
@@ -324,22 +351,44 @@ Tcc.javaScript = {
         });
     },
 
-    alterarSenha: function (email, senha, winAtualizarSenha) {
-        SGSI.AlterarSenhaUsuario(email, senha, {
-            showFailureWarning: true,
-            success: function (result) {
+    alterarSenha: function (email, senha, confirmaSenha, winAtualizarSenha) {
+        if (senha != confirmaSenha) {
+            Ext.Msg.show({
+                msg: 'As senhas não conferem!',
+                buttons: Ext.Msg.OK,
+                title: 'Aviso'
+            });
+        } else {
+            SGSI.AlterarSenhaUsuario(email, senha, {
+                showFailureWarning: true,
+                success: function (result) {
 
-                if (result == 1) {
-                    Ext.Msg.show({
-                        msg: 'Senha alterada com sucesso',
-                        buttons: Ext.Msg.OK,
-                        title: 'Aviso'
-                    });
-                    winAtualizarSenha.hide();
+                    if (result == 1) {
+                        Ext.Msg.show({
+                            msg: 'Senha alterada com sucesso',
+                            buttons: Ext.Msg.OK,
+                            title: 'Aviso'
+                        });
+                        winAtualizarSenha.hide();
+                    }
                 }
-            }
-        })
+            })
+        }
     },
+
+    desabilitarCommandUsuarios: function (grid, toolbar, rowIndex, record) {
+        var command = toolbar.items.get(0);
+        var command1 = toolbar.items.get(1);
+        var command2 = toolbar.items.get(2);
+
+        if (record.data.Ativo == 0) {
+            command.setHidden(true);
+            command1.setHidden(false);
+            command2.setHidden(true);
+        }
+
+    },
+
     desabilitarCommand: function (grid, toolbar, rowIndex, record) {
         var command = toolbar.items.get(0);
         var command1 = toolbar.items.get(1);
