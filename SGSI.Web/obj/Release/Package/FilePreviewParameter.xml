@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="sgsitcc" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\pavelino\\Desktop\\TCC\\SGSI\\SGSI\.Web\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\Users\\pavelino\\Desktop\\TCC\\SGSI\\SGSI\.Web\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="TccConnectionString-Web.config Connection String" description="" value="Data Source=WINDOWS;Initial Catalog=Tcc;Persist Security Info=True;User ID=paulo;Password=Larissa94" tags="">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\pavelino\\Desktop\\TCC\\SGSI\\SGSI\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TccConnectionString']/@connectionString" />
+  </parameter>
+</parameters>

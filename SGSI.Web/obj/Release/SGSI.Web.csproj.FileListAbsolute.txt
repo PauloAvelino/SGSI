@@ -41,3 +41,46 @@ C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\log4net.xml
 C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Caching.xml
 C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\obj\Release\SGSI.Web.dll
 C:\Users\Paulo Junior\Desktop\GitHub\SGSI\SGSI.Web\obj\Release\SGSI.Web.pdb
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\SGSI.Web.dll.config
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\SGSI.Web.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\SGSI.Web.pdb
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\EcmaScript.NET.modified.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Ext.Net.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Ext.Net.Utilities.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.ServiceLocation.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.Configuration.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Newtonsoft.Json.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Rejuicer.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\SGSI.Data.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\SGSI.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Transformer.NET.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\WebActivator.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\WebActivatorEx.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Yahoo.Yui.Compressor.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\log4net.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\SGSI.Data.pdb
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\SGSI.pdb
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Ext.Net.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Ext.Net.Utilities.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Data.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.ServiceLocation.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.Unity.Interception.Configuration.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Newtonsoft.Json.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Transformer.NET.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\log4net.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\bin\Microsoft.Practices.EnterpriseLibrary.Caching.xml
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\obj\Release\SGSI.Web.csprojResolveAssemblyReference.cache
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\obj\Release\SGSI.Web.dll
+C:\Users\pavelino\Desktop\TCC\SGSI\SGSI.Web\obj\Release\SGSI.Web.pdb

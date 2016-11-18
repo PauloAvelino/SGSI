@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="TccConnectionString-Web.config Connection String" description="TccConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data Source=WINDOWS;Initial Catalog=Tcc;Persist Security Info=True;User ID=paulo;Password=Larissa94" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\pavelino\\Desktop\\TCC\\SGSI\\SGSI\.Web\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='TccConnectionString']/@connectionString" />
+  </parameter>
+</parameters>
