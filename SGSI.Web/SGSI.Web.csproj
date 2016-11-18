@@ -126,7 +126,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Application\Inicio.aspx" />
+    <Content Include="Application\Index.aspx" />
     <Content Include="Application\Manager.aspx" />
     <Content Include="Application\SecurityOffice.aspx" />
     <Content Include="App_Readme\Ext.NET.Utilities\BREAKING_CHANGES.txt" />
@@ -145,12 +145,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\Inicio.aspx.cs">
-      <DependentUpon>Inicio.aspx</DependentUpon>
+    <Compile Include="Application\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Application\Inicio.aspx.designer.cs">
-      <DependentUpon>Inicio.aspx</DependentUpon>
+    <Compile Include="Application\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Application\Manager.aspx.cs">
       <DependentUpon>Manager.aspx</DependentUpon>

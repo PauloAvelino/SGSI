@@ -24,7 +24,7 @@ namespace SGSI.Web.Application
             }
             else
             {
-                Response.Redirect("Inicio.aspx");
+                Response.Redirect("Index.aspx");
             }
         }
 
@@ -54,7 +54,7 @@ namespace SGSI.Web.Application
         {
 
             Session.Clear();
-            Response.Redirect("Inicio.aspx");
+            Response.Redirect("Index.aspx");
         }
 
         [DirectMethod]

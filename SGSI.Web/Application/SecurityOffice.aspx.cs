@@ -26,7 +26,7 @@ namespace SGSI.Web.Application
             }
             else
             {
-                Response.Redirect("Inicio.aspx");
+                Response.Redirect("Index.aspx");
             }
 
         }
@@ -35,7 +35,7 @@ namespace SGSI.Web.Application
         public void Sair()
         {
             Session.Clear();
-            Response.Redirect("Inicio.aspx");
+            Response.Redirect("Index.aspx");
 
 
         }
